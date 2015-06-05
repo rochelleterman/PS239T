@@ -1,6 +1,7 @@
 # PS239T: An Introduction To Computational Tools And Techniques For Social Research
 
 Professor Laura Stoker
+
 GSI Rochelle Terman
 
 Fall 2015
