@@ -37,3 +37,11 @@
 - [ ] July 31: Complete Applications 5/6 + problem sets
 - [ ] Aug 7: Revise Application lessons based on peer feedback.
 - [ ] Aug 14: Tidy up, finals, lose ends.
+
+### Other Miscellaneous Tasks
+
+- [ ] Set up Piazza Site
+- [ ] Course templates for homework + lessons
+- [ ] Advertise course
+- [ ] Set up class github wiki for resources / tutorials
+- [ ] Tech set up: BCE? Loaned Laptops? Ala Carte installs?
