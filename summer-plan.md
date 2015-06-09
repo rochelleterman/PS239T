@@ -45,3 +45,4 @@
 - [ ] Advertise course
 - [ ] Set up class github wiki for resources / tutorials
 - [ ] Tech set up: BCE? Loaned Laptops? Ala Carte installs?
+- [ ] Get DH payments worked out
