@@ -27,16 +27,16 @@
 
 ### Weekly Plan
 
-- [ ] June 12: Approve summer plan
-- [ ] June 19: Complete R1 and Py1 lesson plans + problem sets.
-- [ ] June 26: Complete R2 and Py2 lesson plans + problem sets.
-- [ ] July 3: Complete R3 and Py3 lesson plans + problem sets.
-- [ ] July 10: Revise R + Python lessons based on peer feedback.
-- [ ] July 17: Complete Applications 1/2 + problem sets
-- [ ] July 24: Complete Applications 3/4 + problem sets
-- [ ] July 31: Complete Applications 5/6 + problem sets
+- [X] June 12: Approve summer plan
+- [ ] June 19: Complete Applications 1/2 + problem sets
+- [ ] June 26: Complete Applications 3/4 + problem sets
+- [ ] July 3: Complete Applications 5/6 + problem sets
+- [ ] July 10: Revise Application lessons based on peer feedback.
+- [ ] July 17: Complete R1 and Py1 + problem sets
+- [ ] July 24: Complete R2 and Py2 + problem sets
+- [ ] July 31: Complete R3 and Py3 + problem sets
 - [ ] Aug 7: Revise Application lessons based on peer feedback.
-- [ ] Aug 14: Tidy up, finals, lose ends.
+- [ ] Aug 14: Intro + Unix, misc. tasks
 
 ### Other Miscellaneous Tasks
 
