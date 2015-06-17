@@ -1,0 +1,162 @@
+---
+title: 'Problem Set: Text Analysis'
+author: "Rochelle Terman"
+date: "June 17, 2015"
+output: html_document
+---
+```{r}
+setwd("~/Dropbox/berkeley/PS239T/text-analysis")
+rm(list=ls())
+
+library(tm)
+library(RTextTools)
+library("matrixStats")
+}
+# 1. PreProcessing
+
+i. Load the data "women.csv" as a dataframe.
+
+```{r}
+documents <-read.csv("Data/women.csv", header=TRUE) #read in CSV file
+names(documents)
+```
+
+ii. Make a Document-Term Matrix from the `text` column, making sure to remove punctuation and numbers, making everything lowercase, stemming the words, and removing sparse words at the .9 threshhold.
+
+```{r}
+dtm <- create_matrix(documents[["text"]], language="english", removeNumbers=TRUE,
+                       stemWords=TRUE, removeSparseTerms=.9, toLower = TRUE, 
+                       removePunctuation = TRUE)
+```
+
+iii. Which words apper most frequently? Which word is most highly correlated with "women"?
+
+```{r}
+# have a look at common words
+findFreqTerms(dtm, lowfreq = 4000)
+findAssocs(dtm, "women", 0.2)
+```
+
+iv. Coerce the DTM into a data.frame and add a column for `region` metadata.
+
+```{r}
+# coerce into data.farme
+dtm <- as.data.frame(inspect(dtm))
+# add meta column for region
+dtm$document_region <- documents$region
+# check to see if they're the same number of documents per author
+summary(dtm$document_region)
+summary(documents$region)
+```
+#2: Discriminating Words
+
+In class, you saw an exercise finding distive words between two sub-corpora. The same method can be applied for >2 sub-corpora, by comparing one sub-corpura to the entire corpus. 
+
+i. Find the most 10 most distinve words for the `MENA` region.
+
+```{r}
+# subset
+mena <- subset(dtm,document_region=="MENA",select = -document_region)
+all <- subset(dtm,document_region!="MENA",select=-document_region)
+
+n.mena <- sum(colSums(mena))
+n.all <- sum(colSums(all))
+means.mena <- colMeans(mena)
+var.mena <- colVars(as.matrix(mena))
+means.all <- colMeans(all)
+var.all <- colVars(as.matrix(all))
+  
+#calculate overall score
+score <- (means.mena - means.all) / sqrt((var.mena/n.mena) + (var.all/n.mena))
+
+# sort and view
+score <- sort(score)
+mena_top <- tail(score,10)
+mena_top
+```
+
+ii. Generalize the code above to a function that passes a region as a string, like "MENA" or "Africa" and returns the most distinctive words for that region. Use the function to find the distinctive words for the "LA" (Latin America) region.
+
+```{r}
+distinctive.words <- function(region){
+  subC = dtm[dtm$document_region==region,]
+  subC$document_region <- NULL
+  all <- dtm[dtm$document_region!=region,]
+  all$document_region <- NULL
+
+  n.subC <- sum(colSums(subC))
+  n.all <- sum(colSums(all))
+  means.subC <- colMeans(subC)
+  var.subC <- colVars(as.matrix(subC))
+  means.all <- colMeans(all)
+  var.all <- colVars(as.matrix(all))
+  
+  #calculate overall score
+  score <- (means.subC - means.all) / sqrt((var.subC/n.subC) + (var.all/n.subC))
+
+  # sort and view
+  score <- sort(score)
+  subC_top <- tail(score,10)
+  return(subC_top)
+}
+
+distinctive.words("LA")
+```
+
+#3: Topic Modelling with Mallet
+
+Using the code provided in class, run Mallet on the `women` corpus with 15 topics. Return topic labels with the most probably words for each topic.
+
+```{r}
+
+# assign an id
+documents$id <- rownames(documents)
+
+# remove puncutation and numbers
+documents$text <- as.character(documents$text)
+documents$text <- gsub("[[:punct:]]", "", documents$text)
+documents$text  = gsub("[[:digit:]]", "", documents$text)
+
+# load data
+library(mallet)
+mallet.instances <- mallet.import(documents$id, documents$text, "Data/stoplist.csv", FALSE, token.regexp="[\\p{L}']+")
+
+## Create a topic trainer object.
+topic.model <- MalletLDA(num.topics=15)
+
+## Load our documents
+topic.model$loadDocuments(mallet.instances)
+
+## Optimize hyperparameters every 20 iterations,after 50 burn-in iterations.
+topic.model$setAlphaOptimization(20, 50)
+
+## Now train a model. 
+topic.model$train(200)
+
+## Get the probability of topics in documents and the probability of words in topics.
+doc.topics <- mallet.doc.topics(topic.model, smoothed=T, normalized=T)
+topic.words <- mallet.topic.words(topic.model, smoothed=T, normalized=T)
+
+## What are the top words in topic 7?
+mallet.top.words(topic.model, topic.words[6,])
+
+## Get a vector containing short names for the topics
+n.topics <- 15
+topics.labels <- rep("", n.topics)
+for (topic in 1:n.topics) 
+  topics.labels[topic] <- paste(mallet.top.words(topic.model, topic.words[topic,], num.top.words=5)$words, collapse=" ")
+
+# have a look at keywords for each topic
+topics.labels
+```
+
+# 4. Structural Topic Model
+
+i. Install the `stm` package and read the help file carefully. Estimate a topic model with 15 topics that estimates on the `region` of origin for topic prevalence. 
+
+```{r}
+```
+
+ii. Use `labeltopics` to label each of the topics. 
+
+iii. Plot the topic estimation of one topic of your choice. 

@@ -8,6 +8,9 @@ documents <- read.csv('Data/women.csv')
 names(documents)
 documents$X <- NULL
 
+# apply an id var
+documents$id <- rownames(documents)
+
 # remove puncutation and numbers
 documents$text <- as.character(documents$text)
 documents$text <- gsub("[[:punct:]]", "", documents$text)
