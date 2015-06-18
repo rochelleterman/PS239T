@@ -11,7 +11,6 @@ rm(list=ls())
 library(tm)
 library(RTextTools)
 library("matrixStats")
-}
 ```
 # 1. PreProcessing
 
@@ -166,7 +165,7 @@ iii. Read each representative document. Using this information as well as the la
 
 # 4. Structural Topic Model
 
-i. Install the `stm` package and read the help file carefully. Estimate a topic model with 15 topics that estimates on the `region` of origin for topic prevalence. In your model, set `lower.thresh` to 50 to increase efficiency. (This will keep only words that are in at least 50 documents.)
+i. Install the `stm` package and read the help file carefully. Estimate a topic model with 15 topics that estimates on the `region` of origin for topic prevalence. In your model, set `lower.thresh` to 50 to increase efficiency. (This will keep only words that are in at least 50 documents.) **Warning**: This will take awhile.
 
 ```{r}
 library(stm)
@@ -181,6 +180,7 @@ docs<-out$documents
 vocab<-out$vocab
 meta <-out$meta
 
+# estimate STM
 model <- stm(docs,vocab, 15, prevalence=~region, data=meta, seed = 00001)
 ```
 
