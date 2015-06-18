@@ -5,27 +5,6 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 
 When you click the **Knit HTML** button a web page will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-## Sentiment Analysis 
-
-```{r}
-# load documents
-setwd("~/Dropbox/berkeley/PS239T/text-analysis")
-documents <-read.csv("Data/ceos_newyorktimes_data.csv", header=TRUE) #read in CSV
-
-# Install the "qdap" package (only necessary one time)
-# install.packages("qdap") # Not Run
-
-# Load the "qdap" package (necessary every new R session)
-library(qdap)
-
-# Split the text into sentences
-# sentences<-sentSplit(dataframe=text.df, text.var="text")
-
-# Compute various polarity (sentiment) statistics 
-polarity.score<-polarity(text.var=documents$TEXT)
-polarity.score$group[,c("total.sentences", "total.words", "ave.polarity")]
-polarity.score$all[1:20, c("pos.words", "neg.words")]
-```
 ## Preprocessing
 
 The first step in text analysis is creating a corpus (or corpora) of texts. This can be as simple as a csv file, with one column of `text` and other columsn for metadata.
@@ -91,6 +70,28 @@ dtm$document_author <- documents$author
 # check to see if they're the same number of documents per author
 summary(dtm$document_author)
 summary(documents$author)
+```
+## Sentiment Analysis 
+
+```{r}
+# load documents
+setwd("~/Dropbox/berkeley/PS239T/text-analysis")
+documents <-read.csv("Data/ceos_newyorktimes_data.csv", header=TRUE) #read in CSV
+
+# Install the "qdap" package (only necessary one time)
+# install.packages("qdap") # Not Run
+
+# Load the "qdap" package (necessary every new R session)
+library(qdap)
+
+# Split the text into sentences
+# sentences<-sentSplit(dataframe=text.df, text.var="text")
+
+# Compute various polarity (sentiment) statistics 
+polarity.score<-polarity(text.var=documents$TEXT)
+polarity.score$group[,c("total.sentences", "total.words", "ave.polarity")]
+polarity.score$all[1:20, c("pos.words", "neg.words")]
+#TODO: Visualize this somehow.
 ```
 
 ## Discriminating Word Analysis
