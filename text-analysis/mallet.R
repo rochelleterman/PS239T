@@ -65,8 +65,11 @@ for (topic in 1:n.topics)
 # have a look at keywords for each topic
 topics.labels
 
-## Show the first few documents with at least 5
-head(documents[ doc.topics[7,] > 0.05 & doc.topics[10,] > 0.05, ])
+## Show the first few document titles with at least .25 of its content devoted to topic 6
+head(documents[ doc.topics[6,] > 0.25 , ],)
+
+## Show title of the most representative text for topic 6
+documents[which.max(doc.topics[6,]),]$title
 
 ## How do topics differ across different sub-corpora?
 mena.topic.words <- mallet.subset.topic.words(topic.model, documents$region == "MENA",

@@ -12,6 +12,7 @@ library(tm)
 library(RTextTools)
 library("matrixStats")
 }
+```
 # 1. PreProcessing
 
 i. Load the data "women.csv" as a dataframe.
@@ -105,7 +106,7 @@ distinctive.words("LA")
 
 #3: Topic Modelling with Mallet
 
-Using the code provided in class, run Mallet on the `women` corpus with 15 topics. Return topic labels with the most probably words for each topic.
+i. Using the code provided in class, run Mallet on the `women` corpus with 15 topics. Return topic labels with the most probably words for each topic.
 
 ```{r}
 
@@ -137,9 +138,6 @@ topic.model$train(200)
 doc.topics <- mallet.doc.topics(topic.model, smoothed=T, normalized=T)
 topic.words <- mallet.topic.words(topic.model, smoothed=T, normalized=T)
 
-## What are the top words in topic 7?
-mallet.top.words(topic.model, topic.words[6,])
-
 ## Get a vector containing short names for the topics
 n.topics <- 15
 topics.labels <- rep("", n.topics)
@@ -150,13 +148,52 @@ for (topic in 1:n.topics)
 topics.labels
 ```
 
-# 4. Structural Topic Model
-
-i. Install the `stm` package and read the help file carefully. Estimate a topic model with 15 topics that estimates on the `region` of origin for topic prevalence. 
+ii. Which document is the most representative for each topic?
 
 ```{r}
+topics.titles <- rep("", n.topics)
+for (topic in 1:n.topics) 
+  topics.titles[topic] <- paste(documents[which.max(doc.topics[topic,]),]$title, collapse=" ")
+topics.titles
+```
+
+
+iii. Read each representative document. Using this information as well as the labels you generated in part i, apply hand labels to each topic.
+
+```{r}
+
+```
+
+# 4. Structural Topic Model
+
+i. Install the `stm` package and read the help file carefully. Estimate a topic model with 15 topics that estimates on the `region` of origin for topic prevalence. In your model, set `lower.thresh` to 50 to increase efficiency. (This will keep only words that are in at least 50 documents.)
+
+```{r}
+library(stm)
+
+# process
+temp<-textProcessor(documents=documents$text,metadata=documents)
+meta<-temp$meta
+vocab<-temp$vocab
+docs<-temp$documents
+out <- prepDocuments(docs, vocab, meta, lower.thresh=50)
+docs<-out$documents
+vocab<-out$vocab
+meta <-out$meta
+
+model <- stm(docs,vocab, 15, prevalence=~region, data=meta, seed = 00001)
 ```
 
 ii. Use `labeltopics` to label each of the topics. 
 
-iii. Plot the topic estimation of one topic of your choice. 
+```{r}
+labelTopics(model)
+```
+
+iii. Using `estimateEffect`, estimate the effect of "region" on topics. Using `plot.estimateEffect`, create a point estimate plot of the effect of region on topic prevalence. 
+
+```{r}
+prep <- estimateEffect(1:15 ~ region,model,meta=meta,uncertainty="Global")
+```
+
+iv. What extra steps, either in data collection, pre-processing or estimation, would you take to improve the model?
