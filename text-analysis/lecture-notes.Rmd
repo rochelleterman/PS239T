@@ -1,13 +1,58 @@
 Text Analysis Lecture Notes + Code
 ========================================================
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring web pages (click the **Help** toolbar button for more details on using R Markdown).
+### Credits: 
+1. A lot of the preprocessing stuff came from [here](http://onepager.togaware.com/TextMiningO.pdf)
 
-When you click the **Knit HTML** button a web page will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+First load our required packages:
+```{r}
+setwd("~/Dropbox/berkeley/PS239T/text-analysis")
+rm(list=ls())
+library(tm) # Framework for text mining
+library(RTextTools) # a machine learning package for text classification written in R
+library(mallet) # A wrapper around the Java machine learning tool MALLET
+library(qdap) # Quantiative discourse analysis of transcripts
+library(qdapDictionaries)
+library(dplyr) # Data preparation and pipes $>$
+library(ggplot2) # for plotting word frequencies
+library(SnowballC) # for stemming
+```
 
-## Preprocessing
+## 1. Prepare a Corpus
 
-The first step in text analysis is creating a corpus (or corpora) of texts. This can be as simple as a csv file, with one column of `text` and other columsn for metadata.
+A corpus is a collection of texts, usually stored electronically, and from which we perform our analysis. A corpus might be a collection of news articles from Reuters or the published works of Shakespeare. Within each corpus we will have separate articles, stories, volumes, each treated as a separate entity or record.
+
+Documents come in a variety of formats, but plain text is best.
+
+### 1.1 Corpus Sources and Readers
+
+The `tm` package supports a variety of sources and formats. 
+
+```{r}
+getSources()
+getReaders()
+```
+
+We can read a corpus from a directory that contains text files, each document a different file
+```{r}
+documents <- Corpus(DirSource("Data/Sessions")) 
+documents
+```
+
+Or we can read from a csv of documents, with each row being a document, and columns for metadata (information about each document)
+
+```{r}
+documents <-read.csv("Data/shelbysessions.csv", header=TRUE) #read in CSV file
+docs <- Corpus(VectorSource(documents$text))
+docs
+```
+
+We can inspect the documents using inspect()
+
+```{r}
+inspect(docs[1])
+```
+## 1.2 Preprocessing
 
 Many text analysis applications follow a similar 'recipe' for preprecessing, involving:
 
@@ -20,49 +65,125 @@ Many text analysis applications follow a similar 'recipe' for preprecessing, inv
 7. Removing Sparse Terms
 8. Creating a Document-Term Matrix
 
-In R, there are many ways to do this.
-
 ```{r}
 # Preprocessing using TM package
-
-# Reading from a directory that contains just text files, each document is a different file.
-# a <- Corpus(DirSource("Data/Sessions")) 
-
-# reading from a csv
-documents <-read.csv("Data/ceos_newyorktimes_data.csv", header=TRUE) #read in CSV file
-a <- Corpus(VectorSource(documents$text))
-
-# preprocessing
-a <- tm_map(a, content_transformer(tolower)) # convert all text to lower case
-a <- tm_map(a, removePunctuation) 
-a <- tm_map(a, removeNumbers)
-a <- tm_map(a, removeWords, stopwords("english"))
-a <- tm_map(a, stemDocument)
-
-# creating a DTM
-dtm.sessions <- DocumentTermMatrix(a)
+getTransformations()
 ```
 
-Alternatively, we can use RTextTools, which is probably easier.
+The function `tm.map()` is used to apply one of these transformations across all documents. 
+
+We can also use regular R functions for custom transformations using the `content_transformer()` function.
+
+For example, we might want to replace “/”, used sometimes to separate alternative words, with a space. This will avoid the two words being run into one string of characters through the transformations. We might also replace “@” and “|” with a space, for the same reason
+```{r}
+# note: won't work on past versions of R
+toSpace <- content_transformer(function(x, pattern) gsub(pattern, " ", x))
+docs <- tm_map(docs, toSpace, "/")
+docs <- tm_map(docs, toSpace, "@")
+docs <- tm_map(docs, toSpace,"\\|")
+inspect(docs[1])
+```
+We can basic transformations using the build in `tm_map` tools.
+
+```{r}
+docs <- tm_map(docs, content_transformer(tolower)) # convert all text to lower case
+docs <- tm_map(docs, removePunctuation) # remove Puncturation
+docs <- tm_map(docs, removeNumbers) # remove Numbers
+docs <- tm_map(docs, removeWords, stopwords("english")) # remove common words
+stopwords("english") # check out what was removed
+docs <- tm_map(docs, removeWords, c("shelby","sessions")) # remove own stop words
+docs <- tm_map(docs, stripWhitespace) # strip white space
+docs <- tm_map(docs, stemDocument) # stem the document
+inspect(docs[16])
+```
+
+## 1.3 Creating a DTM
+
+A document term matrix is simply a matrix with documents as the rows and terms as the columns and a count of the frequency of words as the cells of the matrix. We use `DocumentTermMatrix()` to create the matrix:
+```{r}
+dtm <- DocumentTermMatrix(docs)
+dtm
+dim(dtm) # how many documents? how many terms?
+inspect(dtm[1:5,1000:1005]) # take a quick look
+```
+
+Note: we can use RTextTools to go directly from text vector to DTM, which is probably easier.
 
 ```{r}
 # make DTM
-dtm <- create_matrix(documents[["text"]], language="english", removeNumbers=TRUE,
+dtm <- create_matrix(docs[["text"]], language="english", removeNumbers=TRUE,
                        stemWords=TRUE, removeSparseTerms=.9, toLower = TRUE, 
                        removePunctuation = TRUE)
+```
 
+## 1.4 Exploreing the DTM
+
+We can obtain the term frequencies as a vector by converting the document term matrix into a matrix and summing the column counts:
+
+```{r}
+freq <- colSums(as.matrix(dtm))
+length(freq)
+```
+By ordering the frequencies we can list the most frequent terms and the least frequent terms:
+```{r}
+ord <- order(freq)
+
+# Least frequent terms
+freq[head(ord)]
+
+# most frequent
+freq[tail(ord)]
+
+# frequency of frenquencies
+head(table(freq),15)
+tail(table(freq),15)
+
+# plot
+plot(table(freq))
+```
+
+We can remove sparse terms and thus inrease efficency
+
+```{r}
+dim(dtm)
+
+dtm.s <- removeSparseTerms(dtm,.99)
+dtm # 7166 terms
+dtm.s# 1962 terms
+```
+
+Exploring word frequences
+
+```{r}
 # Have a look at common words
 findFreqTerms(dtm, lowfreq=100)
 
 # Which words correlate with "congress"?
-findAssocs(dtm, "congress", 0.2)
-```
+findAssocs(dtm, "congress", 0.4)
 
-We can easily add metadata in the form of columns by turning it into a data.frame.
+freq <- sort(colSums(as.matrix(dtm)),decreasing=TRUE)
+head(freq)
+
+wf <- data.frame(word=names(freq), freq=freq)
+head(wf)
+
+library(ggplot2)
+subset(wf, freq>500) %>%
+  ggplot (aes(word, freq)) +
+  geom_bar (stat ="identity") +
+  theme(axis.text.x=element_text(angle=45,hjust=1))
+
+# wordcoulds!
+library(wordcloud)
+set.seed(123)
+wordcloud(names(freq), freq, max.words=100, colors=brewer.pal(6,"Dark2"))
+```
+We can convert a DTM to a matrix or data.frame in order to write to a csv, add meta data, etc.
 
 ```{r}
 # coerce into dataframe
-dtm <- as.data.frame(inspect(dtm)) # 275 terms
+dtm <- as.data.frame(as.matrix(dtm))
+names(docs)
 
 # add column for author
 dtm$document_author <- documents$author
@@ -71,18 +192,12 @@ dtm$document_author <- documents$author
 summary(dtm$document_author)
 summary(documents$author)
 ```
-## Sentiment Analysis 
+## 2. Sentiment Analysis 
 
 ```{r}
 # load documents
 setwd("~/Dropbox/berkeley/PS239T/text-analysis")
 documents <-read.csv("Data/ceos_newyorktimes_data.csv", header=TRUE) #read in CSV
-
-# Install the "qdap" package (only necessary one time)
-# install.packages("qdap") # Not Run
-
-# Load the "qdap" package (necessary every new R session)
-library(qdap)
 
 # Split the text into sentences
 # sentences<-sentSplit(dataframe=text.df, text.var="text")
@@ -94,7 +209,7 @@ polarity.score$all[1:20, c("pos.words", "neg.words")]
 #TODO: Visualize this somehow.
 ```
 
-## Discriminating Word Analysis
+## 3. Discriminating Word Analysis
 
 This is one method to calculate discriminating words. There are many ways to do this. Here we use a standardized mean difference score. It's like a difference of proportion analysis but normalized, as per the following equation:
 
@@ -126,12 +241,11 @@ head(score,10) # top session words
 tail(score,10) # top shelby words
 ```
 
-## Mallet
+## 4. Mallet
 
 Is a popular topic modelling software application. Mallet is in java - which means it's fast - but R has a Mallet wrapper package.
 
 ```{r}
-library(mallet)
 # we first have to create an 'id' column
 documents$id <- rownames(documents)
 
@@ -193,10 +307,9 @@ mallet.top.words(topic.model, mena.topic.words[8,])
 mallet.top.words(topic.model, west.topic.words[8,])
 ```
 
-Topics can be visualized in a number of ways
+We can visualize topics as words clouds.
 
-```
-# Visualize topics as word clouds
+```{r}
 # be sure you have installed the wordcloud package
 library(wordcloud)
 topic.num <- 1
@@ -212,8 +325,7 @@ for(i in 1:num.topics){
 }
 ```
 
-We can cluster documents together based on their topic proportions.
-
+## Clustering
 ```{r}
 #####################
 # Clustering
