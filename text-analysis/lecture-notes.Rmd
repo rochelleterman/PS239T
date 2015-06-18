@@ -35,7 +35,10 @@ Many text analysis applications follow a similar 'recipe' for preprecessing, inv
 2. Converting all characters to lowercase
 3. Removing punctuation
 4. Removing numbers
-5. "Stemming" words, or lemmitization. There are several stemming alogrithms. Porter is the most popular.
+5. Removing Stop Words, inclugind custom stop words
+6. "Stemming" words, or lemmitization. There are several stemming alogrithms. Porter is the most popular.
+7. Removing Sparse Terms
+8. Creating a Document-Term Matrix
 
 In R, there are many ways to do this.
 
