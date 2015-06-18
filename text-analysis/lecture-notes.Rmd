@@ -195,8 +195,7 @@ summary(documents$author)
 ## 2. Sentiment Analysis 
 
 ```{r}
-# load documents
-setwd("~/Dropbox/berkeley/PS239T/text-analysis")
+# load documents # TODO: FIND BETTER DATA.
 documents <-read.csv("Data/ceos_newyorktimes_data.csv", header=TRUE) #read in CSV
 
 # Split the text into sentences
