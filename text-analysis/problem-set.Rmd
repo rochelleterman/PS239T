@@ -197,6 +197,8 @@ iii. Using `estimateEffect`, estimate the effect of "region" on topics. Using `p
 prep <- estimateEffect(1:15 ~ region,model,meta=meta,uncertainty="Global")
 
 # plot effect
+regions = c("Asia","EECA","MENA","Africa","LA","West")
+
 plot.estimateEffect(prep,"region",method="pointestimate",topics=10,printlegend=TRUE,labeltype="custom",custom.labels=regions,main="Regional effects on Topic 10",ci.level=.9)
 ```
 
