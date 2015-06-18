@@ -8,20 +8,21 @@ When you click the **Knit HTML** button a web page will be generated that includ
 ## Sentiment Analysis 
 
 ```{r}
+# load documents
+setwd("~/Dropbox/berkeley/PS239T/text-analysis")
+documents <-read.csv("Data/ceos_newyorktimes_data.csv", header=TRUE) #read in CSV
+
 # Install the "qdap" package (only necessary one time)
 # install.packages("qdap") # Not Run
 
 # Load the "qdap" package (necessary every new R session)
 library(qdap)
 
-# Convert the text to a data.frame
-text.df<-data.frame(text=text, stringsAsFactors=F)
-
 # Split the text into sentences
-sentences<-sentSplit(dataframe=text.df, text.var="text")
+# sentences<-sentSplit(dataframe=text.df, text.var="text")
 
 # Compute various polarity (sentiment) statistics 
-polarity.score<-polarity(text.var=sentences$text)
+polarity.score<-polarity(text.var=documents$TEXT)
 polarity.score$group[,c("total.sentences", "total.words", "ave.polarity")]
 polarity.score$all[1:20, c("pos.words", "neg.words")]
 ```
@@ -49,6 +50,7 @@ In R, there are many ways to do this.
 # a <- Corpus(DirSource("Data/Sessions")) 
 
 # reading from a csv
+documents <-read.csv("Data/ceos_newyorktimes_data.csv", header=TRUE) #read in CSV file
 a <- Corpus(VectorSource(documents$text))
 
 # preprocessing
@@ -65,9 +67,6 @@ dtm.sessions <- DocumentTermMatrix(a)
 Alternatively, we can use RTextTools, which is probably easier.
 
 ```{r}
-# load documents
-documents <-read.csv("Data/shelbysessions.csv", header=TRUE) #read in CSV file
-
 # make DTM
 dtm <- create_matrix(documents[["text"]], language="english", removeNumbers=TRUE,
                        stemWords=TRUE, removeSparseTerms=.9, toLower = TRUE, 
@@ -131,8 +130,11 @@ tail(score,10) # top shelby words
 Is a popular topic modelling software application. Mallet is in java - which means it's fast - but R has a Mallet wrapper package.
 
 ```{r}
-# load data
 library(mallet)
+# we first have to create an 'id' column
+documents$id <- rownames(documents)
+
+# load data
 mallet.instances <- mallet.import(documents$id, documents$text, "Data/stoplist.csv", FALSE, token.regexp="[\\p{L}']+")
 
 ## Create a topic trainer object.
