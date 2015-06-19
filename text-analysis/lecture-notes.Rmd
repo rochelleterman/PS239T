@@ -4,6 +4,7 @@ Text Analysis Lecture Notes + Code
 ### Credits: 
 1. A lot of the preprocessing stuff came from [here](http://onepager.togaware.com/TextMiningO.pdf)
 2. The clustering bit at the end came from Ben Marwick's [Day of Archaeology work](https://github.com/benmarwick/dayofarchaeology)
+3. Distinctive word stuff came from Justin Grimmer's class on [Text as Data](https://www.stanford.edu/~jgrimmer/Text14/)
 
 First load our required packages:
 ```{r}
