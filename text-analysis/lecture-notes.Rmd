@@ -3,7 +3,7 @@ Text Analysis Lecture Notes + Code
 
 ### Credits: 
 1. A lot of the preprocessing stuff came from [here](http://onepager.togaware.com/TextMiningO.pdf)
-
+2. The clustering bit at the end came from Ben Marwick's [Day of Archaeology work](https://github.com/benmarwick/dayofarchaeology)
 
 First load our required packages:
 ```{r}
@@ -51,7 +51,7 @@ docs
 We can inspect the documents using inspect()
 
 ```{r}
-inspect(docs[1])
+inspect(docs[16])
 ```
 ### 1.2 Preprocessing
 
@@ -66,8 +66,9 @@ Many text analysis applications follow a similar 'recipe' for preprecessing, inv
 7. Removing Sparse Terms
 8. Creating a Document-Term Matrix
 
+See what transformations are available TM package
+
 ```{r}
-# Preprocessing using TM package
 getTransformations()
 ```
 
@@ -82,7 +83,7 @@ toSpace <- content_transformer(function(x, pattern) gsub(pattern, " ", x))
 docs <- tm_map(docs, toSpace, "/")
 docs <- tm_map(docs, toSpace, "@")
 docs <- tm_map(docs, toSpace,"\\|")
-inspect(docs[1])
+docs[[100]]
 ```
 We can basic transformations using the build in `tm_map` tools.
 
@@ -123,10 +124,11 @@ We can obtain the term frequencies as a vector by converting the document term m
 
 ```{r}
 freq <- colSums(as.matrix(dtm))
-length(freq)
+length(freq) # how many terms?
 ```
 By ordering the frequencies we can list the most frequent terms and the least frequent terms:
 ```{r}
+# order
 ord <- order(freq)
 
 # Least frequent terms
@@ -146,22 +148,21 @@ plot(table(freq))
 We can remove sparse terms and thus inrease efficency
 
 ```{r}
-dim(dtm)
-
 dtm.s <- removeSparseTerms(dtm,.99)
-dtm # 7166 terms
-dtm.s# 1962 terms
+dtm # 6506 terms
+dtm.s# 1849 terms
 ```
 
 Exploring word frequences
 
 ```{r}
 # Have a look at common words
-findFreqTerms(dtm, lowfreq=100)
+findFreqTerms(dtm, lowfreq=1000) # words that appear at least 1000 times
 
 # Which words correlate with "congress"?
-findAssocs(dtm, "congress", 0.4)
+findAssocs(dtm, "fire", 0.7)
 
+# plot
 freq <- sort(colSums(as.matrix(dtm)),decreasing=TRUE)
 head(freq)
 
@@ -169,7 +170,7 @@ wf <- data.frame(word=names(freq), freq=freq)
 head(wf)
 
 library(ggplot2)
-subset(wf, freq>500) %>%
+subset(wf, freq>1000) %>%
   ggplot (aes(word, freq)) +
   geom_bar (stat ="identity") +
   theme(axis.text.x=element_text(angle=45,hjust=1))
@@ -179,6 +180,7 @@ library(wordcloud)
 set.seed(123)
 wordcloud(names(freq), freq, max.words=100, colors=brewer.pal(6,"Dark2"))
 ```
+
 We can convert a DTM to a matrix or data.frame in order to write to a csv, add meta data, etc.
 
 ```{r}
