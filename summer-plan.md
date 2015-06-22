@@ -28,7 +28,7 @@
 ### Weekly Plan
 
 - [X] June 12: Approve summer plan
-- [ ] June 19: Complete Applications 1/2 + problem sets
+- [X] June 19: Complete Applications 1/2 + problem sets
 - [ ] June 26: Complete Applications 3/4 + problem sets
 - [ ] July 3: Complete Applications 5/6 + problem sets
 - [ ] July 10: Revise Application lessons based on peer feedback.
@@ -43,6 +43,6 @@
 - [ ] Set up Piazza Site
 - [ ] Course templates for homework + lessons
 - [ ] Advertise course
-- [ ] Set up class github wiki for resources / tutorials
+- [X] Set up class github wiki for resources / tutorials
 - [ ] Tech set up: BCE? Loaned Laptops? Ala Carte installs?
 - [ ] Get DH payments worked out
