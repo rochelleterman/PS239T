@@ -297,7 +297,7 @@ for (topic in 1:n.topics)
 topics.labels
 
 ## Show the first few document titles with at least .25 of its content devoted to topic 6
-head(documents[ doc.topics[6,] > 0.25 , ],)
+head(documents[ doc.topics[6,] > 0.25 , ],10)
 
 ## Show title of the most representative text for topic 6
 documents[which.max(doc.topics[6,]),]$title
