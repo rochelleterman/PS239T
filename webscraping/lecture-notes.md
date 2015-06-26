@@ -49,12 +49,12 @@
 ```html
 <!DOCTYPE html>
 <html>
- <head>
- <title>Page title</title>
- </head>
- <body>
- <p>Hello world!</p>
- </body>
+	<head>
+		<title>Page title</title>
+	</head>
+ 	<body>
+ 		<p>Hello world!</p>
+ 	</body>
 </html>
 ```
 
@@ -113,24 +113,24 @@
 
 ```html
 <body>
- <table id="content">
-    <tr class='name'>
-        <td class='firstname'>
-         Kurtis
-        </td>
-        <td class='lastname'>
-           McCoy
-        </td>
-    </tr>
-    <tr class='name'>
-      <td class='firstname'>
-          Leah
-        </td>
-        <td class='lastname'>
-          Guerrero
-     </td>
-    </tr>
- </table>
+	<table id="content">
+    	<tr class='name'>
+        	<td class='firstname'>
+         		Kurtis
+        	</td>
+        	<td class='lastname'>
+          		McCoy
+        	</td>
+    	</tr>
+    	<tr class='name'>
+      		<td class='firstname'>
+          		Leah
+        	</td>
+        	<td class='lastname'>
+          		Guerrero
+     		</td>
+    	</tr>
+ 	</table>
 </body>
 ```
 
