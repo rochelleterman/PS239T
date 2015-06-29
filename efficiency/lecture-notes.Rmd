@@ -1,0 +1,372 @@
+```{r, include=FALSE}
+knitr::opts_chunk$set(comment = "")
+
+library(reshape2)
+library(ggplot2)
+
+# Recaman sequnce in C++
+Rcpp::sourceCpp("functions/recaman_Cpp.cpp")
+```
+
+# Efficient Processing and Big Data
+
+### Problem: More to Do with More Stuff
+
+* The complexity of processes used for data analysis is increasing  
+
+* The amount of data available to researchers is exponentially increasing
+
+* Despite increasing computing power, many programming languages are not optimized for carrying out complex processes on large datasets
+
+* For instance:
+    + Most computers have processors with multiple cores, but R and Python process their jobs on a single core by default
+    + The size of objects used in R and Python is limited by the amount of available RAM   
+\
+* Why is this the case? There are tradeoffs between computation time/data storage and code complexity 
+    + Achieving faster computation requires specifying more information about objects and how tasks should be distributed to different processors
+    + Handling large amounts of data requires specifying where and how different parts of an object are to be stored and accessed in memory
+
+### Solutions: 
+
+* Despite these default limitations, many solutions have been worked out to overcome each aspect of the problem
+    + Efficient coding practices
+    + Parallelization
+    + Efficient Storage
+    + Cloud Computing
+    
+### Solution 1: Efficient Coding Practices in R
+
+While there are many different coding areas in R that often suffer from inefficiency, a major culprit concerns for loops.  In R, these are generally slow relative to for loops in other languages, and tend to get even slower as tasks become more complex.
+
+Consider, for example, generating a sequence of Recamán numbers.  The algorithm ***A*** for generating sequence ***S*** is as follows:
+```
+A(0)=0
+IF num IN S:
+----- A(num)=A(num-1)-num
+ELSE:
+----- A(num)=A(num-1)+num
+```
+
+We can embed this algorithm in an R function for generating an arbitrarily large sequence of Recamán numbers
+
+```{r}
+recaman_R<-function(n){
+  recaman.seq<-vector(length = n)
+  recaman.seq[1]<-0
+  for(num in 2:n){
+    init<-recaman.seq[num-1]-(num-1)
+    if(init>0 & !init %in% recaman.seq){
+      recaman.seq[num]<-init
+    }else{
+      recaman.seq[num]<-recaman.seq[num-1]+(num-1)
+    }
+  }
+  return(recaman.seq)
+}
+```
+
+```{r}
+recaman.nums<-recaman_R(n = 500)
+head(recaman.nums, n = 20)
+plot(recaman.nums)
+```
+
+Overall, it doesn't appear that R took a long time to generate the sequence...
+```{r}
+system.time(expr = {
+  
+  recaman_R(n = 500)
+  
+})
+```
+
+... but it is still significantly slower than having the same sequence generated in a compiled language, like C++
+```{r}
+system.time(expr = {
+  
+  recaman_Cpp(n = 500)
+  
+})
+```
+
+This performance disadvantage of R becomes even more apparent as we generate larger Recamán sequences:
+
+```{r, echo=FALSE}
+seq.lengths<-seq(from = 100, to = 5000, by = 500)
+recaman.seq.R<-sapply(X = seq.lengths, FUN = function(x){
+  #cat(x, "")
+  as.numeric(system.time(expr = recaman_R(n = x))[1])
+})
+recaman.seq.Cpp<-sapply(X = seq.lengths, FUN = function(x){
+  #cat(x, "")
+  as.numeric(system.time(expr = recaman_Cpp(n = x))[1])
+})
+recaman.comp<-data.frame(n=seq.lengths, R=recaman.seq.R, "Cpp"=recaman.seq.Cpp)
+recaman.comp<-reshape2::melt(data = recaman.comp, id.vars = "n", value.name = "time", variable.name = "language")
+recaman.comp$language<-ifelse(recaman.comp$language %in% "R", "R", "C++")
+ggplot(data = recaman.comp, aes(x = n, y = time, color=language))+geom_line(size=1)+theme_bw()+
+  xlab("Length of Sequence")+ylab("Execution Time (seconds)")+scale_color_grey(name="")
+```
+
+Before switching to a different programming language, however, R contains a number of facilities for speedily executing operations that might otherwise be done via for loop.  Many basic arithmatic functions in R use a for loop approach to calculate a result, but this loop is actually executed by an internal C function.
+
+Consider taking the pairwise sum of two vectors.  A for loop approach in R might look as follows:
+```{r}
+vec1<-rnorm(n = 1000000)
+vec2<-rnorm(n = 1000000)
+
+system.time(expr = {
+  
+  vec.sum.a<-vector(length = length(vec1))
+  for(i in 1:length(vec.sum.a)){
+    vec.sum.a[i]<-vec1[i]+vec2[i]
+  }
+  
+})
+```
+
+Using the "+" operator, however, produces an identical result with a much shorter execution time:
+```{r}
+system.time(expr = {
+  
+  vec.sum.b<-vec1+vec2
+  
+})
+identical(vec.sum.a, vec.sum.b)
+```
+
+Similarly, many statistical functions in R rely on faster internal functions.  We might use a for loop to take the mean of a vector of 1M numbers with the following code:
+```{r}
+vec<-rnorm(n = 1000000)
+
+system.time(expr = {
+  
+  vec.sum<-0
+  for(i in 1:length(vec)){
+    vec.sum<-vec.sum+vec[i]  
+  }
+  print(vec.sum/length(vec))
+  
+})
+```
+
+But this would be much slower than simply relying on R's built-in method for calculating the mean, which uses for loops written in C:
+```{r}
+system.time(expr = {
+  
+  print(mean(x = vec))
+  
+})
+```
+
+While many generic processes are specifically optimized in R (arithmetic operations, statistics, etc.), there is a set of tools known as the ***apply*** family that can be used to do non-generic tasks in a semi-optimized fashion.  While there are a number of these functions, only three are essential:
+
+1. ```apply()``` --- meant to do functions across rows or columns of a matrix
+2. ```sapply()``` --- meant to do functions across vectors, data.frame columns, or lists; returns results as vectors, matrices, or lists
+3. ```lapply()``` --- meant to do functions across vectors, data.frame columns, or lists; returns results as lists
+
+The performance advantage of the apply family functions relative to for loops can be shown by considering a simple, yet slightly involved function.  Consider the following data.frame containing 2000 rows and 5 columns.
+```{r}
+mat<-matrix(data = rnorm(n = 10000), ncol = 5)
+df<-as.data.frame(mat)
+head(df)
+```
+
+Suppose we wanted to apply a non-generic function to each row of the data.frame and save the results in a new column.  A for loop approach might look like this:
+```{r}
+system.time(expr = {
+  
+  for(i in 1:nrow(df)){
+    a<-df$V1[i]+df$V2[i]
+    b<-if(df$V3[i]>0){
+      a*10
+    }else{
+      a/10
+    }
+    c<-b*df$V4[i]
+    d<-if(df$V5[i]<0 & c<5){
+      1
+    }else{
+      0
+    }
+    df[i, "vec.output.a"]<-d
+  }
+  
+})
+```
+
+By contrast, using ```sapply()``` to apply the same function to each row produces the same result in a fraction of the time:
+```{r}
+system.time(expr = {
+  
+  df$vec.output.b<-sapply(X = 1:nrow(df), FUN = function(i){
+    a<-df$V1[i]+df$V2[i]
+    b<-if(df$V3[i]>0){
+      a*10
+    }else{
+      a/10
+    }
+    c<-b*df$V4[i]
+    d<-if(df$V5[i]<0 & c<5){
+      1
+    }else{
+      0
+    }
+  })
+  
+})
+
+identical(df$vec.output.a, df$vec.output.b)
+```
+
+### Solution 2: Parallelization
+
+In addition to writing efficient code, distributing a job across multiple cores can also provide a significant speed up.  This is a technique is referred to as ***parallelization*** and is frequently used in statistical procedures, such as estimating bootstrapped standard errors or growing random forests.
+
+Until just a few years ago, parallelization in R was time consuming required fairly extensive coding.  Today, however, many functions have been written to automatically distribute portions of a particular job across an arbitrary number of cores.  The two most versatile packages for parallel computation are ***parallel*** and ***foreach*** (along with ***doMC*** and ***doParallel*** for registering parallel backends).  The former contains parallelized apply functions, while the later contains functions for parallelization fast for loops.
+
+Consider our previous jobs.  To automatically distribute the function across all available cores, we can utilize ```mclapply()```.  All we need to do is switch out ```sapply()``` for ```mclapply()``` and unlist the result to store it as a vector. Note that there is no parallelized version of ```sapply()```.
+```{r}
+library(parallel)
+system.time(expr = {
+  
+  vec<-mclapply(X = 1:nrow(df), FUN = function(i){
+    a<-df$V1[i]+df$V2[i]
+    b<-if(df$V3[i]>0){
+      a*10
+    }else{
+      a/10
+    }
+    c<-b*df$V4[i]
+    d<-if(df$V5[i]<0 & c<5){
+      1
+    }else{
+      0
+    }
+  })
+  df$vec.output.b<-unlist(vec)
+  
+})
+```
+
+In the background, ```mclapply()``` did several things.  First, it detected how many cores were available for computation.  Second, it decided how the aspects of the job would be distributed across cores.  And third, it combined the results into a new object (a list, in this case). In certain instances, however, it may be helpful to manually change any of these three actions.  For example, we may want results returned automatically as a vector, or combined via some arbitrary function.  Similarly, we may wish to specify whether job results must be processed in order, or (potentially faster) as they are finished.
+
+The ***foreach*** package provides the user with this additional level of flexibility, and relies upon the ***doParallel*** package for parallel execution.  We can parallelize the for loop above as follows:
+```{r, warning=FALSE}
+library(foreach)
+library(doMC)
+registerDoMC(cores = 4)
+
+system.time(expr = {
+  
+  foreach(i=1:nrow(df), .combine = c) %do% {
+    a<-df$V1[i]+df$V2[i]
+    b<-if(df$V3[i]>0){
+      a*10
+    }else{
+      a/10
+    }
+    c<-b*df$V4[i]
+    d<-if(df$V5[i]<0 & c<5){
+      1
+    }else{
+      0
+    }
+  }
+  
+})
+```
+
+Note that parallelization won't always result in faster code --- it often depends on the kinds of processes executed and the size of the objects involved.  In this case, the time cost of combining the results from each core is actually *greater* than the gain in overall execution time.  We each of the jobs to be larger, however, a net performance advantage could be gained.
+
+### Solution 3: Efficient Storage 
+
+No matter the efficiency of the coding, nor the number of cores utilized for processing, the overall speed with which data can be analyzed depends upon how it is stored and how quicky it can be accessed.  Storage and access become especially important when the amount of data available is exceptionally large --- on the order of 10M+ cells.
+
+To store big data as a matrix, one can use the ***bigmemory*** package.
+```{r, warning=FALSE, eval=FALSE}
+library(bigmemory)
+
+# Normal matrix
+mat.normal<-matrix(data = rnorm(n = 25000000), ncol = 10)
+mat.normal[1:10,4:6]
+object.size(mat.normal)/1000000 # ~ 200 MB
+
+# Big matrix
+mat.big<-big.matrix(nrow = 25000000/10, ncol = 10, backingpath = "temp")
+mat.big[1:2500000, 1:10]<-rnorm(n = 25000000)
+object.size(mat.big) # ~ 0.0007 MB
+mat.big[1:10,4:6]
+```
+
+In addition to efficiently storing matrix data, big.matrix objects can be fed into other packages designed for fast work on large datasets.  For instance, using the ***biganalytics*** wrapper for the ***biglm*** package, big.matrix objects can be used to estimate fast regressions on very large datasets. 
+
+```{r, eval=FALSE}
+colnames(mat.normal)<-paste0("X_", 1:ncol(mat.normal))
+df.normal<-as.data.frame(mat.normal)
+system.time(expr = {
+  
+  normal.reg<-lm(formula = X_1~X_2+X_3+X_4+X_5+X_6+X_7+X_8+X_9+X_10, data = df.normal)
+  summary(normal.reg)
+  
+})
+
+library(biganalytics)
+options(bigmemory.allow.dimnames=TRUE)
+colnames(mat.big)<-paste0("X_", 1:ncol(mat.big))
+system.time(expr = {
+  
+  big.reg<-biglm.big.matrix(formula = X_1~X_2+X_3+X_4+X_5+X_6+X_7+X_8+X_9+X_10, data = mat.big)
+  summary(big.reg)
+  
+})
+```
+
+To store and import data as a data.frame, one can use the ***data.table*** package.
+```{r, eval=FALSE}
+library(data.table)
+
+# Check size of the file
+file.info(x = "data/sfpd_incidents.csv")$size/1000000 # ~ 350MB, 1.8M rows, 13 cols
+
+# Normal CSV import
+system.time(expr = {
+  
+  data<-read.csv(file = "data/sfpd_incidents.csv")
+  
+}) # ~ 60 seconds
+object.size(data)/1000000 # ~ 120 MB
+
+# fread with data.table
+system.time(expr = {
+  
+  data<-fread(input = "data/sfpd_incidents.csv")
+
+}) # ~ 3 seconds
+object.size(data)/1000000 # ~ 180 MB
+```
+
+The data.table is a particularly efficient storage format that allows for extremely fast scanning and group-wise operations.  For instance, using the ***dplyr*** package, we can perform many plyr-style tasks at notably faster speeds.  Suppose we wanted to count how often different types of crime happen in San Francisco by day-of-the-week...
+```{r, eval=FALSE}
+# With plyr
+system.time(expr = {
+  
+  crime_types_byday<-plyr::ddply(.data = data, .variables = c("Category", "DayOfWeek"), plyr::summarize, count=length(Category))
+  
+})
+
+# With dplyr
+system.time(expr = {
+  
+  d<-dplyr::group_by(.data = data, Category, DayOfWeek)
+  crime_types_byday<-dplyr::summarise(.data = d, count=dplyr::n())
+  
+})
+```
+
+### Solution 4: Cloud Computing
+
+
+
+
+

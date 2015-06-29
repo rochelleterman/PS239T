@@ -1,0 +1,170 @@
+```{r, include=FALSE}
+knitr::opts_chunk$set(comment = "")
+```
+
+# Accessing Databases via Web APIs: Problem Set
+
+### Part 1
+
+1.We saw in the lecture notes that Duke Ellington is becoming more popular over the past few years.  Using the NYT API, create a graph comparing his popularity during the period 2005-2015 to the period immediately following his death, 1975-1985.
+
+```{r}
+library(plyr)
+library(ggplot2)
+
+# Read in the function
+nytapi<-function(search.terms=NULL, begin.date=NULL, end.date=NULL, page=NULL,
+                     base.url="http://api.nytimes.com/svc/search/v2/articlesearch",
+                     response.format=".json",
+                     key="ef9055ba947dd842effe0ecf5e338af9:15:72340235"){
+
+  # Combine parameters
+  params<-list(
+    c("q", search.terms),
+    c("begin_date", begin.date),
+    c("end_date", end.date),
+    c("page", page)
+  )
+  params<-params[sapply(X = params, length)>1]
+  params<-sapply(X = params, FUN = paste0, collapse="=")
+  params<-paste0(params, collapse="&")
+  
+  # URL encode query portion
+  query<-URLencode(URL = params, reserved = FALSE)
+
+  # Combine with base url and other options
+  get.request<-paste0(base.url, response.format, "?", query, "&api-key=", key)
+  
+  # Send GET request
+  response<-httr::GET(url = get.request)
+  
+  # Parse response to JSON
+  response<-httr::content(response, "text")  
+  response<-jsonlite::fromJSON(txt = response, simplifyDataFrame = T, flatten = T)
+  
+  return(response)
+}
+
+# Get number of hits, number of page queries
+duke<-nytapi(search.terms = "duke ellington", begin.date = 19750101, end.date = 19850101)
+hits<-duke$response$meta$hits
+round(hits/10)
+
+# Get all articles   
+duke.articles.older<-sapply(X = 0:117, FUN = function(page){
+  cat(page, "")
+  response<-tryCatch(expr = {
+    r<-nytapi(search.terms = "duke ellington", begin.date = 19750101, end.date = 19850101, page = page)
+    r$response$docs
+  }, error=function(e) NULL)
+  return(response)
+})
+
+# Combine list of dataframes
+duke.articles.older<-duke.articles.older[!sapply(X = duke.articles.older, FUN = is.null)]
+duke.articles.older<-plyr::rbind.fill(duke.articles.older)
+
+# Get per-month coverage
+duke.articles.older$year.month<-format(as.Date(duke.articles.older$pub_date), "%Y-%m")
+duke.articles.older$year.month<-as.Date(paste0(duke.articles.older$year.month, "-01"))
+duke.permonth.older<-ddply(.data = duke.articles.older, .variables = "year.month", summarize, count=length(year.month))
+
+# Get number of hits, number of page queries
+duke<-nytapi(search.terms = "duke ellington", begin.date = 20050101, end.date = 20150101)
+hits<-duke$response$meta$hits
+round(hits/10)
+
+# Get all articles   
+duke.articles.newer<-sapply(X = 0:106, FUN = function(page){
+  cat(page, "")
+  response<-tryCatch(expr = {
+    r<-nytapi(search.terms = "duke ellington", begin.date = 20050101, end.date = 20150101, page = page)
+    r$response$docs
+  }, error=function(e) NULL)
+  return(response)
+})
+
+# Combine list of dataframes
+duke.articles.newer<-duke.articles.newer[!sapply(X = duke.articles.newer, FUN = is.null)]
+duke.articles.newer<-plyr::rbind.fill(duke.articles.newer)
+
+# Get per-month coverage
+duke.articles.newer$year.month<-format(as.Date(duke.articles.newer$pub_date), "%Y-%m")
+duke.articles.newer$year.month<-as.Date(paste0(duke.articles.newer$year.month, "-01"))
+duke.permonth.newer<-ddply(.data = duke.articles.newer, .variables = "year.month", summarize, count=length(year.month))
+
+# Combine older and new data
+duke.permonth.older$time.period<-"1975-1985"
+duke.permonth.newer$time.period<-"2005-2015"
+duke.permonth<-rbind(duke.permonth.older, duke.permonth.newer)
+
+ggplot(data = duke.permonth, aes(x = year.month, y = count))+geom_point()+geom_smooth(se=F)+
+  theme_bw()+xlab(label = "Date")+ylab(label = "Article Count")+ggtitle(label = "Coverage of Duke Ellington")+
+  facet_wrap(facets = ~time.period, ncol = 1, scales = "free_x")
+```
+
+2. Using the same approach, graphically compare the popularity of Duke Ellington to Thelonious Monk in the same periods.
+```{r}
+# Get number of hits, number of page queries
+monk<-nytapi(search.terms = "thelonious monk", begin.date = 19750101, end.date = 19850101)
+hits<-monk$response$meta$hits
+round(hits/10)
+
+# Get all articles   
+monk.articles.older<-sapply(X = 0:24, FUN = function(page){
+  cat(page, "")
+  response<-tryCatch(expr = {
+    r<-nytapi(search.terms = "thelonious monk", begin.date = 19750101, end.date = 19850101, page = page)
+    r$response$docs
+  }, error=function(e) NULL)
+  return(response)
+})
+
+# Combine list of dataframes
+monk.articles.older<-monk.articles.older[!sapply(X = monk.articles.older, FUN = is.null)]
+monk.articles.older<-plyr::rbind.fill(monk.articles.older[sapply(monk.articles.older, function(x) length(x)>0)])
+
+# Get per-month coverage
+monk.articles.older$year.month<-format(as.Date(monk.articles.older$pub_date), "%Y-%m")
+monk.articles.older$year.month<-as.Date(paste0(monk.articles.older$year.month, "-01"))
+monk.permonth.older<-ddply(.data = monk.articles.older, .variables = "year.month", summarize, count=length(year.month))
+
+# Get number of hits, number of page queries
+monk<-nytapi(search.terms = "thelonious monk", begin.date = 20050101, end.date = 20150101)
+hits<-monk$response$meta$hits
+round(hits/10)
+
+# Get all articles   
+monk.articles.newer<-sapply(X = 0:74, FUN = function(page){
+  cat(page, "")
+  response<-tryCatch(expr = {
+    r<-nytapi(search.terms = "thelonious monk", begin.date = 20050101, end.date = 20150101, page = page)
+    r$response$docs
+  }, error=function(e) NULL)
+  return(response)
+})
+
+# Combine list of dataframes
+monk.articles.newer<-monk.articles.newer[!sapply(X = monk.articles.newer, FUN = is.null)]
+monk.articles.newer<-plyr::rbind.fill(monk.articles.newer)
+
+# Get per-month coverage
+monk.articles.newer$year.month<-format(as.Date(monk.articles.newer$pub_date), "%Y-%m")
+monk.articles.newer$year.month<-as.Date(paste0(monk.articles.newer$year.month, "-01"))
+monk.permonth.newer<-ddply(.data = monk.articles.newer, .variables = "year.month", summarize, count=length(year.month))
+
+# Combine older and new data
+monk.permonth.older$time.period<-"1975-1985"
+monk.permonth.newer$time.period<-"2005-2015"
+monk.permonth<-rbind(monk.permonth.older, monk.permonth.newer)
+
+# Combine with Duke Data
+duke.permonth$artist<-"Duke Ellington"
+monk.permonth$artist<-"Thelonious Monk"
+
+permonth.combined<-rbind(duke.permonth, monk.permonth)
+ggplot(data = permonth.combined, aes(x = year.month, y = count, color=artist))+geom_point()+geom_smooth(size=1, se=F)+
+  theme_bw()+xlab(label = "Date")+ylab(label = "Article Count")+ggtitle(label = "Coverage of Duke Ellington & Thelonious Monk")+
+  scale_color_discrete(name="Artist")+facet_wrap(~time.period, scales = "free_x", ncol = 1)
+```
+
