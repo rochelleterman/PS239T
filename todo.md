@@ -6,3 +6,13 @@
 - [ ] Find better data for sentiment analysis (from literature, preferably)
 - [ ] Find better data for distinctive word analysis / mallet
 - [ ] Replace STM with QDAP question in problem set
+
+## Webscraping
+
+- [ ] Finish extra credit problem
+
+## Efficiency
+
+## APIs
+
+- [ ] Move scraping to Python

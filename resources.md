@@ -2,6 +2,10 @@
 
 ##General Computing
 
+## Git
+
+1. [Try Git](https://try.github.io/levels/1/challenges/1)
+
 ##R
 
 ##Python
