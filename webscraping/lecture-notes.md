@@ -89,7 +89,10 @@
 
 ## CSS
 
-* CSS = Cascading Style Sheet. Makes a website pretty.
+* CSS = Cascading Style Sheet. 
+* CSS defines how HTML elements are to be displayed
+* HTML came first. But it was only meant to define content, not format it. While HTML contains tags like `<font>` and `<color>`, this is a very inefficient way to develop a website.
+* To solve this problem, CSS was created specifically to display content on a webpage. Now, one can change the look of an entire website just by changing one file.
 * Most web designers litter the HTML markup with tons of `classe`s and `id`s to provide "hooks" for their CSS.
 * You can piggyback on these to jump to the parts of the markup that contain the data you need.
 
