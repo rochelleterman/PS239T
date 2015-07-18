@@ -14,3 +14,8 @@ vignettes/*.pdf
 
 #Dropbox
 .DS_Store
+
+# Python
+
+.ipynb_checkpoints*
+python-basics/.ipynb_checkpoints/*
