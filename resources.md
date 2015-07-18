@@ -8,6 +8,11 @@
 
 ##R
 
+1. [R Twotorial](http://www.twotorials.com/)
+2. [Digital History Methods in R](http://lincolnmullen.com/projects/dh-r/)
+3. [Google Developer's R Tutorials](https://www.youtube.com/playlist?list=PLOU2XLYxmsIK9qQfztXeybpHvru-TrqAP)
+4. [Cookbook for R](http://www.cookbook-r.com/Graphs/)
+
 ##Python
 
 1. [Code like a Pythonista: Ideomatic Python](http://python.net/~goodger/projects/pycon/2007/idiomatic/handout.html)
@@ -19,13 +24,24 @@
 7. [A Crash Course in Python for Scientists](http://nbviewer.ipython.org/gist/rpmuller/5920182)
 8. [PEP Style Guide for Python Code](https://www.python.org/dev/peps/pep-0008/)
 9. [Think Python](http://www.greenteapress.com/thinkpython/html/index.html)
+10. [Wikibooks Non-Programmer's Tutorial for Python 2.6](https://en.wikibooks.org/wiki/Non-Programmer%27s_Tutorial_for_Python_2.6)
 
 ##Text Analysis
 
 1. Graham Williams: [Hands-On Data Science with R Text Mining](http://onepager.togaware.com/TextMiningO.pdf)
 2. Matthew Jockers: [Introduction to Text Analysis and Topic Modeling with R](http://www.matthewjockers.net/materials/msu/)
+3. Special issue of Journal of Digital Humanities on [Topic Modelling](http://journalofdigitalhumanities.org/2-1/)
+
+##Cleaning Data
+
+1. [Tidy Data](https://vimeo.com/33727555)
+2. [Cleaning Data with OpenRefine](http://programminghistorian.org/lessons/cleaning-data-with-openrefine)
 
 ##Geospatial Analysis
+
+1. [Applied Spatial Data Analysis with R](http://link.springer.com/book/10.1007%2F978-1-4614-7618-4)
+2. [Introduction to Spatial Data and ggplot2](http://spatial.ly/2013/12/introduction-spatial-data-ggplot2/)
+3. Working with Geospatial Data in [R](http://mazamascience.com/WorkingWithData/?p=1277) and with [ggplot](http://mazamascience.com/WorkingWithData/?p=1494)
 
 ##APIs and Webscraping
 
@@ -35,3 +51,7 @@
 3. [I Don't Need No Stinking API](https://blog.hartleybrody.com/web-scraping/)
 4. [Beautiful Soup Documentation](http://www.crummy.com/software/BeautifulSoup/bs4/doc/)
 5. [Beautiful Soup 4 Python Tutorial](http://www.pythonforbeginners.com/python-on-the-web/beautifulsoup-4-python/)
+
+## Other
+
+1. [Statistical Analysis of Network Data with R](https://www.springer.com/us/book/9781493909827)
