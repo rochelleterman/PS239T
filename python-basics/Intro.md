@@ -27,7 +27,7 @@ This unit provides a basic introduction to Python. By the end of the day, you sh
 > *   Explain what Python modules and packages are.
 > *   Install Python packages from the shell. 
 
-### Running Python in Shell: Interactive Mode
+## Running Python in Shell: Interactive Mode
 
 Remember that shell's job is to run other programs rather than to do calculations itself. In the previous lessons, we were using shell as the interface between us and the UNIX operating system.
 
@@ -89,7 +89,7 @@ Notice that the terminal window will go back to bash, giving you a `$` prompt.
 > To see which version of Python you have, enter the command `which python` in 
 > bash. You can use the `which` command with other programs, too.
 
-### Running Python in Shell: Normal Mode
+## Running Python in Shell: Normal Mode
 
 Python has two basic modes: normal and interactive. Interactive mode allows you to test out and see what Python will do. If you ever feel the need to play with new Python statements, go into interactive mode and try them out.
 
@@ -110,7 +110,7 @@ $ python -i madlib.py
 
 Now once the program ends, it will give you a `>>>` prompt, meaning it's now in interactive python mode.
 
-### Modules and Packages
+## Modules and Packages
 
 As your program gets longer, you may want to split it into several files for easier maintenance. You may also want to use a handy function that you’ve written in several programs without copying its definition into each program.
 
@@ -134,10 +134,11 @@ One of the key features of Python is that the actual core language is fairly sma
 > 
 > When you find some package on the web, look for a few things:
 > * Good modern-looking documentation with examples
-> * Installs easily without lots of dependencies (or has detailed installation instructions)
+> * Installs easily without lots of dependencies (or has detailed installation 
+> instructions)
 > * Actively developed
 
-### Package installation
+## Package installation
 
 BCE already comes with many of the packages you need. To see if you have a package installed, simply go to into a Python interpreter and enter:
 
@@ -193,7 +194,7 @@ For more on packages and modules, including what to do if you have multiple Pyth
 * [official documentationn](https://docs.python.org/2/tutorial/modules.html)
 * [another helpful resource](https://python4astronomers.github.io/installation/packages.html)
 
-### IDEs and other Tools
+## IDEs and other Tools
 
 A shell is all you need to use Python. But it's not exactly ideal. We can't easily write and edit scripts as we go. It's not very pretty. There are no debugging tools. That's why most people who use Python use an IDE.
 
@@ -210,7 +211,7 @@ There are many Python IDE's. You can see a comparison [here](https://en.wikipedi
 > user to implement IDE like functionality for as broad a range of languages 
 > or syntaxes as plugin writers care to cover.
 
-#### IPython
+## IPython
 
 This course will be using [IPython](http://ipython.org/) extensively. IPython provides a rich toolkit to help you make the most out of using Python interactively. It includes a web-based notebook (IPython Notebooks) with the same core features but support for rich media, text, code, mathematical expressions and inline plots. 
 
