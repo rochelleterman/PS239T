@@ -1,5 +1,14 @@
 # Webscraping
 
+> ## Learning Objectives
+>
+> *   Explain the difference between webscraping and working with APIs
+> *   Understand how HTML works with your browser to display a website
+> *   Identify HTML tags and attributes
+> *   Understand how CSS works to format a website
+> *   Identify CSS selectors
+> *   Alter a website using Google Developer Tools.
+
 ## Why Webscrape
 
 * Tons of web data useful for social scientists and humanists
@@ -78,7 +87,7 @@
 | `<div>`,`<span` | general containers |
 
 
-## HTML Attirbutes
+## HTML Attributes
 
 * HTML elements can have attributes.
 * Attributes provide additional information about an element.
@@ -153,7 +162,7 @@ Basic strategy of webscraping:
 
 1. Use your browser‘s “inspector” to discover what kind of HTML element your
 data is in.
-2. Think about how you can differentiate those elements from other, similar elements in the webpage.
+2. Think about how you can differentiate those elements from other, similar elements in the webpage using CSS.
 3. Use Python and add-on modules like BeautifulSoup to extract just that data.
 
 ## Inspect Element
@@ -171,6 +180,8 @@ The inspector gives you the HTML tree, as well as all the CSS selectors and styl
 > Go to any website, and redesign the site using Google Chrome's inspect 
 > element.
 > 
+> Useful CSS declarations [here](http://miriamposner.com/blog/wp-content
+> uploads/2011/11/usefulcss.pdf)
 
 ## Putting it all together:
 
@@ -189,14 +200,4 @@ The inspector gives you the HTML tree, as well as all the CSS selectors and styl
     - Crawling
 
 
-
-
-
-
-
-
-
-
-
-Useful CSS declarations [here](http://miriamposner.com/blog/wp-content/uploads/2011/11/usefulcss.pdf)
 
