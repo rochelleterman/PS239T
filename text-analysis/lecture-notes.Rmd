@@ -238,7 +238,7 @@ The package was originally intended to analyze transcript data. So the data must
 
 `qdap` has an [extensive vignette](https://dl.dropboxusercontent.com/u/61803503/packages/qdap_vignette.html) that will help guide you through its requirements and functionality.
 
-## 1.1 Comparing Songs on the Thriller Album
+## 3.1 Comparing Songs on the Thriller Album
 
 Let's start with a simple example using lyrics from Michael Jackson's Thriller album.
 
@@ -273,7 +273,7 @@ x <- plot(poldat)
 x$p2
 ```
 
-## 1.2 Visualizing Plot using Sentiments
+## 2.2 Visualizing Plot using Sentiments
 
 `qdap` also has several datasets pre-formatted to help you explore. Let's conduct a plot analysis of Romeo and Juliet using sentiments.
 
