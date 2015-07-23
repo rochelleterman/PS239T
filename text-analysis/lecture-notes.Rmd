@@ -348,6 +348,25 @@ ggplot() + theme_bw() +
                             label=paste("Act", Act)), size=3) +
   guides(fill=FALSE) +
   scale_fill_brewer(palette="Set1")
+
+# Zoom in on that smoothed line:
+
+ggplot() + theme_bw() +
+  geom_rect(data = rects, aes(xmin = xstart, xmax = xend,
+                              ymin = -Inf, ymax = Inf, fill = Act), alpha = 0.17) +
+  #geom_line(data = pol.df.raj, aes(y=polarity, x = Time), size=1, color = "grey60") +
+  geom_smooth(data = pol.df.raj, aes(y=polarity, x = Time), color="royalblue", fill="lightgray", size=1.4) +
+  geom_hline(y=mean(polcount.raj), color="grey30", size=1, alpha=.3, linetype=2) +
+  annotate("text", x = mean(ends[1:2]), y = mean(polcount.raj), color="grey30",
+           label = "Average Polarity", vjust = .3, size=3) +
+  ylab("Average Polarity") + xlab("Duration") +
+  scale_x_continuous(expand = c(0,0)) +
+  geom_text(data=rects, aes(x=(xstart + xend)/2, y=-.04,
+                            label=paste("Act", Act)), size=3) +
+  guides(fill=FALSE) +
+  scale_fill_brewer(palette="Set1")
+
+
 ```
 
 `qdap` has other dictionaries to measure language formality, diversity, readability, etc. It also has other cool tools to analyze word usage, character usage, parts of speech, etc.
