@@ -12,6 +12,7 @@ library(tm)
 library(RTextTools)
 library("matrixStats")
 ```
+
 # 1. PreProcessing
 
 i. Load the data "women.csv" as a dataframe.
@@ -48,6 +49,7 @@ dtm$document_region <- documents$region
 summary(dtm$document_region)
 summary(documents$region)
 ```
+
 #2: Discriminating Words
 
 In class, you saw an exercise finding distive words between two sub-corpora. The same method can be applied for >2 sub-corpora, by comparing one sub-corpura to the entire corpus. 
@@ -103,67 +105,7 @@ distinctive.words <- function(region){
 distinctive.words("LA")
 ```
 
-#3: Topic Modelling with Mallet
-
-i. Using the code provided in class, run Mallet on the `women` corpus with 15 topics. Return topic labels with the most probably words for each topic.
-
-```{r}
-
-# assign an id
-documents$id <- rownames(documents)
-
-# remove puncutation and numbers
-documents$text <- as.character(documents$text)
-documents$text <- gsub("[[:punct:]]", "", documents$text)
-documents$text  = gsub("[[:digit:]]", "", documents$text)
-
-# load data
-library(mallet)
-mallet.instances <- mallet.import(documents$id, documents$text, "Data/stoplist.csv", FALSE, token.regexp="[\\p{L}']+")
-
-## Create a topic trainer object.
-topic.model <- MalletLDA(num.topics=15)
-
-## Load our documents
-topic.model$loadDocuments(mallet.instances)
-
-## Optimize hyperparameters every 20 iterations,after 50 burn-in iterations.
-topic.model$setAlphaOptimization(20, 50)
-
-## Now train a model. 
-topic.model$train(200)
-
-## Get the probability of topics in documents and the probability of words in topics.
-doc.topics <- mallet.doc.topics(topic.model, smoothed=T, normalized=T)
-topic.words <- mallet.topic.words(topic.model, smoothed=T, normalized=T)
-
-## Get a vector containing short names for the topics
-n.topics <- 15
-topics.labels <- rep("", n.topics)
-for (topic in 1:n.topics) 
-  topics.labels[topic] <- paste(mallet.top.words(topic.model, topic.words[topic,], num.top.words=5)$words, collapse=" ")
-
-# have a look at keywords for each topic
-topics.labels
-```
-
-ii. Which document is the most representative for each topic?
-
-```{r}
-topics.titles <- rep("", n.topics)
-for (topic in 1:n.topics) 
-  topics.titles[topic] <- paste(documents[which.max(doc.topics[topic,]),]$title, collapse=" ")
-topics.titles
-```
-
-
-iii. Read each representative document. Using this information as well as the labels you generated in part i, apply hand labels to each topic.
-
-```{r}
-
-```
-
-# 4. Structural Topic Model
+#3: Structural Topic Model
 
 i. Install the `stm` package and read the help file carefully. Estimate a topic model with 15 topics that estimates on the `region` of origin for topic prevalence. In your model, set `lower.thresh` to 50 to increase efficiency. (This will keep only words that are in at least 50 documents.) **Warning**: This will take awhile.
 
@@ -190,7 +132,7 @@ ii. Use `labeltopics` to label each of the topics.
 labelTopics(model)
 ```
 
-iii. Using `estimateEffect`, estimate the effect of "region" on topics. Using `plot.estimateEffect`, create a point estimate plot of the effect of region on topic prevalence. 
+iii. Using `estimateEffect`, estimate the effect of "region" on topics. Using `plot.estimateEffect`, create a point estimate plot of the effect of region on topic prevalence for one topic. 
 
 ```{r}
 # estimate effect
@@ -202,4 +144,8 @@ regions = c("Asia","EECA","MENA","Africa","LA","West")
 plot.estimateEffect(prep,"region",method="pointestimate",topics=10,printlegend=TRUE,labeltype="custom",custom.labels=regions,main="Regional effects on Topic 10",ci.level=.9)
 ```
 
-iv. What extra steps, either in data collection, pre-processing or estimation, would you take to improve the model?
+## 4. QDAP
+
+Using the `qdap` package, do a sentiment analysis (and visualization) of a corpus of your choosing. You can compare sentiments across time, speaker, song, artist, whatever. Be creative. If you're feeling brave, you can use another tool in the `qdap` package besides `polarity` to show something interesting about a corpus.
+
+
