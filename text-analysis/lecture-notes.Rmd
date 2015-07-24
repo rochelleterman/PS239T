@@ -12,13 +12,14 @@ setwd("~/Dropbox/berkeley/PS239T/text-analysis")
 rm(list=ls())
 library(tm) # Framework for text mining
 library(RTextTools) # a machine learning package for text classification written in R
-library(mallet) # A wrapper around the Java machine learning tool MALLET
-library(qdap) # Quantiative discourse analysis of transcripts
+library(mallet) # a wrapper around the Java machine learning tool MALLET
+library(qdap) # quantiative discourse analysis of transcripts
 library(qdapDictionaries)
-library(dplyr) # Data preparation and pipes $>$
-library(ggplot2) # for plotting word frequencies
+library(dplyr) # data preparation and pipes $>$
+library(ggplot2) # for plotting discourse data
 library(SnowballC) # for stemming
 library(data.table) # for easier data manipulation
+library(scales) # to help us plot
 ```
 
 ## 1. Prepare a Corpus
@@ -273,7 +274,7 @@ x <- plot(poldat)
 x$p2
 ```
 
-## 2.2 Visualizing Plot using Sentiments
+## 3.2 Visualizing Plot using Sentiments
 
 `qdap` also has several datasets pre-formatted to help you explore. Let's conduct a plot analysis of Romeo and Juliet using sentiments.
 
@@ -285,24 +286,8 @@ head(truncdf(rajSPLIT),10)
 raj.dat <- data.table(rajSPLIT)
 ```
 
-It is worth noting at this point that `qdap` has powerful functionality to visualize a discourse by various facets:
 
-```{r}
-# gantt plots
-dat <- gantt(rajSPLIT$dialogue, rajSPLIT$person)
-head(dat, 12)
-plot(dat)
-
-# by grouping
-dat2 <- with(rajSPLIT, gantt(dialogue, list(fam.aff, sex)))
-head(dat2, 12)
-plot(dat2)
-
-# ToT plots
-tot_plot(mraja1, "dialogue", grouping.var = c("fam.aff","sex"), tot = FALSE)
-```
-
-But back to the task at hand:
+Now that we have the data, we can add columns for cumulative word counts and polarity scores. This will allow us to capture sentiments over "time." 
 
 ```{r}
 # add word counts
@@ -322,7 +307,8 @@ polcount.raj <- na.omit(counts(poldat.raj)$polarity) # get vector of just the po
 len <- length(polcount.raj)
 pol.df.raj <- data.frame(polarity = polcount.raj, Time=1:len)
 ```
-Now we have a data set capturing sentiments over time. Let's plot it.
+
+Let's plot it.
 
 ```{r}
 ## Calculate background rectangles for RAJ
@@ -369,7 +355,24 @@ ggplot() + theme_bw() +
 
 ```
 
-`qdap` has other dictionaries to measure language formality, diversity, readability, etc. It also has other cool tools to analyze word usage, character usage, parts of speech, etc.
+## 3.3 Bonus: More on QDAP
+
+Besides polarity, `qdap` has other dictionaries to measure language formality, diversity, readability, etc. It also carries a range of tools to analyze and visualize discourse data, word usage, character usage, parts of speech, etc. 
+
+```{r}
+# gantt plots
+dat <- gantt(rajSPLIT$dialogue, rajSPLIT$person)
+head(dat, 12)
+plot(dat)
+
+# by grouping
+dat2 <- with(rajSPLIT, gantt(dialogue, list(fam.aff, sex)))
+head(dat2, 12)
+plot(dat2)
+
+# ToT plots
+tot_plot(mraja1, "dialogue", grouping.var = c("fam.aff","sex"), tot = FALSE)
+```
 
 ## 4. Mallet
 
