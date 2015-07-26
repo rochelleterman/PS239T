@@ -66,9 +66,9 @@ This class is committed to creating an environment in which everyone can partici
 ####Final Grades
 
 This is a graded class based on the following:
-•	Completion of assigned homework (60%)
-•	Participation (20%)
-•	Final project (20%)
+* Completion of assigned homework (60%)
+* Participation (20%)
+* Final project (20%)
 
 ####Homework
 
@@ -83,7 +83,7 @@ The class participation portion of the grade can be satisfied in one or more of 
 
 ####Final Project
 
-The final project consists of using one of the tools we learned during the “applications” section on your own data. It will look very much like a homework assignment but using the substantive data you’re actually interested in, e.g., instead of working on a particular text manipulation problem we assigned, you might work with your own text data. 
+The final project consists of writing a short tutorial on some kind of computational tool. The tutorial can focus on a package, project, or problem, in any language. With your permission, we'll publish the tutorials online.
 
 ##4. Class Activities and Materials
 
