@@ -2,7 +2,6 @@
 import requests
 from urllib import quote_plus
 import json
-import pandas as pd
 
 # Create objects holding the key, base url, and response format
 key="ef9055ba947dd842effe0ecf5e338af9:15:72340235"
