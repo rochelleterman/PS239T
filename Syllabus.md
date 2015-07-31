@@ -53,6 +53,8 @@ TBD
 
 We will use Piazza for communication (announcements and questions). You should ask questions about class material and problem sets through the course Piazza website so that everyone can benefit from the discussion. We encourage you to respond to each other’s questions as well. Questions of a personal nature can marked Private on Piazza and you can also email us directly.
 
+Find our class page at: https://piazza.com/berkeley/fall2015/ps239t/home
+
 ####GitHub
 
 All course materials will be posted on Github at [TBD], including class notes, code demonstrations, sample data, and homework. Students are encouraged to add commits to these materials, for example if they find a particularly helpful resource that would aid other students. Students are required to use GitHub for their final projects, which will be publically available. 
