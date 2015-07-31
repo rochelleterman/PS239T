@@ -66,13 +66,13 @@ This class is committed to creating an environment in which everyone can partici
 ####Final Grades
 
 This is a graded class based on the following:
-* Completion of assigned homework (60%)
-* Participation (20%)
-* Final project (20%)
+* Completion of assigned homework (50%)
+* Participation (25%)
+* Final project (25%)
 
 ####Homework
 
-Homework will be assigned at the end of every session. It will be due at the start of the following class. The assignments will be frequent but each of them should be fairly short. You are welcome to seek help from your fellow classmates with the homework, but the work you turn in must be your own. Group submission of homework, or turning in copies of the same code or output, is not acceptable. Remember, the only way you actually learn how to write code is to write code.
+Homework will be assigned at the end of every session. It will be due at the start of the following class unless otherwise  noted. The assignments will be frequent but each of them should be fairly short. You are encouraged to work in groups, but the work you turn in must be your own. Group submission of homework, or turning in copies of the same code or output, is not acceptable. Remember, the only way you actually learn how to write code is to write code.
 
 ####Class Participation
 
@@ -83,7 +83,7 @@ The class participation portion of the grade can be satisfied in one or more of 
 
 ####Final Project
 
-The final project consists of writing a short tutorial on some kind of computational tool. The tutorial can focus on a package, project, or problem, in any language. With your permission, we'll publish the tutorials online.
+The final project consists of using the tools we learned in class on your own data of interest. Students are required to write a short proposal by November 10 (no more than 2 paragraphs) in order to get approval / feedback from the instructors.
 
 ##4. Class Activities and Materials
 
@@ -109,17 +109,18 @@ TBD
 
 The following is a sketchy outline of the curriculum. Applications will be drawn from the following list, depending on interest: automated text analysis, machine learning, geospatial analysis, network analysis, data collection via APIs, crowdsourcing and online experiments, and data visualization. We will include a range of substantive topics from which to draw our data and examples, including humanities oriented topics, to demonstrate the broad application of such tools across all realms of social inquiry.
 
-1. **Sept 1** - Introduction:
+1. **Sept 1** - Introduction
 2. **Sept 8** - Unix, Bash, and Git
 3. **Sept 15** - Python: (Basics)
 4. **Sept 22** - Python: (Pythonic Code)
 5. **Sept 29** - Python: (Information Retrieval)
 6. **Oct 6** - R: (Basics)
-7. **Oct 13** - R: (Data Manipulation)
+7. **Oct 13** - R: (Data Analysis)
 8. **Oct 20** - R: (Visualization)
 9. **Oct 27** - Web Scraping
 10. **Nov 3** - APIs
-11. **Nov 10** - Text Analysis:
-12. **Nov 17** - GeoSpatial
-13. **Nov 24** - Efficiency and Scaling
-14. **Dec 1** - Best Practices and Community Engagement
+11. **Nov 10** - Text Analysis
+12. **Nov 17** - GeoSpatial (Guest Speaker)
+13. **Nov 24** - AtlasTI (Guest Speaker)
+14. **Dec 1** - Best Practices and Community Engagement (Guest Speaker)
+15. **Dec 14** - Final projects due
