@@ -50,7 +50,7 @@ At any moment, our **current working directory** is our current default director
 
 Here, the computer's response is `/home/oski`, which is the **home directory**:
 
-```bash
+```shell
 $ pwd
 
 /home/oski
@@ -95,7 +95,7 @@ We know that our current working directory `/home/oski` is stored inside `/home`
 
 Let's see what's in Rochelle's home directory by running `ls`, which stands for "listing":
 
-```bash
+```shell
 $ ls
 
 data       file.txt                  Public                     Videos
@@ -108,16 +108,15 @@ Downloads  programming-fundamentals  Templates
 
 We can make its output more comprehensible by using the **flag** `-F`, which tells `ls` to add a trailing `/` to the names of directories:
 
-~~~ {.input}
+```shell
 $ ls -F
-~~~
-~~~ {.output}
+
 data/       Music/                     setup_ipython_notebook.sh*
 Desktop/    Pictures/                  Templates/
 Documents/  programming-fundamentals/  Videos/
 Downloads/  Public/
 file.txt    R/
-~~~
+```
 
 Here,
 we can see that `/home/oski` contains 11 **sub-directories**.
@@ -148,12 +147,11 @@ And note that there is a space between `ls` and `-F`: without it, the shell thin
 Now let's take a look at what's in Rochelle's `data` directory by running `ls -F data`, i.e., the command `ls` with the **arguments** `-F` and `data`. The second argument --- the one *without* a leading dash --- tells `ls` that
 we want a listing of something other than our current working directory:
 
-~~~ {.input}
+```shell
 $ ls -F data
-~~~
-~~~ {.output}
+
 articles/  articles.txt  bar.txt  foo.txt  recipes/
-~~~
+```
 
 The output shows us that there are four text files and two sub-sub-directories.Organizing things hierarchically in this way helps us keep track of our work: it's possible to put hundreds of files in our home directory, just as it's possible to pile hundreds of printed papers on our desk, but it's a self-defeating strategy.
 
@@ -169,95 +167,85 @@ Notice, by the way that we spelled the directory name `data`. It doesn't have a 
 If we run `ls -F /data` (*with* a leading slash) we get a different answer,
 because `/data` is an **absolute path**:
 
-~~~ {.input}
+```shell
 $ ls -F /data
-~~~
-~~~ {.output}
+
 access.log    backup/    hardware.cfg
 network.cfg
-~~~
+```
 
 The leading `/` tells the computer to follow the path from the root of the file system, so it always refers to exactly one directory, no matter where we are when we run the command.
 
 What if we want to change our current working directory? Before we do this, `pwd` shows us that we're in `/home/oski`, and `ls` without any arguments shows us that directory's contents:
 
-~~~ {.input}
+```shell
 $ pwd
-~~~
-~~~ {.output}
+
 /home/oski
-~~~
-~~~ {.input}
+
 $ ls
-~~~
-~~~ {.output}
+
 data       file.txt                  Public                     Videos
 Desktop    Music                     R
 Documents  Pictures                  setup_ipython_notebook.sh
 Downloads  programming-fundamentals  Templates
-~~~
+```
 
 ### Moving Around
 
 We can use `cd` followed by a directory name to change our working directory. `cd` stands for "change directory", which is a bit misleading: the command doesn't change the directory, it changes the shell's idea of what directory we are in.
 
-~~~ {.input}
+```shell
 $ cd programming-fundamentals
-~~~
+```
 
 `cd` doesn't print anything, but if we run `pwd` after it, we can see that we are now in `/home/oski/data`.
 
 If we run `ls` without arguments now, it lists the contents of `/home/oski/data`, because that's where we now are:
 
-~~~ {.input}
+```shell
 $ pwd
-~~~
-~~~ {.output}
+
 /home/oski/programming-fundametnals
-~~~
-~~~ {.input}
+
 $ ls -F
-~~~
-~~~ {.output}
+
 0-0_Introduction.md  1-1_fildir.md  1-4_loop.md     2-0_help.md  madlib.py
 0-1_BCE.md           1-2_create.md  1-5_scripts.md  data/        README.md
 1-0_shell.md         1-3_pipe.md    1-6_python.md   LICENSE      resource.md
-~~~
+```
 
 We now know how to go down the directory tree: how do we go up? We could use an absolute path:
 
-~~~ {.input}
+```shell
 $ cd /home/oski/
-~~~
+```
 
 but it's almost always simpler to use `cd ..` to go up one level:
 
-~~~ {.input}
+```shell
 $ pwd
-~~~
-~~~ {.output}
+
 /home/oski/data
-~~~
-~~~ {.input}
+
 $ cd ..
-~~~
+```
 
 `..` is a special directory name meaning "the directory containing this one",
 or more succinctly, the **parent** of the current directory. Sure enough, if we run `pwd` after running `cd ..`, we're back in `/home/oski/`:
 
-~~~ {.input}
+```shell
 $ pwd
-~~~
-~~~ {.output}
+```
+``` {.output}
 /home/oski/
-~~~
+```
 
 The special directory `..` doesn't usually show up when we run `ls`. If we want to display it, we can give `ls` the `-a` flag:
 
-~~~ {.input}
+```shell
 $ ls -a
-~~~
-~~~ {.output}
+
 .              .gnome                    .rstudio-desktop
 ..             .ICEauthority             setup_ipython_notebook.sh
 .bash_history  .ipynb_checkpoints        .subversion
@@ -273,7 +261,7 @@ Downloads      programming-fundamentals  .Xauthority
 file.txt       Public                    .xsession-errors
 .gconf         R                         .xsession-errors.old
 .gitconfig     .Rhistory
-~~~
+```
 
 `-a` stands for "show all"; it forces `ls` to show us file and directory names that begin with `.`, such as `..` (which, if we're in `/home/oski`, refers to the `/users` directory).
 
@@ -305,45 +293,43 @@ In order to start her text analysis project, Rochelle first has to figure out wh
 Everything Rochelle needs for her text project is in the `data` directory of the git repository (i.e. the directory) `programming-fundamentals`. So Rochelle will migrate there.
 
 
-~~~ {.input}
+```shell
 $ cd ~/programming-fundamentals/data
 $ ls
-~~~
-~~~ {.output}
+
 articles  downloads 
-~~~
+```
 
 Each of Rochelle's text files is labeled according to the parameters leading to her LexisNexis Search. Since she searched and downloaded articles containing the phrase 'human rights' for each year, she will call her files `human-rights-2001.txt`, `human-rights-2002.txt`, and so on. All files are in currently in the `downloads` directory.
 
-~~~ {.input}
+```shell
 $ cd downloads
 $ ls
-~~~
-~~~ {.output}
+
 human-rights-2000.TXT  human-rights-2004.TXT  human-rights-2008.TXT
 human-rights-2001.TXT  human-rights-2005.TXT  human-rights-2009.TXT
 human-rights-2002.TXT  human-rights-2006.TXT
 human-rights-2003.TXT  human-rights-2007.TXT
-~~~
+```
 
 If she is in her home directory, Rochelle can see what files she has using the command:
 
-~~~ {.input}
+```shell
 $ cd ~
 $ ls programming-fundamentals/data/downloads
-~~~
+```
 
 This is a lot to type, but she can let the shell do most of the work. If she types:
 
-~~~ {.input}
+```shell
 $ ls prog
-~~~
+```
 
 and then presses tab, the shell automatically completes the directory name for her:
 
-~~~ {.input}
+```shell
 $ ls programming-fundamentals/
-~~~
+```
 
 Pressing tab again does nothing, since there are multiple possibilities. Pressing tab twice brings up a list of all the files and directories, and so on.
 
@@ -371,11 +357,11 @@ If `pwd` displays `/home/oski/programming-fundamentals`, what will `ls ../docume
 #### Challenge 2
 
 If `pwd` displays `/home/oski`, and `-r` tells `ls` to display things in reverse order, what command will display:
-~~~
+```
 Videos/                     Public/                    Music/      Documents/
 Templates/                  programming-fundamentals/  file.txt    Desktop/
 setup_ipython_notebook.sh*  Pictures/                  Downloads/  data/
-~~~
+```
 
 1.  `ls pwd`
 2.  `ls -r -F`
