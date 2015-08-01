@@ -1,10 +1,10 @@
 ---
-title: Berkeley Common Environment
+title: Unix
 subtitle: OSs, VMs, and BCE
 minutes: 10
 ---
 
-# Operating Systems & the Berkeley Common Environment
+# Operating Systems, Unix & the Berkeley Common Environment
 
 > ## Learning objectives
 > 
