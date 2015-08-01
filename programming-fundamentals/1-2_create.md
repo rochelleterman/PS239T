@@ -19,57 +19,53 @@ minutes: 15
 We now know how to explore files and directories, but how do we create them in the first place? Let's go back to Rochelle's home directory, `/home/oski`,
 and use `ls -F` to see what it contains:
 
-~~~ {.input}
+```bash
 $ pwd
-~~~
-~~~ {.output}
+
 /home/oski
-~~~
-~~~ {.input}
+
 $ ls -F
-~~~
-~~~ {.output}
+
 data/       Music/                     setup_ipython_notebook.sh*
 Desktop/    Pictures/                  Templates/
 Documents/  programming-fundamentals/  Videos/
 Downloads/  Public/
 file.txt    R/
-~~~
+```
 
 Let's create a new directory called `thesis` using the command `mkdir thesis` (which has no output):
 
-~~~ {.input}
+```bash
 $ mkdir thesis
-~~~
+```
 
 As you might (or might not) guess from its name, `mkdir` means "make directory". Since `thesis` is a relative path (i.e., doesn't have a leading slash), the new directory is created in the current working directory:
 
-~~~ {.input}
+```bash
 $ ls -F
-~~~
-~~~ {.output}
+
 data/       Music/                     setup_ipython_notebook.sh*
 Desktop/    Pictures/                  Templates/
 Documents/  programming-fundamentals/  thesis/
 Downloads/  Public/                    Videos/
 file.txt    R/
-~~~
+```
 
 However, there's nothing in it yet:
 
-~~~ {.input}
+```bash
 $ ls -F thesis
-~~~
+```
 
 
 ### Text Editors
 
 Let's change our working directory to `thesis` using `cd`, then run a text editor called Nano to create a file called `draft.txt`:
 
-~~~ {.input}
+```bash
 $ cd thesis
 $ nano draft.txt
-~~~
+```
 
 > #### Which Editor?
 > 
@@ -97,26 +93,25 @@ Let's type in a few lines of text, then use Control-O to write our data to disk:
 
 Once our file is saved, we can use Control-X to quit the editor and return to the shell. (Unix documentation often uses the shorthand `^A` to mean "control-A".) `nano` doesn't leave any output on the screen after it exits, but `ls` now shows that we have created a file called `draft.txt`:
 
-~~~ {.input}
+```bash
 $ ls
-~~~
-~~~ {.output}
+
 draft.txt
-~~~
+```
 
 ### Removing
 
 Let's tidy up by running `rm draft.txt`:
 
-~~~ {.input}
+```bash
 $ rm draft.txt
-~~~
+```
 
 This command removes files ("rm" is short for "remove"). If we run `ls` again,its output is empty once more, which tells us that our file is gone:
 
-~~~ {.input}
+```bash
 $ ls
-~~~
+```
 
 > #### Deleting Is Forever
 > 
@@ -128,53 +123,47 @@ $ ls
 
 Let's re-create that file and then move up one directory to `/home/oski` using `cd ..`:
 
-~~~ {.input}
+```bash
 $ pwd
-~~~
-~~~ {.output}
+
 /home/oski/thesis
-~~~
-~~~ {.input}
+
 $ nano draft.txt
 $ ls
-~~~
-~~~ {.output}
+
 draft.txt
-~~~
-~~~ {.input}
+
 $ cd ..
-~~~
+```
 
 If we try to remove the entire `thesis` directory using `rm thesis`,
 we get an error message:
 
-~~~ {.input}
+```bash
 $ rm thesis
-~~~
-~~~ {.error}
-rm: cannot remove `thesis': Is a directory
-~~~
+
+rm: cannot remove 'thesis': Is a directory
+```
 
 This happens because `rm` only works on files, not directories. The right command is `rmdir`, which is short for "remove directory". It doesn't work yet either, though, because the directory we're trying to remove isn't empty:
 
-~~~ {.input}
+```bash
 $ rmdir thesis
-~~~
-~~~ {.error}
-rmdir: failed to remove `thesis': Directory not empty
-~~~
+
+rmdir: failed to remove 'thesis': Directory not empty
+```
 
 This little safety feature can save you a lot of grief, particularly if you are a bad typist. To really get rid of `thesis` we must first delete the file `draft.txt`:
 
-~~~ {.input}
+```bash
 $ rm thesis/draft.txt
-~~~
+```
 
 The directory is now empty, so `rmdir` can delete it:
 
-~~~ {.input}
+```bash
 $ rmdir thesis
-~~~
+```
 
 > #### With Great Power Comes Great Responsibility
 > 
@@ -182,9 +171,9 @@ $ rmdir thesis
 > directory quickly becomes tedious. Instead, we can use `rm` with the
 > `-r` flag (which stands for "recursive"):
 > 
-> ~~~
+> ```
 > $ rm -r thesis
-> ~~~
+> ```
 > 
 > This removes everything in the directory, then the directory itself. If
 > the directory contains sub-directories, `rm -r` does the same thing to
@@ -195,82 +184,73 @@ $ rmdir thesis
 
 Let's create that directory and file one more time. (Note that this time we're running `nano` with the path `thesis/draft.txt`, rather than going into the `thesis` directory and running `nano` on `draft.txt` there.)
 
-~~~ {.input}
+```bash
 $ pwd
-~~~
-~~~ {.output}
+
 /home/oski
-~~~
-~~~ {.input}
+
 $ mkdir thesis
-~~~
-~~~ {.input}
 $ nano thesis/draft.txt
 $ ls thesis
-~~~
-~~~ {.output}
+
 draft.txt
-~~~
+```
 
 `draft.txt` isn't a particularly informative name, so let's change the file's name using `mv`, which is short for "move":
 
-~~~ {.input}
+```bash
 $ mv thesis/draft.txt thesis/quotes.txt
-~~~
+```
 
 The first parameter tells `mv` what we're "moving", while the second is where it's to go. In this case, we're moving `thesis/draft.txt` to `thesis/quotes.txt`, which has the same effect as renaming the file. Sure enough, `ls` shows us that `thesis` now contains one file called `quotes.txt`:
 
-~~~ {.input}
+```bash
 $ ls thesis
-~~~
-~~~ {.output}
+
 quotes.txt
-~~~
+```
 
 Just for the sake of inconsistency, `mv` also works on directories -- there is no separate `mvdir` command.
 
 Let's move `quotes.txt` into the current working directory. We use `mv` once again, but this time we'll just use the name of a directory as the second parameter to tell `mv` that we want to keep the filename, but put the file somewhere new. (This is why the command is called "move".) In this case, the directory name we use is the special directory name `.` that we mentioned earlier.
 
-~~~ {.input}
+```bash
 $ mv thesis/quotes.txt .
-~~~
+```
 
 The effect is to move the file from the directory it was in to the current working directory. `ls` now shows us that `thesis` is empty:
 
-~~~ {.input}
+```bash
 $ ls thesis
-~~~
+```
 
 Further, `ls` with a filename or directory name as a parameter only lists that file or directory. We can use this to see that `quotes.txt` is still in our current directory:
 
-~~~ {.input}
+```bash
 $ ls quotes.txt
-~~~
-~~~ {.output}
+
 quotes.txt
-~~~
+```
 
 
 ### Copying
 
 The `cp` command works very much like `mv`, except it copies a file instead of moving it. We can check that it did the right thing using `ls` with two paths as parameters --- like most Unix commands, `ls` can be given thousands of paths at once:
 
-~~~ {.input}
+```bash
 $ cp quotes.txt thesis/quotations.txt
 $ ls quotes.txt thesis/quotations.txt
-~~~
-~~~ {.output}
+
 quotes.txt   thesis/quotations.txt
-~~~
+```
 
 To prove that we made a copy, let's delete the `quotes.txt` file in the current directory and then run that same `ls` again. This time it tells us that it can't find `quotes.txt` in the current directory, but it does find the copy in `thesis` that we didn't delete:
 
-~~~ {.input}
+```bash
 $ ls quotes.txt thesis/quotations.txt
-~~~
-~~~ {.error}
+
 ls: cannot access quotes.txt: No such file or directory thesis/quotations.txt
-~~~
+```
 
 ## Rochelle's Pipeline: Organizing and Moving Files
 
@@ -282,49 +262,46 @@ Knowing just this much about files and directories, Rochelle is ready to organiz
 > if she didn't use leading zeroes, November ('11') would come before July 
 > ('7').
 
-~~~ {.input}
+```bash
 $ cd ~/programming-fundamentals/data
 $ mkdir new-york-times
 $ mkdir new-york-times/2015-01-01
-~~~
+```
 
 Now she's ready to add the text files that she downloaded from LexisNexis into the directory.
 
 The text files that she downloaded are, unsurprisingly, in the directory `downloads`
 
-~~~ {.input}
+```bash
 $ cd downloads
 $ ls
-~~~
-~~~ {.output}
+
 human-rights-2000.TXT  human-rights-2004.TXT  human-rights-2008.TXT
 human-rights-2001.TXT  human-rights-2005.TXT  human-rights-2009.TXT
 human-rights-2002.TXT  human-rights-2006.TXT
 human-rights-2003.TXT  human-rights-2007.TXT
-~~~
+```
 
 Rochelle wants to move them into the directory she just created.
 
-~~~ {.input}
+```bash
 $ cp human-rights-2000.TXT ../new-york-times/2015-01-01
 $ ls ../new-york-times/2015-01-01
-~~~
-~~~ {.output}
+
 human-rights-2000.TXT
-~~~
+```
 
 Huzzah! But does Rochelle really have to time in a command for each file she wants to move? No, there's an easier way! Instead of giving an input for each file, Rochelle can write `cp *.TXT`.  The `*` in `*.TXT` matches zero or more characters, so the shell turns `*.TXT` into a complete list of `.TXT` files
 
-~~~ {.input}
+```bash
 $ cp *.TXT ../new-york-times/2015-01-01
 $ ls ../new-york-times/2015-01-01
-~~~
-~~~ {.output}
+
 human-rights-2000.TXT  human-rights-2004.TXT  human-rights-2008.TXT
 human-rights-2001.TXT  human-rights-2005.TXT  human-rights-2009.TXT
 human-rights-2002.TXT  human-rights-2006.TXT
 human-rights-2003.TXT  human-rights-2007.TXT
-~~~
+```
 
 > ## Wildcards {.callout}
 > 
@@ -363,7 +340,7 @@ human-rights-2003.TXT  human-rights-2007.TXT
  
 What is the output of the closing `ls` command in the sequence shown below?
  
-~~~
+```
 $ pwd
 /home/jamie/data
 $ ls
@@ -372,43 +349,43 @@ $ mkdir recombine
 $ mv data.csv recombine
 $ cp recombine/data.csv ../data-saved.csv
 $ ls
-~~~
+```
 
 #### Challenge 2
 
 Suppose that:
  
-~~~
+```
 $ ls -F
 analyzed/  nyt.csv    raw/   guardian.csv
-~~~
+```
  
 What command(s) could you run so that the commands below will produce the 
 output shown?
  
-~~~
+```
 $ ls
 analyzed   raw
 $ ls analyzed
 nyt.csv   guardian.csv
-~~~
+```
 
 #### Challenge 3
 
 What does `cp` do when given several filenames and a directory name, as in:
 
-~~~
+```
 $ mkdir backup
 $ cp thesis/citations.txt thesis/quotations.txt backup
-~~~
+```
 
 What does `cp` do when given three or more filenames, as in:
 
-~~~
+```
 $ ls -F
 intro.txt    methods.txt    survey.txt
 $ cp intro.txt methods.txt survey.txt
-~~~
+```
 
 #### Challenge 4
 
@@ -419,7 +396,3 @@ in alphabetical order at each level.
 The command `ls -t` lists things by time of last change,
 with most recently changed files or directories first.
 In what order does `ls -R -t` display things?
-
----
-
-Adapted from: [Software Carpentry](http://software-carpentry.org/v5/novice/shell/02-create.html)

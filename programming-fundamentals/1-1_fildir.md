@@ -381,7 +381,3 @@ What does the command `cd` without a directory name do?
 
 What does the command `ls` do when used with the -s arguments?
 
-
----
-
-Adapted from: [Software Carpentry](http://software-carpentry.org/v5/novice/shell/01-filedir.html)
