@@ -14,7 +14,7 @@ minutes: 15
 
 We are finally ready to see what makes the shell such a powerful programming environment. We are going to take the commands we repeat frequently and save them in files so that we can re-run all those operations again later by typing a single command.
 
-### Writing a script
+## Writing a script
 
 For historical reasons, a bunch of commands saved in a file is usually called a **shell script**, but make no mistake: these are actually small programs.
 
@@ -48,7 +48,7 @@ $ bash group.sh
 
 Sure enough, our script's output is exactly what we would get if we ran that pipeline directly. It concatenated all of the africa files and then counted the number of lines, which is 136 (one line for each article).
 
-> ## Text vs. Whatever
+> #### Text vs. Whatever
 >
 > We usually call programs like Microsoft Word or LibreOffice Writer "text
 > editors", but we need to be a bit more careful when it comes to
