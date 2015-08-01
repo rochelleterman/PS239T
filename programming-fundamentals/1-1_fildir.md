@@ -19,7 +19,7 @@ The part of the operating system responsible for managing files and directories 
 
 Several commands are frequently used to create, inspect, rename, and delete files and directories. To start exploring them, let's open a shell window:
 
-```bash
+```shell
 $
 ```
 
@@ -29,7 +29,7 @@ Type the command `whoami`, then press the Enter key (sometimes marked Return) to
 
 The command's output is the ID of the current user, i.e., it shows us who the shell thinks we are:
 
-```bash
+```shell
 $ whoami
 
 oski
