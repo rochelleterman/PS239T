@@ -20,14 +20,13 @@ For historical reasons, a bunch of commands saved in a file is usually called a 
 
 Let's start by going back to `articles` and creating a file called `group.sh`:
 
-~~~ {.input}
+```shell
 $ cd ~/programming-fundamentals/data/articles
 $ touch group.sh
 $ nano group.sh
-~~~
-~~~
+
 cat africa*.txt | wc -l
-~~~
+```
 
 This is a variation on command we created earlier: It concatenates all of the africa files into one large text files containing all africa articles.
 
@@ -41,12 +40,11 @@ First we have to tell the shell what program the script is in. If we want to run
 
 Our shell is called `bash`, so we run the following command:
 
-~~~ {.input}
+```shell
 $ bash group.sh
-~~~
-~~~ {.output}
+
 136
-~~~
+```
 
 Sure enough, our script's output is exactly what we would get if we ran that pipeline directly. It concatenated all of the africa files and then counted the number of lines, which is 136 (one line for each article).
 
@@ -68,46 +66,42 @@ What if we want concatenate an arbitrary group of files? We could edit `group.sh
 
 Instead, let's edit `group.sh` and replace `africa*.txt` with a special variable called `"$@"`:
 
-~~~ {.input}
+```shell
 $ nano group.sh
-~~~
-~~~ {.output}
+
 cat "$@" | wc -l
-~~~
+```
 
 Inside a shell script, `$1` means "the first filename (or other parameter) on the command line". `$2` means the second and so on. But in this case, we can't use `$1`, `$2`, and so on because we don't know how many files there are.
 Instead, we use the special variable `$@`, which means, "All of the command-line parameters to the shell script." So (`"$@"` is equivalent to `"$1"` `"$2"` ...)
 
 We put `$@` inside double-quotes to handle the case of parameters containing spaces. 
 
-~~~ {.input}
+```shell
 $ bash group.sh africa*.txt
-~~~
-~~~ {.output}
+
 136
-~~~
+```
 
 or on a different file like this:
 
-~~~ {.input}
+```shell
 $ bash group.sh asia*.txt
-~~~
-~~~ {.output}
+
 145
-~~~
+```
 
 ### Commenting
 
 This works, but it may take the next person who reads `group.sh` a moment to figure out what it does. We can improve our script by adding some **comments** at the top:
 
-~~~ {.input}
+```shell
 $ cat group.sh
-~~~
-~~~ {.output}
+
 # Concatenates a group of files and returns the total number of lines.
 # Usage: group.sh files
 cat "$@" | wc -l
-~~~
+```
 
 A comment starts with a `#` character and runs to the end of the line.
 The computer ignores comments, but they're invaluable for helping people understand and use scripts.
@@ -133,21 +127,20 @@ The computer ignores comments, but they're invaluable for helping people underst
 
 We can use our script to redirect output files, too. Let's change the script to just:
 
-~~~ {.input}
+```shell
 $ cat group.sh
-~~~
-~~~ {.output}
+
 # Concatenates a group of files and returns the total number of lines.
 # Usage: group.sh files
 cat "$@" 
-~~~
+```
 
 Now we can use the `>` trick to output our result.
 
-~~~ {.input}
+```shell
 $ bash group.sh asia*.txt > all-asia.txt
 $ cat all-asia.txt
-~~~
+```
 
 The only caveat is that each time you modify the script, you should check that the comment is still accurate: an explanation that sends the reader in the wrong direction is worse than none at all.
 
@@ -156,18 +149,18 @@ The only caveat is that each time you modify the script, you should check that t
 Now, suppose we have just run a series of commands that did something useful --- for example, that created a graph we'd like to use in a paper.
 We'd like to be able to re-create the graph later if we need to, so we want to save the commands in a file. Instead of typing them in again (and potentially getting them wrong) we can do this:
 
-~~~ {.input}
+```shell
 $ history | tail -4 > redo-figure-3.sh
-~~~
+```
 
 The file `redo-figure-3.sh` now contains:
 
-~~~
+```shell
 297 goostats -r NENE01729B.txt stats-NENE01729B.txt
 298 goodiff stats-NENE01729B.txt /data/validated/01729.txt > 01729-differences.txt
 299 cut -d ',' -f 2-3 01729-differences.txt > 01729-time-series.txt
 300 ygraph --format scatter --color bw --borders none 01729-time-series.txt figure-3.png
-~~~
+```
 
 After a moment's work in an editor to remove the serial numbers on the commands, we have a completely accurate record of how we created that figure.
 
@@ -177,7 +170,7 @@ After a moment's work in an editor to remove the serial numbers on the commands,
 > serial numbers on her previous commands.
 > Its parameters are the range of characters to strip from its input:
 >
-> ~~~
+> ```shell
 > $ history | tail -5
 >   173  cd /tmp
 >   174  ls
@@ -190,7 +183,7 @@ After a moment's work in an editor to remove the serial numbers on the commands,
 > ls all-asia.txt
 > cat all-asia.txt
 > history | tail -5 | colrm 1 7
-> ~~~
+> ```
 
 In practice, most people develop shell scripts by running commands at the shell prompt a few times to make sure they're doing the right thing, then saving them in a file for re-use.
 
@@ -202,7 +195,7 @@ This style of work allows people to recycle what they discover about their data 
 
 Leah has several hundred data files, each of which is formatted like this:
 
-~~~
+```shell
 2013-11-05,deer,5
 2013-11-05,rabbit,22
 2013-11-05,raccoon,7
@@ -211,7 +204,7 @@ Leah has several hundred data files, each of which is formatted like this:
 2013-11-06,fox,1
 2013-11-07,rabbit,18
 2013-11-07,bear,1
-~~~
+```
 
 Write a shell script called `species.sh` that takes any number of
 filenames as command-line parameters, and uses `cut`, `sort`, and
@@ -225,9 +218,9 @@ directory and a filename extension as its parameters, and prints
 out the name of the file with the most lines in that directory
 with that extension. For example:
 
-~~~
+```shell
 $ bash longest.sh /tmp/data pdb
-~~~
+```
 
 would print the name of the `.pdb` file in `/tmp/data` that has
 the most lines.
@@ -236,9 +229,9 @@ the most lines.
 
 If you run the command:
 
-~~~
+```shell
 history | tail -5 recent.sh
-~~~
+```
 
 the last command in the file is the `history` command itself, i.e.,
 the shell has added `history` to the command log before actually
@@ -252,24 +245,20 @@ Joel's `data` directory contains three files: `fructose.dat`,
 `example.sh` would do when run as `bash example.sh *.dat` if it
 contained the following lines:
 
-~~~
+```shell
 # Script 1
 echo *.*
-~~~
+```
 
-~~~
+```shell
 # Script 2
 for filename in $1 $2 $3
 do
     cat $filename
 done
-~~~
+```
 
-~~~
+```shell
 # Script 3
 echo $@.dat
-~~~
-
----
-
-Adapted from: [Software Carpentry](http://software-carpentry.org/v5/novice/shell/05-script.html)
+```

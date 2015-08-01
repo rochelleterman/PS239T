@@ -18,20 +18,19 @@ Now that we know a few basic commands, we can finally look at the shell's most p
 
 We'll start with a directory called `data/articles` that contains text files of news articles. They are organized by the region they cover. So africa1.txt is the first article about Africa, africa2.txt the second and so on.
 
-~~~ {.input}
+```shell
 $ ls ~/programming-fundamentals/data/articles
-~~~
+```
 
 Wow, that's a lot of files!
 
 Let's go into that directory with `cd` and run the command `wc africa*.txt`.
 `wc` is the "word count" command: it counts the number of lines, words, and characters in files. Remember that the `*` in `africa*.txt` matches zero or more characters, so the shell turns `africa*.txt` into a complete list of `.txt` files that start with `africa`:
 
-~~~ {.input}
+```shell
 $ cd ~/programming-fundamentals/data/articles
 $ wc africa*.txt
-~~~
-~~~ {.output}
+
       ...
        1     101     608 africa95.txt
        1    1576    9632 africa96.txt
@@ -39,15 +38,14 @@ $ wc africa*.txt
        1     653    4177 africa98.txt
        1     597    3748 africa99.txt
      136   70982  442767 total
-~~~
+```
 
 
 If we run `wc -l` instead of just `wc`, the output shows only the number of lines per file:
 
-~~~ {.input}
+```shell
 $ wc -l africa*.txt
-~~~
-~~~ {.output}
+
       ...
        1 africa94.txt
        1 africa95.txt
@@ -56,7 +54,7 @@ $ wc -l africa*.txt
        1 africa98.txt
        1 africa99.txt
      136 total
-~~~
+```
 
 So we see that each article has only 1 lines. How can this be, if the number of words vary so widely? Open a file and try to guess why.
 
@@ -68,28 +66,26 @@ Which of these files is shortest? It's an easy question to answer when there are
 
 Our first step toward a solution is to run the command:
 
-~~~ {.input}
+```shell
 $ wc -w africa*.txt > lengths
-~~~
+```
 
 The `>` tells the shell to **redirect** the command's output to a file instead of printing it to the screen. The shell will create the file if it doesn't exist, or overwrite the contents of that file if it does.
 
 (This is why there is no screen output: everything that `wc` would have printed has gone into the file `lengths` instead.) `ls lengths` confirms that the file exists:
 
-~~~ {.input}
+```shell
 $ ls lengths
-~~~
-~~~ {.output}
+
 lengths
-~~~
+```
 
 We can now send the content of `lengths` to the screen using `cat lengths`.
 `cat` stands for "concatenate": it prints the contents of files one after another. There's only one file in this case, so `cat` just shows us what it contains:
 
-~~~ {.input}
+```shell
 $ cat lengths
-~~~
-~~~ {.output}
+
     ...
    101 africa95.txt
   1576 africa96.txt
@@ -97,34 +93,32 @@ $ cat lengths
    653 africa98.txt
    597 africa99.txt
    591 africa9.txt
-~~~
+```
 
 ### Sorting
 
 Now let's use the `sort` command to sort its contents. We will also use the -n flag to specify that the sort is  numerical instead of alphabetical. This does *not* change the file; instead, it sends the sorted result to the screen:
 
-~~~ {.input}
+```shell
 $ sort -n lengths
-~~~
-~~~ {.output}
+
    ...
   1143 africa134.txt
   1155 africa43.txt
   1227 africa25.txt
   1329 africa24.txt
   1576 africa96.txt
-~~~
+```
 
 We can put the sorted list of lines in another temporary file called `sorted-lengths` by putting `sorted-lengths` after the command, just as we used `lengths` to put the output of `wc` into `lengths`. Once we've done that,
 we can run another command called `head` to get the first few lines in `sorted-lengths`:
 
-~~~ {.input}
+```shell
 $ sort -n lengths > sorted-lengths
 $ head -1 sorted-lengths
-~~~
-~~~ {.output}
+
    70 africa49.txt
-~~~
+```
 
 Using the parameter `-1` with `head` tells it that we only want the first line of the file; `-20` would get the first 20, and so on. Since `sorted-lengths` contains the lengths of our files ordered from least to greatest, the output of `head` must be the file with the fewest lines.
 
@@ -132,35 +126,32 @@ Using the parameter `-1` with `head` tells it that we only want the first line o
 
 If you think this is confusing, you're in good company: even once you understand what `wc`, `sort`, and `head` do, all those intermediate files make it hard to follow what's going on. We can make it easier to understand by running `sort` and `head` together:
 
-~~~ {.input}
+```shell
 $ sort -n lengths | head -1
-~~~
-~~~ {.output}
+
    70 africa49.txt
-~~~
+```
 
 The vertical bar between the two commands is called a **pipe**. It tells the shell that we want to use the output of the command on the left as the input to the command on the right. The computer might create a temporary file if it needs to, or copy data from one program to the other in memory, or something else entirely; we don't have to know or care.
 
 We can use another pipe to send the output of `wc` directly to `sort`, which then sends its output to `head`:
 
-~~~ {.input}
+```shell
 $ wc -w africa*.txt | sort -n | head -1
-~~~
-~~~ {.output}
+
   70 africa49.txt
-~~~
+```
 
 This is exactly like a mathematician nesting functions like *log(3x)*
 and saying "the log of three times *x*". In our case, the calculation is "head of sort of line count of `africa*.txt`".
 
 We can use this logic in many different combinations. For instance, to see how many files are in this directory, we can command:
 
-~~~ {.input}
+```shell
 $ ls -1 | wc -l
-~~~
-~~~ {.output}
+
   958
-~~~
+```
 
 This uses `wc` to do a count of the number of lines (`-l`) in the output of `ls -1`.
 
@@ -195,11 +186,10 @@ Rochelle has her bulk text downloads in the `new-york-times/2015-01-01` director
 
 As a quick sanity check, she types:
 
-~~~ {.input}
+```shell
 $ cd ~/programming-fundamentals/data/new-york-times/2015-01-01
 $ wc -l *.TXT
-~~~
-~~~ {.output}
+
    63661 human-rights-2000.TXT
    56035 human-rights-2001.TXT
    60045 human-rights-2002.TXT
@@ -211,15 +201,14 @@ $ wc -l *.TXT
    54580 human-rights-2008.TXT
    66540 human-rights-2009.TXT
   573673 total
-~~~
+```
 
 Now she wants to concatenate (or merge) all of these text files into one big text file that she can later use to parse into a CSV.
 
-~~~ {.input}
+```shell
 $ cat *.TXT all.TXT
 $ wc -l *.TXT
-~~~
-~~~ {.output}
+
   573673 all.TXT
    63661 human-rights-2000.TXT
    56035 human-rights-2001.TXT
@@ -232,7 +221,7 @@ $ wc -l *.TXT
    54580 human-rights-2008.TXT
    66540 human-rights-2009.TXT
  1147346 total
-~~~
+```
 
 Notice that `all.TXT` is the sum of all the lines of the other `*.TXT` files.
 
@@ -243,33 +232,33 @@ Notice that `all.TXT` is the sum of all the lines of the other `*.TXT` files.
 
 If we run `sort` on this file:
 
-~~~
+```shell
 10
 2
 19
 22
 6
-~~~
+```
  
 the output is:
  
-~~~
+```shell
 10
 19
 2
 22
 6
-~~~
+```
 
 If we run `sort -n` on the same input, we get this instead:
 
-~~~
+```shell
 2
 6
 10
 19
 22
-~~~
+```
 
 Explain why `-n` has this effect.
 
@@ -277,38 +266,38 @@ Explain why `-n` has this effect.
 
 What is the difference between:
 
-~~~
+```shell
 wc -l < mydata.dat
-~~~
+```
 
 and:
 
-~~~
+```shell
 wc -l mydata.dat
-~~~
+```
 
 #### Challenge 3
 
 The command `uniq` removes adjacent duplicated lines from its input.
 For example, if a file `salmon.txt` contains:
 
-~~~
+```shell
 coho
 coho
 steelhead
 coho
 steelhead
 steelhead
-~~~
+```
 
 then `uniq salmon.txt` produces:
 
-~~~
+```shell
 coho
 steelhead
 coho
 steelhead
-~~~
+```
 
 Why do you think `uniq` only removes *adjacent* duplicated lines? (Hint: think about very large data sets.) What other command could you combine with it in a pipe to remove all duplicated lines?
 
@@ -316,7 +305,7 @@ Why do you think `uniq` only removes *adjacent* duplicated lines? (Hint: think a
 
 A file called `animals.txt` contains the following data:
 
-~~~
+```shell
 2012-11-05,deer
 2012-11-05,rabbit
 2012-11-05,raccoon
@@ -325,25 +314,25 @@ A file called `animals.txt` contains the following data:
 2012-11-06,fox
 2012-11-07,rabbit
 2012-11-07,bear
-~~~
+```
 
 What text passes through each of the pipes and the final redirect in the pipeline below?
 
-~~~
+```shell
 cat animals.txt | head -5 | tail -3 | sort -r > final.txt
-~~~
+```
 
 #### Challenge 5
 
 The command:
  
-~~~
+```shell
 $ cut -d , -f 2 animals.txt
-~~~
+```
 
 produces the following output:
  
-~~~
+```shell
 deer
 rabbit
 raccoon
@@ -352,12 +341,8 @@ deer
 fox
 rabbit
 bear
-~~~
+```
  
 What other command(s) could be added to this in a pipeline to find
 out what animals the file contains (without any duplicates in their
 names)?
-
----
-
-Adapted from: [Software Carpentry](http://software-carpentry.org/v5/novice/shell/03-pipefilter.html)
