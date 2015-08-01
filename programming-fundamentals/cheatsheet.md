@@ -5,7 +5,7 @@ subtitle: Reference
 
 # Summaries and Resources
 
-## [BCE](0-1_BCE.md)
+## [Unix](01_unix.md)
 
 *   An operating system is a suite of programs which make the computer work.
 *   UNIX is an very popular operating system, used on Macs and bunch of others.
@@ -17,7 +17,7 @@ subtitle: Reference
 *   You can share files between your laptop and your BCE.
 *   BCE will take some time getting use to, especially the keyboard if you're using a Mac.
 
-## [Introducing the Shell](1-0_shell.md)
+## [Introducing the Shell](02_shell.md)
 
 *   A shell is a program whose primary purpose is to read commands and run other programs.
 *   The shell's main advantages are its high action-to-keystroke ratio,
@@ -26,7 +26,7 @@ subtitle: Reference
 *   The shell's main disadvantages are its primarily textual nature
     and how cryptic its commands and operation can be.
 
-## [Files and Directories](1-1_filedir.md)
+## [Files and Directories](03_filedir.md)
 
 *   The file system is responsible for managing information on the disk.
 *   Information is stored in files, which are stored in directories (folders).
@@ -54,7 +54,7 @@ subtitle: Reference
 *	Copy a file/directory in the GUI and paste them into the command line to give the file/directory's full path.
 
 
-## [Creating Things](1-2-create.md)
+## [Creating Things](04-create.md)
 
 *   `cp old new` copies a file.
 *   `mkdir path` creates a new directory.
@@ -68,7 +68,7 @@ subtitle: Reference
 *   `*` is a wildcard. It matches zero or more characters
 *   Naming/structuring your files and directories in a systematic way is important. 
 
-## [Pipes and Filters](1-3_pipe.me)
+## [Pipes and Filters](05_pipe.me)
 
 *   `cat` displays the contents of its inputs.
 *   `head` displays the first few lines of its input.
@@ -79,7 +79,7 @@ subtitle: Reference
 *   `first | second` is a pipeline: the output of the first command is used as the input to the second.
 *   The best way to use the shell is to use pipes to combine simple single-purpose programs (filters).
 
-## [Loops](1_4-loop.md)
+## [Loops](06-loop.md)
 
 *   `history` displays recent commands, and `!number` to repeat a command by number.
 *   A `for` loop repeats commands once for every thing in a list.
@@ -90,7 +90,7 @@ subtitle: Reference
 *   Use the up-arrow key to scroll up through previous commands to edit and repeat them.
 *   Use `history` to display recent commands, and `!number` to repeat a command by number.
 
-## [Shell Scripts](1-5-script.md)
+## [Shell Scripts](07-script.md)
 
 *   Save commands in files (usually called shell scripts) for re-use.
 *   `bash filename` runs the commands saved in a file.
@@ -111,21 +111,7 @@ subtitle: Reference
 *   `man command` displays the manual page for a given command.
 *   Find the whole lesson [here](http://software-carpentry.org/v5/novice/shell/06-find.html)
 
-## [Python and Beyond](1-6_python.md)
-
-*   An interpreter is a program that reads and executes code. 
-*   `which [program]` gives you the version of a program, and, by extension, whether you have it installed.
-*   Run Python in interactive mode in bash by typing `python`.
-*   Run Python in normal mode in bash by typing `python [scrip.py]`
-*   `quit()` gets you back into bash.
-*   A module is a python script that has helpful functions n such.
-*   A package is a collection of python modules.
-*   `pip install [package]` is the easiest way to install new packages
-*   BCE comes with most of the packages you need already installed.
-*   try `sudo` in the beginning of a bash command when you face permissions problems.
-*   Use an IDE like PyCharm to develop your Python code.
-
-## [Getting Help](2-0_help.md)
+## [Getting Help](09_help.md)
 
 *   Don't learn specific programming languages; learn *how to program*
 *   Most of your programming will be spent debugging, looking things up on the internet, and testing. 
