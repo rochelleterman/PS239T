@@ -106,7 +106,7 @@ cat "$@" | wc -l
 A comment starts with a `#` character and runs to the end of the line.
 The computer ignores comments, but they're invaluable for helping people understand and use scripts.
 
-> ## Why Isn't It Doing Anything? {.callout}
+> #### Why Isn't It Doing Anything?
 >
 > What happens if a script is supposed to process a bunch of files, but we
 > don't give it any filenames? For example, what if we type:
@@ -164,7 +164,7 @@ The file `redo-figure-3.sh` now contains:
 
 After a moment's work in an editor to remove the serial numbers on the commands, we have a completely accurate record of how we created that figure.
 
-> ## Unnumbering {.callout}
+> #### Unnumbering
 >
 > Rochelle could also use `colrm` (short for "column removal") to remove the
 > serial numbers on her previous commands.
