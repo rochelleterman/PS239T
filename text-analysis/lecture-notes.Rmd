@@ -20,6 +20,7 @@ library(ggplot2) # for plotting discourse data
 library(SnowballC) # for stemming
 library(data.table) # for easier data manipulation
 library(scales) # to help us plot
+library(matrixStats) # for statistics
 ```
 
 ## 1. Prepare a Corpus
@@ -41,14 +42,14 @@ Here we'll be going over two main options to input a corpus.
 
 Option 1) We can read a corpus from a directory that contains text files, each document a different file.
 ```{r}
-docs <- Corpus(DirSource("Data/MachText/")) 
+docs <- Corpus(DirSource("Data/MachText/.csv")) 
 docs
 ```
 
 Option 2) We can read from a csv of documents, with each row being a document, and columns for text and metadata (information about each document). This is the easiest option if you have metadata.
 
 ```{r}
-docs.df <-read.csv("Data/women.csv", header=TRUE) #read in CSV file
+docs.df <-read.csv("Data/shelbysessions.csv", header=TRUE) #read in CSV file
 docs <- Corpus(VectorSource(docs.df$text))
 docs
 ```
@@ -146,7 +147,7 @@ If you read in your corpus as a CSV, you should already have a dataframe (in thi
 
 ```{r}
 # Read corpus from csv - you already did this in Step 1.1
-docs.df <- read.csv("Data/mach.csv")
+docs.df <- read.csv("Data/shelbysessions.csv")
 ```
 
 Now we can make out DTM in one step.
@@ -191,10 +192,10 @@ Exploring word frequences
 
 ```{r}
 # Have a look at common words
-findFreqTerms(dtm, lowfreq=100) # words that appear at least 100 times
+findFreqTerms(dtm, lowfreq=1000) # words that appear at least 100 times
 
 # Which words correlate with "war"?
-findAssocs(dtm, "war", 0.3)
+findAssocs(dtm, "war", 0.4)
 
 # plot
 freq <- sort(colSums(as.matrix(dtm)),decreasing=TRUE)
@@ -204,7 +205,7 @@ wf <- data.frame(word=names(freq), freq=freq)
 head(wf)
 
 library(ggplot2)
-subset(wf, freq>50) %>%
+subset(wf, freq>1000) %>%
   ggplot (aes(word, freq)) +
   geom_bar (stat ="identity") +
   theme(axis.text.x=element_text(angle=45,hjust=1))
@@ -229,16 +230,13 @@ We can convert a DTM to a matrix or data.frame in order to write to a csv, add m
 ```{r}
 # coerce into dataframe
 dtm <- as.data.frame(as.matrix(dtm))
-names(docs)
 
 # add fake column for section
-dtm$author <- docs.df$author
-
-dtm$section <- as.factor(dtm$section)
+dtm$doc_author <- docs.df$author
 
 # check to see if they're the same number of documents per author
-summary(dtm$author)
-summary(docs.df$author
+summary(dtm$doc_author)
+summary(docs.df$author)
 ```
 
 ## 2. Discriminating Word Analysis
@@ -249,8 +247,8 @@ First we have to split the data.frame to two DTMs from the two authors.
 
 ```{r}
 # Subset into 2 dtms
-shelby <- subset(dtm,author=="Shelby",select = -author") # should have 1102 obs.
-sessions <- subset(dtm,author=="Sessions",select = -author) # should have 236 obs.
+shelby <- subset(dtm,doc_author=="Shelby",select = -doc_author) # should have 1102 obs.
+sessions <- subset(dtm,doc_author=="Sessions",select = -doc_author) # should have 236 obs.
 ```
 
 Then we calculate the scores. 
