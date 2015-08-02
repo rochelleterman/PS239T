@@ -30,19 +30,19 @@ dtm <- create_matrix(documents[["text"]], language="english", removeNumbers=TRUE
                        removePunctuation = TRUE)
 ```
 
-iii. Which words apper most frequently? Which word is most highly correlated with "women"?
+iii. Which words apper most frequently? Which word is most highly correlated with "work"?
 
 ```{r}
 # have a look at common words
 findFreqTerms(dtm, lowfreq = 4000)
-findAssocs(dtm, "women", 0.2)
+findAssocs(dtm, "work", 0.3)
 ```
 
 iv. Coerce the DTM into a data.frame and add a column for `region` metadata.
 
 ```{r}
 # coerce into data.farme
-dtm <- as.data.frame(inspect(dtm))
+dtm <- as.data.frame(as.matrix(dtm))
 # add meta column for region
 dtm$document_region <- documents$region
 # check to see if they're the same number of documents per author
@@ -52,9 +52,9 @@ summary(documents$region)
 
 #2: Discriminating Words
 
-In class, you saw an exercise finding distive words between two sub-corpora. The same method can be applied for >2 sub-corpora, by comparing one sub-corpura to the entire corpus. 
+In class, you saw an exercise finding distinctive words between two sub-corpora. The same method can be applied for >2 sub-corpora, by comparing one sub-corpura to the entire corpus. 
 
-i. Find the most 10 most distinve words for the `MENA` region.
+i. Find the most 10 most distinctive words for the `MENA` region.
 
 ```{r}
 # subset
@@ -146,6 +146,6 @@ plot.estimateEffect(prep,"region",method="pointestimate",topics=10,printlegend=T
 
 ## 4. QDAP
 
-Using the `qdap` package, do a sentiment analysis (and visualization) of a corpus of your choosing. You can compare sentiments across time, speaker, song, artist, whatever. Be creative. If you're feeling brave, you can use another tool in the `qdap` package besides `polarity` to show something interesting about a corpus.
+Using the `qdap` package, do a sentiment analysis (and visualization) of a corpus of your choosing. You can compare sentiments across time, speaker, song, artist, whatever. Be creative. If you're feeling brave, you can use another tool in the `qdap` package besides `polarity` to show something interesting about a corpus. 
 
 

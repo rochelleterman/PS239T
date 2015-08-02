@@ -8,7 +8,7 @@ Text Analysis Lecture Notes + Code
 
 ### Required Packages
 ```{r}
-setwd("~/Dropbox/berkeley/PS239T/text-analysis")
+setwd("~/Dropbox/berkeley/Dissertation/Data and Analyais/Git Repos/PS239T/text-analysis")
 rm(list=ls())
 library(tm) # Framework for text mining
 library(RTextTools) # a machine learning package for text classification written in R
@@ -24,7 +24,7 @@ library(scales) # to help us plot
 
 ## 1. Prepare a Corpus
 
-A corpus is a collection of texts, usually stored electronically, and from which we perform our analysis. A corpus might be a collection of news articles from Reuters or the published works of Shakespeare. Within each corpus we will have separate articles, stories, volumes, each treated as a separate entity or record.
+A corpus is a collection of texts, usually stored electronically, and from which we perform our analysis. A corpus might be a collection of news articles from Reuters or the published works of Shakespeare. Within each corpus we will have separate articles, stories, volumes, each treated as a separate entity or record. Each unit is called a "document"
 
 Documents come in a variety of formats, but plain text is best.
 
@@ -37,25 +37,36 @@ getSources()
 getReaders()
 ```
 
-We can read a corpus from a directory that contains text files, each document a different file
-```{r}
-documents <- Corpus(DirSource("Data/Sessions")) 
-documents
-```
+Here we'll be going over two main options to input a corpus. 
 
-Or we can read from a csv of documents, with each row being a document, and columns for metadata (information about each document)
-
+Option 1) We can read a corpus from a directory that contains text files, each document a different file.
 ```{r}
-documents <-read.csv("Data/shelbysessions.csv", header=TRUE) #read in CSV file
-docs <- Corpus(VectorSource(documents$text))
+docs <- Corpus(DirSource("Data/MachText/")) 
 docs
 ```
 
-We can inspect the documents using inspect()
+Option 2) We can read from a csv of documents, with each row being a document, and columns for text and metadata (information about each document). This is the easiest option if you have metadata.
 
 ```{r}
+docs.df <-read.csv("Data/women.csv", header=TRUE) #read in CSV file
+docs <- Corpus(VectorSource(docs.df$text))
+docs
+```
+
+Once we have the corpus, we can inspect the documents using inspect()
+
+```{r}
+# see the 16th document
 inspect(docs[16])
 ```
+
+And see the text using the `as.chracter`
+
+```{r}
+ # see content for 16th document
+as.character(docs[[16]])
+```
+
 ### 1.2 Preprocessing
 
 Many text analysis applications follow a similar 'recipe' for preprecessing, involving:
@@ -75,7 +86,7 @@ See what transformations are available TM package
 getTransformations()
 ```
 
-The function `tm.map()` is used to apply one of these transformations across all documents. 
+The function `tm_map()` is used to apply one of these transformations across all documents. 
 
 We can also use regular R functions for custom transformations using the `content_transformer()` function.
 
@@ -86,20 +97,27 @@ toSpace <- content_transformer(function(x, pattern) gsub(pattern, " ", x))
 docs <- tm_map(docs, toSpace, "/")
 docs <- tm_map(docs, toSpace, "@")
 docs <- tm_map(docs, toSpace,"\\|")
-docs[[100]]
+as.character(docs[[16]])
 ```
+
 We can basic transformations using the build in `tm_map` tools.
 
 ```{r}
 docs <- tm_map(docs, content_transformer(tolower)) # convert all text to lower case
+as.character(docs[[16]])
 docs <- tm_map(docs, removePunctuation) # remove Puncturation
+as.character(docs[[16]])
 docs <- tm_map(docs, removeNumbers) # remove Numbers
+as.character(docs[[16]])
 docs <- tm_map(docs, removeWords, stopwords("english")) # remove common words
 stopwords("english") # check out what was removed
-docs <- tm_map(docs, removeWords, c("shelby","sessions")) # remove own stop words
+as.character(docs[[16]])
+docs <- tm_map(docs, removeWords, c("prince")) # remove own stop words
+as.character(docs[[16]])
 docs <- tm_map(docs, stripWhitespace) # strip white space
+as.character(docs[[16]])
 docs <- tm_map(docs, stemDocument) # stem the document
-inspect(docs[16])
+as.character(docs[[16]])
 ```
 
 ### 1.3 Creating a DTM
@@ -108,17 +126,35 @@ A document term matrix is simply a matrix with documents as the rows and terms a
 ```{r}
 dtm <- DocumentTermMatrix(docs)
 dtm
-dim(dtm) # how many documents? how many terms?
-inspect(dtm[1:5,1000:1005]) # take a quick look
+# how many documents? how many terms?
+dim(dtm)
+# take a quick look
+inspect(dtm[1:5,1000:1005])
 ```
 
-Note: we can use RTextTools to go directly from text vector to DTM, which is probably easier.
+Note: we can use RTextTools to go directly from text vector to DTM, which is probably easier. If you read your corpus using Option 1 above (Section 1.1) you must first convert your corpus into a dataframe
 
 ```{r}
-# make DTM
-dtm <- create_matrix(docs[["text"]], language="english", removeNumbers=TRUE,
-                       stemWords=TRUE, removeSparseTerms=.9, toLower = TRUE, 
-                       removePunctuation = TRUE)
+
+# Read corpus directly from dir and convert to data.frame.
+docs <- Corpus(DirSource("Data/MachText"))
+docs.df<-data.frame(text=unlist(sapply(docs, `[`, "content")), 
+    stringsAsFactors=F)
+```
+
+If you read in your corpus as a CSV, you should already have a dataframe (in this case, `docs.df`) in your environment.
+
+```{r}
+# Read corpus from csv - you already did this in Step 1.1
+docs.df <- read.csv("Data/mach.csv")
+```
+
+Now we can make out DTM in one step.
+
+```{r}
+# Convert to DTM
+dtm <- create_matrix(docs.df$text, language="english", removeNumbers=TRUE,
+                       stemWords=TRUE, toLower = TRUE, removePunctuation = TRUE)
 ```
 
 ### 1.4 Exploring the DTM
@@ -126,10 +162,13 @@ dtm <- create_matrix(docs[["text"]], language="english", removeNumbers=TRUE,
 We can obtain the term frequencies as a vector by converting the document term matrix into a matrix and summing the column counts:
 
 ```{r}
+ # how many terms?
 freq <- colSums(as.matrix(dtm))
-length(freq) # how many terms?
+length(freq)
 ```
+
 By ordering the frequencies we can list the most frequent terms and the least frequent terms:
+
 ```{r}
 # order
 ord <- order(freq)
@@ -148,22 +187,14 @@ tail(table(freq),15)
 plot(table(freq))
 ```
 
-We can remove sparse terms and thus inrease efficency
-
-```{r}
-dtm.s <- removeSparseTerms(dtm,.99)
-dtm # 6506 terms
-dtm.s# 1849 terms
-```
-
 Exploring word frequences
 
 ```{r}
 # Have a look at common words
-findFreqTerms(dtm, lowfreq=1000) # words that appear at least 1000 times
+findFreqTerms(dtm, lowfreq=100) # words that appear at least 100 times
 
-# Which words correlate with "congress"?
-findAssocs(dtm, "fire", 0.7)
+# Which words correlate with "war"?
+findAssocs(dtm, "war", 0.3)
 
 # plot
 freq <- sort(colSums(as.matrix(dtm)),decreasing=TRUE)
@@ -173,7 +204,7 @@ wf <- data.frame(word=names(freq), freq=freq)
 head(wf)
 
 library(ggplot2)
-subset(wf, freq>1000) %>%
+subset(wf, freq>50) %>%
   ggplot (aes(word, freq)) +
   geom_bar (stat ="identity") +
   theme(axis.text.x=element_text(angle=45,hjust=1))
@@ -183,6 +214,15 @@ library(wordcloud)
 set.seed(123)
 wordcloud(names(freq), freq, max.words=100, colors=brewer.pal(6,"Dark2"))
 ```
+We can remove sparse terms and thus inrease efficency
+
+```{r}
+dtm.s <- removeSparseTerms(dtm,.99)
+dtm # 2365 terms
+dtm.s # 1326 terms
+```
+
+### 1.5 Exporting the DTM
 
 We can convert a DTM to a matrix or data.frame in order to write to a csv, add meta data, etc.
 
@@ -191,12 +231,14 @@ We can convert a DTM to a matrix or data.frame in order to write to a csv, add m
 dtm <- as.data.frame(as.matrix(dtm))
 names(docs)
 
-# add column for author
-dtm$document_author <- documents$author
+# add fake column for section
+dtm$author <- docs.df$author
+
+dtm$section <- as.factor(dtm$section)
 
 # check to see if they're the same number of documents per author
-summary(dtm$document_author)
-summary(documents$author)
+summary(dtm$author)
+summary(docs.df$author
 ```
 
 ## 2. Discriminating Word Analysis
@@ -207,8 +249,8 @@ First we have to split the data.frame to two DTMs from the two authors.
 
 ```{r}
 # Subset into 2 dtms
-shelby <- subset(dtm,document_author=="Shelby",select = -document_author) # should have 1102 obs.
-sessions <- subset(dtm,document_author=="Sessions",select = -document_author) # should have 236 obs.
+shelby <- subset(dtm,author=="Shelby",select = -author") # should have 1102 obs.
+sessions <- subset(dtm,author=="Sessions",select = -author) # should have 236 obs.
 ```
 
 Then we calculate the scores. 
@@ -378,15 +420,29 @@ tot_plot(mraja1, "dialogue", grouping.var = c("fam.aff","sex"), tot = FALSE)
 
 Mallet a popular topic modelling software application. It is in java - which means it's fast - but R has a Mallet wrapper package.
 
+First let's read in our data. The corpus we'll be using today is a set of New York Times and Washington Post articles about women in non-US countries.
+
+```{r}
+#read in CSV file
+documents <- read.csv("Data/women.csv", stringsAsFactors = F)
+names(documents)
+```
+
+### 4.1 Estimate Topics
+
 ```{r}
 # we first have to create an 'id' column
 documents$id <- rownames(documents)
 
-# load data
-mallet.instances <- mallet.import(documents$id, documents$text, "Data/stoplist.csv", FALSE, token.regexp="[\\p{L}']+")
+# remove punctuation
+documents$text <- gsub(pattern="[[:punct:]]",replacement=" ",documents$text)
+documents$text.no.noun <- gsub(pattern="[[:punct:]]",replacement=" ",documents$text.no.noun)
+
+# load data into mallet
+mallet.instances <- mallet.import(documents$id, documents$text.no.noun, "Data/stoplist.csv", FALSE, token.regexp="[\\p{L}']+")
 
 ## Create a topic trainer object.
-topic.model <- MalletLDA(num.topics=15)
+topic.model <- MalletLDA(num.topics=10)
 
 ## Load our documents
 topic.model$loadDocuments(mallet.instances)
@@ -405,7 +461,7 @@ topic.model$setAlphaOptimization(20, 50)
 
 ## Now train a model. Note that hyperparameter optimization is on, by default.
 ##  We can specify the number of iterations. Here we'll use a large-ish round number.
-topic.model$train(200)
+topic.model$train(100)
 
 ## Get the probability of topics in documents and the probability of words in topics.
 ## By default, these functions return raw word counts. Here we want probabilities, 
@@ -415,10 +471,10 @@ topic.words <- mallet.topic.words(topic.model, smoothed=T, normalized=T)
 
 ## What are the top words in topic 7?
 ##  Notice that R indexes from 1, so this will be the topic that mallet called topic 6.
-mallet.top.words(topic.model, topic.words[6,])
+mallet.top.words(topic.model, topic.words[2,])
 
 ## Get a vector containing short names for the topics
-n.topics <- 15
+n.topics <- 10
 topics.labels <- rep("", n.topics)
 for (topic in 1:n.topics) 
   topics.labels[topic] <- paste(mallet.top.words(topic.model, topic.words[topic,], num.top.words=5)$words, collapse=" ")
@@ -426,18 +482,18 @@ for (topic in 1:n.topics)
 # have a look at keywords for each topic
 topics.labels
 
-## Show the first few document titles with at least .25 of its content devoted to topic 6
-head(documents[ doc.topics[6,] > 0.25 , ],10)
+## Show the first few document titles with at least .5 of its content devoted to topic 4
+head(documents[ doc.topics[4,] > 0.5 , ],10)
 
-## Show title of the most representative text for topic 6
-documents[which.max(doc.topics[6,]),]$title
+## Show title of the most representative text for topic 4
+documents[which.max(doc.topics[4,]),]$id
 
 ## How do topics differ across different sub-corpora?
 mena.topic.words <- mallet.subset.topic.words(topic.model, documents$region == "MENA", smoothed=T, normalized=T)
 west.topic.words <- mallet.subset.topic.words(topic.model, documents$region == "West", smoothed=T, normalized=T)
 
-mallet.top.words(topic.model, mena.topic.words[8,])
-mallet.top.words(topic.model, west.topic.words[8,])
+mallet.top.words(topic.model, mena.topic.words[5,])
+mallet.top.words(topic.model, west.topic.words[5,])
 ```
 
 We can visualize topics as words clouds.
