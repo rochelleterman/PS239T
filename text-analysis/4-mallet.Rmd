@@ -1,0 +1,106 @@
+---
+title: "mallet"
+author: "Rochelle Terman"
+date: "June 24, 2015"
+output: html_document
+---
+
+Mallet is a popular topic modelling software application. Mallet is in java - which means it's fast - but R has a Mallet wrapper package.
+
+## 0. Prepare
+
+First let's read in our data. The corpus we'll be using today is a set of New York Times and Washington Post articles about women in non-US countries.
+
+```{r}
+#read in CSV file
+documents <- read.csv("Data/women.csv", stringsAsFactors = F)
+names(documents)
+documents$X <- NULL
+```
+
+## 1. Estimate Mallet Topics
+
+```{r}
+# we first have to create an 'id' column
+documents$id <- rownames(documents)
+
+# remove punctuation
+documents$text <- gsub(pattern="[[:punct:]]",replacement=" ",documents$text)
+documents$text.no.noun <- gsub(pattern="[[:punct:]]",replacement=" ",documents$text.no.noun)
+
+# load data into mallet
+mallet.instances <- mallet.import(documents$id, documents$text.no.noun, "Data/stoplist.csv", FALSE, token.regexp="[\\p{L}']+")
+
+## Create a topic trainer object.
+topic.model <- MalletLDA(num.topics=10)
+
+## Load our documents
+topic.model$loadDocuments(mallet.instances)
+
+## Get the vocabulary, and some statistics about word frequencies.
+##  These may be useful in further curating the stopword list.
+vocabulary <- topic.model$getVocabulary()
+word.freqs <- mallet.word.freqs(topic.model)
+
+# examine some of the vocabulary
+word.freqs[1:50,]
+
+## Optimize hyperparameters every 20 iterations, 
+##  after 50 burn-in iterations.
+topic.model$setAlphaOptimization(20, 50)
+
+## Now train a model. Note that hyperparameter optimization is on, by default.
+##  We can specify the number of iterations. Here we'll use a large-ish round number.
+topic.model$train(100)
+
+## Get the probability of topics in documents and the probability of words in topics.
+## By default, these functions return raw word counts. Here we want probabilities, 
+##  so we normalize, and add "smoothing" so that nothing has exactly 0 probability.
+doc.topics <- mallet.doc.topics(topic.model, smoothed=T, normalized=T)
+topic.words <- mallet.topic.words(topic.model, smoothed=T, normalized=T)
+
+## What are the top words in topic 7?
+##  Notice that R indexes from 1, so this will be the topic that mallet called topic 6.
+mallet.top.words(topic.model, topic.words[2,])
+
+## Get a vector containing short names for the topics
+n.topics <- 10
+topics.labels <- rep("", n.topics)
+for (topic in 1:n.topics) 
+  topics.labels[topic] <- paste(mallet.top.words(topic.model, topic.words[topic,], num.top.words=5)$words, collapse=" ")
+
+# have a look at keywords for each topic
+topics.labels
+
+## Show the first few document titles with at least .5 of its content devoted to topic 4
+head(documents[ doc.topics[4,] > 0.5 , ],10)
+
+## Show title of the most representative text for topic 4
+documents[which.max(doc.topics[4,]),]$id
+
+## How do topics differ across different sub-corpora?
+mena.topic.words <- mallet.subset.topic.words(topic.model, documents$region == "MENA", smoothed=T, normalized=T)
+west.topic.words <- mallet.subset.topic.words(topic.model, documents$region == "West", smoothed=T, normalized=T)
+
+mallet.top.words(topic.model, mena.topic.words[5,])
+mallet.top.words(topic.model, west.topic.words[5,])
+```
+
+## 2. Visualize
+
+We can visualize topics as words clouds.
+
+```{r}
+# be sure you have installed the wordcloud package
+topic.num <- 1
+num.top.words<-100
+topic.top.words <- mallet.top.words(topic.model, topic.words[1,], 100)
+wordcloud(topic.top.words$words, topic.top.words$weights, c(4,.8), rot.per=0, random.order=F)
+
+num.topics<-10
+num.top.words<-25
+for(i in 1:num.topics){
+  topic.top.words <- mallet.top.words(topic.model, topic.words[i,], num.top.words)
+  wordcloud(topic.top.words$words, topic.top.words$weights, c(4,.8), rot.per=0, random.order=F)
+}
+```
