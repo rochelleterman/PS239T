@@ -63,11 +63,18 @@ topic.words <- mallet.topic.words(topic.model, smoothed=T, normalized=T)
 ##  Notice that R indexes from 1, so this will be the topic that mallet called topic 6.
 mallet.top.words(topic.model, topic.words[2,])
 
+# take a quick look at the top words of each topic
+topic.labels <- mallet.topic.labels(topic.model, topic.words, num.top.words = 5)
+topic.labels
+
 ## Get a vector containing short names for the topics
-topic.labels <- mallet.topic.labels(topic.model, topic.words, 5)
+n.topics <- 5
+topics.labels <- rep("", n.topics)
+for (topic in 1:n.topics) 
+  topics.labels[topic] <- paste(mallet.top.words(topic.model, topic.words[topic,], num.top.words=5)$words, collapse=" ")
 
 # have a look at keywords for each topic
-topic.labels
+topics.labels
 
 ## Show the first few document titles with at least .5 of its content devoted to topic 4
 head(documents[ doc.topics[4,] > 0.5 , ],10)
