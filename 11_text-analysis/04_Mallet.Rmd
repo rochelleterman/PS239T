@@ -67,7 +67,7 @@ mallet.top.words(topic.model, topic.words[2,])
 topic.labels <- mallet.topic.labels(topic.model, topic.words, 5)
 
 # have a look at keywords for each topic
-topics.labels
+topic.labels
 
 ## Show the first few document titles with at least .5 of its content devoted to topic 4
 head(documents[ doc.topics[4,] > 0.5 , ],10)
