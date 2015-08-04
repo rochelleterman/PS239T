@@ -64,10 +64,7 @@ topic.words <- mallet.topic.words(topic.model, smoothed=T, normalized=T)
 mallet.top.words(topic.model, topic.words[2,])
 
 ## Get a vector containing short names for the topics
-n.topics <- 10
-topics.labels <- rep("", n.topics)
-for (topic in 1:n.topics) 
-  topics.labels[topic] <- paste(mallet.top.words(topic.model, topic.words[topic,], num.top.words=5)$words, collapse=" ")
+topic.labels <- mallet.topic.labels(topic.model, topic.words, 5)
 
 # have a look at keywords for each topic
 topics.labels
