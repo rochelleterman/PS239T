@@ -30,7 +30,7 @@ By the end of the course, students should be able to:
 
 The course is divided into three main sections: skills, applications, and community engagement. The “skills” portion will introduce students to basic computer literacy, terminologies, and programming languages. Specifically, students will learn the basics in the Unix Shell (i.e. Bash), R, Python, and Git. We chose these tools because they are considered by many to be the “core curriculum” for social scientists and humanists who wish to integrate computing into their scholarship. 
 
-The second part of the course provides students the opportunity to use the skills they learned in part 1 towards practical applications. While the realm of possibilities is too great to cover in a single course, we expect to introduce students to some combination of automated text analysis, machine learning, geospatial analysis, network analysis, data collection via APIs, crowdsourcing and online experiments, and data visualization. Each week will introduce students to a new application. Because of time constraints, we cannot offer a robust training in any one application. Rather, the goal is to introduce the students to a medley of common applications so that they can discover which avenue to pursue in their own research, and what such training would entail.
+The second part of the course provides students the opportunity to use the skills they learned in part 1 towards practical applications. While the realm of possibilities is too great to cover in a single course, we expect to introduce students to automated text analysis, geospatial analysis, webscraping, data collection via APIs, and qualitative data analysis software. Each week will introduce students to a new application. Because of time constraints, we cannot offer a robust training in any one application. Rather, the goal is to introduce the students to a medley of common applications so that they can discover which avenue to pursue in their own research, and what such training would entail.
 
 The third section on community engagement will introduce topics such as ethics and privacy, best practices of reproducible research, scholarly communication and collaboration, and how to further one’s research using UC Berkeley campus resources. 
 
@@ -43,11 +43,11 @@ Rochelle Terman (rterman@gmail.com).
 
 ####Time 
 
-Tu 4-6P (Lecture); Fr 2-4 (Section)
+Tu 4-6P (Lecture); Fr 2-4 (Section / Lab)
 
 ####Location
 
-TBD
+202 Barrows
 
 ####Piazza
 
@@ -57,7 +57,7 @@ Find our class page at: https://piazza.com/berkeley/fall2015/ps239t/home
 
 ####GitHub
 
-All course materials will be posted on Github at [TBD], including class notes, code demonstrations, sample data, and homework. Students are encouraged to add commits to these materials, for example if they find a particularly helpful resource that would aid other students. Students are required to use GitHub for their final projects, which will be publically available. 
+All course materials will be posted on Github at [TBD], including class notes, code demonstrations, sample data, and assignments. Students are encouraged to add commits to these materials, for example if they find a particularly helpful resource that would aid other students. Students are required to use GitHub for their final projects, which will be publically available, unless they have special considerations (e.g. proprietary data). 
 
 ####Accessibility
 
@@ -94,6 +94,10 @@ The final project consists of using the tools we learned in class on your own da
 Classes will follow a “workshop” style, combing lecture and lab formats. We envision the class to be as interactive / hands on as possible, with students programming every session. During the “skills” part of the class, we will be learning how to program in Unix, Python, and R by following a set of course notes with demonstrations. 
 
 During the “applications” section, we will be following a similar structure with the possibility of guest speakers leading the class on specific tools. These guest speakers will be members of the campus computer who are experts in the respective tool that they teaching. 
+
+####Section
+
+The Friday "lab" section will be an informal session dedicated to helping students with materials from lecture and homework. It will be mostly student led, so come with questions. If there are no questions, the lab turns into a "hackathon" where groups can work on the assignments together. It is not required but *strongly* encouraged, especially if you are having difficulty with the assignments. 
 
 ####Computer Requirements
 
