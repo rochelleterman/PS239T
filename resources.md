@@ -5,6 +5,7 @@
 ## Git
 
 1. [Try Git](https://try.github.io/levels/1/challenges/1)
+2. [Shell](http://explainshell.com/)
 
 ##R
 

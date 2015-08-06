@@ -1,9 +1,3 @@
----
-title: The Unix Shell
-subtitle: Files & Directories
-minutes: 5
----
-
 # The Unix Shell: Files and Directories
 
 > ## Learning Objectives
@@ -56,6 +50,13 @@ $ pwd
 /home/oski
 ```
 
+> #### Home Directory
+> 
+> The home directory path will look different on different operating systems. 
+> On Linux it will look like `/home/oski`, and on Windows it will be similar 
+> to `C:\Documents and Settings\oski`. Note that it may look slightly 
+> different for different versions of Windows.
+
 > #### Alphabet Soup
 > 
 > If the command to find out who we are is `whoami`, the command to find
@@ -86,6 +87,8 @@ Inside that directory are several other directories: `bin` (which is where some 
 
 We know that our current working directory `/home/oski` is stored inside `/home` because `/home` is the first part of its name. Similarly, we know that `/home` is stored inside the root directory `/` because its name begins with `/`.
 
+> #### Path
+> 
 > Notice that there are two meanings for the `/` character.
 > When it appears at the front of a file or directory name,
 > it refers to the root directory. When it appears *inside* a name,
@@ -196,23 +199,21 @@ Downloads  programming-fundamentals  Templates
 We can use `cd` followed by a directory name to change our working directory. `cd` stands for "change directory", which is a bit misleading: the command doesn't change the directory, it changes the shell's idea of what directory we are in.
 
 ```shell
-$ cd programming-fundamentals
+$ cd Desktop
 ```
 
-`cd` doesn't print anything, but if we run `pwd` after it, we can see that we are now in `/home/oski/data`.
+`cd` doesn't print anything, but if we run `pwd` after it, we can see that we are now in `/home/oski/Desktop`.
 
-If we run `ls` without arguments now, it lists the contents of `/home/oski/data`, because that's where we now are:
+If we run `ls` without arguments now, it lists the contents of `/home/oski/Desktop`, because that's where we now are:
 
 ```shell
 $ pwd
 
-/home/oski/programming-fundametnals
+/home/oski/Desktop
 
 $ ls -F
 
-0-0_Introduction.md  1-1_fildir.md  1-4_loop.md     2-0_help.md  madlib.py
-0-1_BCE.md           1-2_create.md  1-5_scripts.md  data/        README.md
-1-0_shell.md         1-3_pipe.md    1-6_python.md   LICENSE      resource.md
+Launcher.app@      PS239T/     picture.png
 ```
 
 We now know how to go down the directory tree: how do we go up? We could use an absolute path:
@@ -226,7 +227,7 @@ but it's almost always simpler to use `cd ..` to go up one level:
 ```shell
 $ pwd
 
-/home/oski/data
+/home/oski/Desktop
 
 $ cd ..
 ```
@@ -281,78 +282,16 @@ As you can see, it also displays another special directory that's just called `.
 > If you ever want to get to the home directory immediately, you can use the 
 > shortcut `~`. For example, type `cd ~` and you'll get back home in a jiffy. 
 > `~` will also stand in for your home directory in paths, so for instance 
-> `~/data` is the same as `/home/oski/data`. This only works if it is the 
-> first character in the path: `here/there/~/elsewhere` is not 
+> `~/Desktop` is the same as `/home/oski/Desktop`. This only works if it is 
+> the first character in the path: `here/there/~/elsewhere` is not 
 > `/home/oski/elsewhere`.
-
-
-## Rochelle's Pipeline: Getting Ready
-
-In order to start her text analysis project, Rochelle first has to figure out where her data is stored.
-
-Everything Rochelle needs for her text project is in the `data` directory of the git repository (i.e. the directory) `programming-fundamentals`. So Rochelle will migrate there.
-
-
-```shell
-$ cd ~/programming-fundamentals/data
-$ ls
-
-articles  downloads 
-```
-
-Each of Rochelle's text files is labeled according to the parameters leading to her LexisNexis Search. Since she searched and downloaded articles containing the phrase 'human rights' for each year, she will call her files `human-rights-2001.txt`, `human-rights-2002.txt`, and so on. All files are in currently in the `downloads` directory.
-
-```shell
-$ cd downloads
-$ ls
-
-human-rights-2000.TXT  human-rights-2004.TXT  human-rights-2008.TXT
-human-rights-2001.TXT  human-rights-2005.TXT  human-rights-2009.TXT
-human-rights-2002.TXT  human-rights-2006.TXT
-human-rights-2003.TXT  human-rights-2007.TXT
-```
-
-If she is in her home directory, Rochelle can see what files she has using the command:
-
-```shell
-$ cd ~
-$ ls programming-fundamentals/data/downloads
-```
-
-This is a lot to type, but she can let the shell do most of the work. If she types:
-
-```shell
-$ ls prog
-```
-
-and then presses tab, the shell automatically completes the directory name for her:
-
-```shell
-$ ls programming-fundamentals/
-```
-
-Pressing tab again does nothing, since there are multiple possibilities. Pressing tab twice brings up a list of all the files and directories, and so on.
-
-This is called **tab completion**, and we will see it in many other tools as we go on.
-
-
-> ####  Quick File Paths
-> 
-> If you quickly need the path of a file or directory, you can also copy the 
-> file/directory in the GUI (in BCE: click on file, type `CTRL + c`) and paste 
-> it into your shell (in BCE: `CTRL + Shift + v`). The full path of the file 
-> or directory will appear. 
 
 ## Exercises
 
 #### Challenge 1
 
-If `pwd` displays `/home/oski/programming-fundamentals`, what will `ls ../documents` display?
-
-1.  `../documents: No such file or directory`
-2.  `bce-help.desktop  Shared`
-3.  `bce-help.desktop/  Shared/`
-4.  no output.
+1. Go to https://github.com/rochelleterman/PS239T and click the button that says "Clone in Desktop"
+2. `cd` into the `02_Unix-Git` directory.
 
 #### Challenge 2
 
@@ -380,4 +319,58 @@ What does the command `cd` without a directory name do?
 #### Challenge 4
 
 What does the command `ls` do when used with the -s arguments?
+
+## Rochelle's Pipeline: Getting Ready
+
+In order to start her text analysis project, Rochelle first has to figure out where her data is stored.
+
+Everything Rochelle needs for her text project is in the `02_Unix-Git/data` directory of the git repository (i.e. the directory) `PS239T`. So Rochelle will migrate there.
+
+```shell
+$ cd ~/Desktop/PS239T/02_Unix-Git/data
+$ ls
+
+articles  downloads     animals.txt
+```
+
+Each of Rochelle's text files is labeled according to the parameters leading to her LexisNexis Search. Since she searched and downloaded articles containing the phrase 'human rights' for each year, she will call her files `human-rights-2001.txt`, `human-rights-2002.txt`, and so on. All files are in currently in the `downloads` directory.
+
+```shell
+$ cd downloads
+$ ls
+
+human-rights-2000.TXT  human-rights-2004.TXT  human-rights-2008.TXT
+human-rights-2001.TXT  human-rights-2005.TXT  human-rights-2009.TXT
+human-rights-2002.TXT  human-rights-2006.TXT
+human-rights-2003.TXT  human-rights-2007.TXT
+```
+
+If she is in her home directory, Rochelle can see what files she has using the command:
+
+```shell
+$ cd ~/Desktop/PS239T/02_Unix-Gitdata/data
+$ ls downloads
+```
+
+This is a lot to type, but she can let the shell do most of the work. If she types:
+
+```shell
+$ ls dow
+```
+
+and then presses tab, the shell automatically completes the directory name for her:
+
+```shell
+$ ls downloads
+```
+
+Pressing tab again does nothing, since there are multiple possibilities. Pressing tab twice brings up a list of all the files and directories, and so on.
+
+This is called **tab completion**, and we will see it in many other tools as we go on.
+
+> ####  Quick File Paths
+> 
+> If you quickly need the path of a file or directory, you can also copy the 
+> file/directory in the GUI and paste.The full path of the file or directory 
+> will appear. 
 

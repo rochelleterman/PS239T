@@ -105,6 +105,4 @@ On the other hand, the shell allows us to combine existing tools in powerful way
 
 In addition, the command line is often the easiest way to interact with remote machines. As clusters and cloud computing become more popular for scientific data crunching, being able to drive them is becoming a necessary skill.
 
----
 
-Adapted from: [Software Carpentry](http://software-carpentry.org/v5/novice/shell/00-intro.html)

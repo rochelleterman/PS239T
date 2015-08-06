@@ -86,7 +86,6 @@ $ nano draft.txt
 > HTML) or .md (for markdown). Markup is a way to format text (bold, lists,
 > links, etc) using simple syntax.
 
-
 Let's type in a few lines of text, then use Control-O to write our data to disk:
 
 ![nano](https://swcarpentry.github.io/shell-novice/fig/nano-screenshot.png)
