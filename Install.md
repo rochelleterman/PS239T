@@ -2,7 +2,7 @@
 
 To participate in PS239T, you will need access to the software described below. In addition, you will need an up-to-date web browser.
 
-Once you've installed all of the software below, test your installation by following the instructions below (Moved here from the Etherpad).
+Once you've installed all of the software below, test your installation by following the instructions at the bottom on this page.
 
 ## The Bash Shell
 Bash is a commonly-used shell that gives you the power to do simple tasks more quickly.
@@ -60,7 +60,7 @@ Sublime Text is a more advanced editor. Download Sublime Text 3 [here](https://w
 ##Python
 Python is a popular language for scientific computing, and great for general-purpose programming as well. Installing all of its scientific packages individually can be a bit difficult, so we recommend an all-in-one installer.
 
-Regardless of how you choose to install it, please make sure you install Python version 2.x and not version 3.x (e.g., 2.7 is fine but not 3.4). Python 3 introduced changes that will break some of the code we teach during the workshop.
+Regardless of how you choose to install it, please make sure you install Python version 2.x and not version 3.x (e.g., 2.7 is fine but not 3.4). Python 3 introduced changes that will break some of the code we teach during the class.
 
 We will teach Python using the IPython notebook, a programming environment that runs in a web browser. For this to work you will need a reasonably up-to-date browser. The current versions of the Chrome, Safari and Firefox browsers are all supported (some older browsers, including Internet Explorer version 9 and below, are not).
 
