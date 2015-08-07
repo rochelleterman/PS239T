@@ -110,6 +110,8 @@ The software needed for the course is as follows:
 * R and RStudio (latest versions)
 * A scientific Python distribution including Python, iPython and iPython notebooks, and major packages.
 
+This requires a computer that can handle all this software. Almost any mac will do the job. 
+
 See [Install.md](Install.md) for more information.
 
 ####Books and Other Resources

@@ -290,8 +290,7 @@ As you can see, it also displays another special directory that's just called `.
 
 #### Challenge 1
 
-1. Go to https://github.com/rochelleterman/PS239T and click the button that says "Clone in Desktop"
-2. `cd` into the `02_Unix-Git` directory.
+1. `cd` into the `02_Unix-Git` directory of the `PS239T` github repo you downloaded in your Desktop last week.
 
 #### Challenge 2
 
