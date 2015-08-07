@@ -39,11 +39,13 @@ The third section on community engagement will introduce topics such as ethics a
 ####Personnel
 
 The course is taught by Laura Stoker (stoker@socrates.berkeley.edu) and
-Rochelle Terman (rterman@gmail.com).
+Rochelle Terman (rterman@berkeley.edu).
 
 ####Time 
 
-Tu 4-6P (Lecture); Fr 2-4 (Section / Lab)
+Lecture: Tu 4-6P
+
+Section/Lab: Fr 2-4P
 
 ####Location
 
@@ -57,7 +59,7 @@ Find our class page at: https://piazza.com/berkeley/fall2015/ps239t/home
 
 ####GitHub
 
-All course materials will be posted on Github at [TBD], including class notes, code demonstrations, sample data, and assignments. Students are encouraged to add commits to these materials, for example if they find a particularly helpful resource that would aid other students. Students are required to use GitHub for their final projects, which will be publically available, unless they have special considerations (e.g. proprietary data). 
+All course materials will be posted on Github at https://github.com/rochelleterman/PS239T, including class notes, code demonstrations, sample data, and assignments. Students are encouraged to add commits to these materials, for example if they find a particularly helpful resource that would aid other students. Students are required to use GitHub for their final projects, which will be publically available, unless they have special considerations (e.g. proprietary data). 
 
 ####Accessibility
 
@@ -102,14 +104,17 @@ The Friday "lab" section will be an informal session dedicated to helping studen
 ####Computer Requirements
 
 The software needed for the course is as follows:
+
 * Access to the UNIX command line (e.g., a Mac laptop, a Bash wrapper on Windows)
 * Git
 * R and RStudio (latest versions)
 * A scientific Python distribution including Python, iPython and iPython notebooks, and major packages.
 
+See [Install.md](Install.md) for more information.
+
 ####Books and Other Resources
 
-TBD
+There are no official textbooks for this class. There is a list of topic-specific tutorials and resources in the GitHub repo in the document `resources.md`. If you find a good online resources, you are encouraged to add to the document. 
 
 ##5. Curriculum Outline
 
@@ -128,5 +133,5 @@ The following is a sketchy outline of the curriculum. Applications will be drawn
 11. **Nov 10** - Text Analysis
 12. **Nov 17** - GeoSpatial (Guest Speaker)
 13. **Nov 24** - AtlasTI (Guest Speaker)
-14. **Dec 1** - Best Practices and Community Engagement (Guest Speaker)
+14. **Dec 1** - Best Practices and Community Engagement
 15. **Dec 14** - Final projects due

@@ -57,7 +57,6 @@ However, there's nothing in it yet:
 $ ls -F thesis
 ```
 
-
 ### Text Editors
 
 Let's change our working directory to `thesis` using `cd`, then run a text editor called Nano to create a file called `draft.txt`:
@@ -80,6 +79,11 @@ $ nano draft.txt
 > [Gedit](http://projects.gnome.org/gedit/), which is on BCE. 
 > On Windows, you may wish to use [Notepad++](http://notepad-plus-plus.org/).
 > 
+> The default text editor on Mac OS X and Linux is usually set to Vim, which 
+> is not famous for being intuitive. if you accidentally find yourself stuck 
+> in it, try typing the escape key, followed by `:q!` (colon, lower-case 'q', 
+> exclamation mark), then hitting Return to return to the shell.
+> 
 > Text editors are not limited to .txt files. Code is also text - so any
 > file with an extension like .py (for python) .sh (for shell) can also be 
 > edited in a text editor. So can files containing markup, like .html (for 
@@ -90,13 +94,29 @@ Let's type in a few lines of text, then use Control-O to write our data to disk:
 
 ![nano](https://swcarpentry.github.io/shell-novice/fig/nano-screenshot.png)
 
-Once our file is saved, we can use Control-X to quit the editor and return to the shell. (Unix documentation often uses the shorthand `^A` to mean "control-A".) `nano` doesn't leave any output on the screen after it exits, but `ls` now shows that we have created a file called `draft.txt`:
+Once our file is saved, we can use `CTRL-X` to quit the editor and return to the shell. (Unix documentation often uses the shorthand `^A` to mean "control-A".) `nano` doesn't leave any output on the screen after it exits, but `ls` now shows that we have created a file called `draft.txt`:
 
 ```bash
 $ ls
 
 draft.txt
 ```
+
+> #### Control Codes
+> 
+> The shell accepts a few special commands that allow users to interact with 
+> running processes or programs. You can enter each of these “control codes” 
+> by holding down the `CTRL` key and then pressing one of the control 
+> characters. In other tutorials, you may see the `^`` character used to 
+> represent the `CTRL` key (e.g. `^c` = `CTRL+c`).
+> 
+> * CTRL+c: Interrupts and cancels a running program. This is useful if you want to cancel a command that is taking too long to execute.
+> * CTRL+d  Indicates the end of a file or stream of characters that you are entering on the command line.
+> * CTRL+z  Suspends a process but does not terminate it. You can then use the command `fg` to restart the job in the foreground.
+> For new shell users, these control codes can all appear to have the same 
+> effect: they make things “go away.” But it is helpful to understand the 
+> differences. In general, if something went wrong and you just want to get 
+> your shell prompt back, it is better to use `CTRL+c`.
 
 ### Removing
 

@@ -14,6 +14,7 @@
 3. [Google Developer's R Tutorials](https://www.youtube.com/playlist?list=PLOU2XLYxmsIK9qQfztXeybpHvru-TrqAP)
 4. [Cookbook for R](http://www.cookbook-r.com/Graphs/)
 5. [UC Berkeley's R Bootcamp](https://github.com/berkeley-scf/r-bootcamp-2015)
+6. [R in a Nutshell](http://shop.oreilly.com/product/9780596801717.do)
 
 ##Python
 
