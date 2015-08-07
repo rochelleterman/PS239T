@@ -34,26 +34,28 @@ Git should be installed on your computer as part of your Bash install (described
 
 If Git is not already available on your machine you can try to install it via your distro's package manager. For Debian/Ubuntu run sudo apt-get install git and for Fedora run sudo yum install git.
 
-##Text Editor
-When you're writing code, it's nice to have a text editor that is optimized for writing code, with features like automatic color-coding of key words. The default text editor on Mac OS X and Linux is usually set to Vim, which is not famous for being intuitive. if you accidentally find yourself stuck in it, try typing the escape key, followed by :q! (colon, lower-case 'q', exclamation mark), then hitting Return to return to the shell.
+##Text Editors
+When you're writing code, it's nice to have a text editor that is optimized for writing code, with features like automatic color-coding of key words. The default text editor on Mac OS X and Linux is usually set to Vim, which is not famous for being intuitive. if you accidentally find yourself stuck in it, try typing the escape key, followed by `:q!` (colon, lower-case 'q', exclamation mark), then hitting Return to return to the shell.
+
+For this class, we use **nano** as a default in the terminal. But I also really like [Sublime Text](https://www.sublimetext.com/) to write markdown and other basic text files. I recommend you download both.
 
 ####Windows
 
-nano is a basic editor and the default that instructors use in the workshop. To install it, download the Software Carpentry Windows installer and double click on the file to run it. This installer requires an active internet connection.
+nano is a basic editor and the default that we use in this class. To install it, download the `Software Carpentry Windows installer`[http://files.software-carpentry.org/SWCarpentryInstaller.exe] and double click on the file to run it. **This installer requires an active internet connection.**
 
-Others editors that you can use are Notepad++ or Sublime Text. Be aware that you must add its installation directory to your system path. Please ask your instructor to help you do this.
+Sublime Text is a more advanced editor. Download Sublime Text 3 [here](https://www.sublimetext.com/3).
 
 ####Mac OS X
 
-nano is a basic editor and the default that instructors use in the workshop. It should be pre-installed.
+nano is a basic editor and the default that we use in this class. It should be pre-installed.
 
-Others editors that you can use are Text Wrangler or Sublime Text.
+Sublime Text is a more advanced editor. Download Sublime Text 3 [here](https://www.sublimetext.com/3).
 
 ####Linux
 
-nano is a basic editor and the default that instructors use in the workshop. It should be pre-installed.
+nano is a basic editor and the default that we use in this class. It should be pre-installed.
 
-Others editors that you can use are Gedit, Kate or Sublime Text.
+Sublime Text is a more advanced editor. Download Sublime Text 3 [here](https://www.sublimetext.com/3).
 
 ##Python
 Python is a popular language for scientific computing, and great for general-purpose programming as well. Installing all of its scientific packages individually can be a bit difficult, so we recommend an all-in-one installer.
@@ -99,7 +101,7 @@ You can download the [binary files](http://cran.r-project.org/index.html) for yo
 
 ##Testing your installation
 
-If you have trouble with installation, please come at 8:30 on the first morning and we'll help troubleshoot. You can also email the instructors before the workshop.
+If you have trouble with installation, please come to the Installfest [TBD].
 
 Open a command line window ('terminal' or, on windows, 'git bash'), and enter the following commands (without the $ sign): 
 
@@ -119,6 +121,6 @@ $ ipython notebook
 
 This should open a programming interface in your default web browser. It may take a few minutes the first time. To close, just close your browser and then `CTRL-C` to end the process in the command line.
 
-Software Carpentry maintains a list of common issues that occur during installation may be useful on the [Configuration Problems and Solutions wiki page.](https://github.com/swcarpentry/workshop-template/wiki/Configuration-Problems-and-Solutions)
+Software Carpentry maintains a list of common issues that occur during installation may be useful for our class here: [Configuration Problems and Solutions wiki page.](https://github.com/swcarpentry/workshop-template/wiki/Configuration-Problems-and-Solutions)
 
 Credit: Thanks to [Software Carpentry](http://software-carpentry.org/workshops/) for providing installation guidelines.
