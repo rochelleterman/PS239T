@@ -14,7 +14,7 @@ We'll start by exploring how version control can be used to keep track of what o
 version control is much better for this than this:
 
 ![phdcomic]
-(http://www.phdcomics.com/comics/archive.php?comicid=1531)
+(http://www.phdcomics.com/comics/archive/phd101212s.gif)
 
 Git is powerful and complicated. We can do a full day workshop on git alone. But it is also quite possible to harness it's powers by cycing through three commands: `add`, `commit`, `push`. So even if you don't understand what's going on underneath the hood, knowing just these three commands can get you very far. 
 
