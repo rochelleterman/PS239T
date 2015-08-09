@@ -13,10 +13,7 @@ title: Quick 'n' Dirty Git
 We'll start by exploring how version control can be used to keep track of what one person did and when. Even if you aren't collaborating with other people,
 version control is much better for this than this:
 
-<div>
-  <a href="http://www.phdcomics.com"><img src="fig/phd101212s.gif" alt="Piled Higher and Deeper by Jorge Cham, http://www.phdcomics.com" /></a>
-  <p>"Piled Higher and Deeper" by Jorge Cham, http://www.phdcomics.com</p>
-</div>
+!img(http://www.phdcomics.com/comics/archive.php?comicid=1531)
 
 Git is powerful and complicated. We can do a full day workshop on git alone. But it is also quite possible to harness it's powers by cycing through three commands: `add`, `commit`, `push`. So even if you don't understand what's going on underneath the hood, knowing just these three commands can get you very far. 
 
