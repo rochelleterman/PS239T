@@ -135,5 +135,5 @@ The following is a sketchy outline of the curriculum. Applications will be drawn
 11. **Nov 10** - Text Analysis
 12. **Nov 17** - GeoSpatial (Guest Speaker)
 13. **Nov 24** - AtlasTI (Guest Speaker)
-14. **Dec 1** - Best Practices and Community Engagement
+14. **Dec 1** - Git
 15. **Dec 14** - Final projects due
