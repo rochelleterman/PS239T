@@ -1,6 +1,6 @@
 # The Unix Shell: 7. Scripts
 
-> ## Learning Objectives
+> ### Learning Objectives
 >
 > *   Write a shell script that runs a command or series of commands for a fixed set of files.
 > *   Run a shell script from the command line.
@@ -9,14 +9,14 @@
 
 We are finally ready to see what makes the shell such a powerful programming environment. We are going to take the commands we repeat frequently and save them in files so that we can re-run all those operations again later by typing a single command.
 
-## Writing a script
+### 1. Writing a script
 
 For historical reasons, a bunch of commands saved in a file is usually called a **shell script**, but make no mistake: these are actually small programs.
 
 Let's start by going back to `articles` and creating a file called `group.sh`:
 
 ```shell
-$ cd ~/programming-fundamentals/data/articles
+$ cd data/articles
 $ touch group.sh
 $ nano group.sh
 
@@ -27,7 +27,7 @@ This is a variation on command we created earlier: It concatenates all of the af
 
 Remember, we are *not* running it as a command just yet: we are putting the commands in a file. 
 
-### Running a script
+### 2. Running a script
 
 Once we have saved the file, we can ask the shell to execute the commands it contains. 
 
@@ -55,7 +55,7 @@ Sure enough, our script's output is exactly what we would get if we ran that pip
 > keyboard. When editing programs, therefore, you must either use a plain
 > text editor, or be careful to save files as plain text.
 
-### Variables in Scripts
+### 3. Variables in Scripts
 
 What if we want concatenate an arbitrary group of files? We could edit `group.sh` each time to change the filename, but that would probably take longer than just retyping the command.
 
@@ -86,7 +86,7 @@ $ bash group.sh asia*.txt
 145
 ```
 
-### Commenting
+### 4. Commenting
 
 This works, but it may take the next person who reads `group.sh` a moment to figure out what it does. We can improve our script by adding some **comments** at the top:
 
@@ -118,7 +118,7 @@ The computer ignores comments, but they're invaluable for helping people underst
 > it some data interactively. From the outside, though, all we see is it
 > sitting there: the script doesn't appear to do anything.
 
-### Redirecting
+### 5. Redirecting
 
 We can use our script to redirect output files, too. Let's change the script to just:
 
@@ -139,7 +139,7 @@ $ cat all-asia.txt
 
 The only caveat is that each time you modify the script, you should check that the comment is still accurate: an explanation that sends the reader in the wrong direction is worse than none at all.
 
-### Scripts from History
+### 6. Scripts from History
 
 Now, suppose we have just run a series of commands that did something useful --- for example, that created a graph we'd like to use in a paper.
 We'd like to be able to re-create the graph later if we need to, so we want to save the commands in a file. Instead of typing them in again (and potentially getting them wrong) we can do this:
