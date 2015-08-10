@@ -1,6 +1,6 @@
-# Operating Systems and Unix
+# The Unix Shell: 1. Operating Systems and Unix
 
-> ## Learning objectives
+> ### Learning objectives
 > 
 > * Explain what operating systems are.
 > * Explain the history and advantages of Unix.

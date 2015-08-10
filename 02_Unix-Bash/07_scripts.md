@@ -1,9 +1,4 @@
----
-title: The Unix Shell
-subtitle: Shell Scripts
-minutes: 15
----
-# The Unix Shell: Scripts
+# The Unix Shell: 7. Scripts
 
 > ## Learning Objectives
 >

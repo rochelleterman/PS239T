@@ -1,6 +1,6 @@
-# The Unix Shell: Files and Directories
+# The Unix Shell: 3. Files and Directories
 
-> ## Learning Objectives
+> ### Learning Objectives
 >
 > *   Explain the similarities and differences between a file and a directory.
 > *   Translate an absolute path into a relative path and vice versa.
@@ -8,6 +8,8 @@
 > *   Explain the steps in the shell's read-run-print cycle.
 > *   Identify the actual command, flags, and filenames in a command-line call.
 > *   Demonstrate the use of tab completion, and explain its advantages.
+
+### 1. Our First Command
 
 The part of the operating system responsible for managing files and directories is called the **file system**. It organizes our data into files, which hold information, and directories (also called "folders"), which hold files or other directories.
 
@@ -36,7 +38,7 @@ More specifically, when we type `whoami` the shell:
 3.  displays that program's output, then
 4.  displays a new prompt to tell us that it's ready for more commands.
 
-### Home Directories
+### 2. Home Directories
 
 Next, let's find out where we are by running a command called `pwd` (which stands for "print working directory").
 
@@ -94,7 +96,7 @@ We know that our current working directory `/home/oski` is stored inside `/home`
 > it refers to the root directory. When it appears *inside* a name,
 > it's just a separator.
 
-### Listing
+### 3. Listing
 
 Let's see what's in Rochelle's home directory by running `ls`, which stands for "listing":
 
@@ -194,7 +196,7 @@ Documents  Pictures                  setup_ipython_notebook.sh
 Downloads  programming-fundamentals  Templates
 ```
 
-### Moving Around
+### 4. Moving Around
 
 We can use `cd` followed by a directory name to change our working directory. `cd` stands for "change directory", which is a bit misleading: the command doesn't change the directory, it changes the shell's idea of what directory we are in.
 
@@ -237,8 +239,7 @@ or more succinctly, the **parent** of the current directory. Sure enough, if we 
 
 ```shell
 $ pwd
-```
-``` {.output}
+
 /home/oski/
 ```
 
@@ -286,11 +287,41 @@ As you can see, it also displays another special directory that's just called `.
 > the first character in the path: `here/there/~/elsewhere` is not 
 > `/home/oski/elsewhere`.
 
+### 5. Tab Completion
+If she is in her home directory, Rochelle can see what files she has on her `Desktop` using the command:
+
+```shell
+$ ls Desktop
+```
+
+This is a lot to type, but she can let the shell do most of the work. If she types:
+
+```shell
+$ ls Des
+```
+
+and then presses tab, the shell automatically completes the directory name for her:
+
+```shell
+$ ls Desktop
+```
+
+Pressing tab again does nothing, since there are multiple possibilities. Pressing tab twice brings up a list of all the files and directories, and so on.
+
+This is called **tab completion**, and we will see it in many other tools as we go on.
+
+> ####  Quick File Paths
+> 
+> If you quickly need the path of a file or directory, you can also copy the 
+> file/directory in the GUI and paste.The full path of the file or directory 
+> will appear. 
+
 ## Exercises
 
 #### Challenge 1
 
-1. `cd` into the `02_Unix-Git` directory of the `PS239T` github repo you downloaded in your Desktop last week.
+1. Change your working directory to the `02_Unix-Git` directory of the `PS239T` github repo you downloaded in your Desktop last week.
+2. list the files in the `downloads` directory
 
 #### Challenge 2
 
@@ -319,57 +350,5 @@ What does the command `cd` without a directory name do?
 
 What does the command `ls` do when used with the -s arguments?
 
-## Rochelle's Pipeline: Getting Ready
 
-In order to start her text analysis project, Rochelle first has to figure out where her data is stored.
-
-Everything Rochelle needs for her text project is in the `02_Unix-Git/data` directory of the git repository (i.e. the directory) `PS239T`. So Rochelle will migrate there.
-
-```shell
-$ cd ~/Desktop/PS239T/02_Unix-Git/data
-$ ls
-
-articles  downloads     animals.txt
-```
-
-Each of Rochelle's text files is labeled according to the parameters leading to her LexisNexis Search. Since she searched and downloaded articles containing the phrase 'human rights' for each year, she will call her files `human-rights-2001.txt`, `human-rights-2002.txt`, and so on. All files are in currently in the `downloads` directory.
-
-```shell
-$ cd downloads
-$ ls
-
-human-rights-2000.TXT  human-rights-2004.TXT  human-rights-2008.TXT
-human-rights-2001.TXT  human-rights-2005.TXT  human-rights-2009.TXT
-human-rights-2002.TXT  human-rights-2006.TXT
-human-rights-2003.TXT  human-rights-2007.TXT
-```
-
-If she is in her home directory, Rochelle can see what files she has using the command:
-
-```shell
-$ cd ~/Desktop/PS239T/02_Unix-Gitdata/data
-$ ls downloads
-```
-
-This is a lot to type, but she can let the shell do most of the work. If she types:
-
-```shell
-$ ls dow
-```
-
-and then presses tab, the shell automatically completes the directory name for her:
-
-```shell
-$ ls downloads
-```
-
-Pressing tab again does nothing, since there are multiple possibilities. Pressing tab twice brings up a list of all the files and directories, and so on.
-
-This is called **tab completion**, and we will see it in many other tools as we go on.
-
-> ####  Quick File Paths
-> 
-> If you quickly need the path of a file or directory, you can also copy the 
-> file/directory in the GUI and paste.The full path of the file or directory 
-> will appear. 
 

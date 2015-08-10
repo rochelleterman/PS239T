@@ -1,11 +1,6 @@
----
-title: The Unix Shell
-subtitle: Pipes and Filters
-minutes: 15
----
-# The Unix Shell: Pipes and Filters
+# The Unix Shell: 5. Pipes and Filters
 
-> ## Learning Objectives
+> ### Learning Objectives
 > *   Redirect a command's output to a file.
 > *   Process a file instead of keyboard input using redirection.
 > *   Construct command pipelines with two or more stages.
@@ -14,12 +9,12 @@ minutes: 15
 
 Now that we know a few basic commands, we can finally look at the shell's most powerful feature: the ease with which it lets us combine existing programs in new ways.
 
-### Counting
+### 1. Counting
 
 We'll start with a directory called `data/articles` that contains text files of news articles. They are organized by the region they cover. So africa1.txt is the first article about Africa, africa2.txt the second and so on.
 
 ```shell
-$ ls ~/programming-fundamentals/data/articles
+$ ls data/articles
 ```
 
 Wow, that's a lot of files!
@@ -28,7 +23,7 @@ Let's go into that directory with `cd` and run the command `wc africa*.txt`.
 `wc` is the "word count" command: it counts the number of lines, words, and characters in files. Remember that the `*` in `africa*.txt` matches zero or more characters, so the shell turns `africa*.txt` into a complete list of `.txt` files that start with `africa`:
 
 ```shell
-$ cd ~/programming-fundamentals/data/articles
+$ cd data/articles
 $ wc africa*.txt
 
       ...
@@ -62,7 +57,7 @@ We can also use `-w` to get only the number of words, or `-c` to get only the nu
 
 Which of these files is shortest? It's an easy question to answer when there are only a few files, but what if there were 6000?
 
-### Redirecting and Printing
+### 2. Redirecting and Printing
 
 Our first step toward a solution is to run the command:
 
@@ -95,7 +90,7 @@ $ cat lengths
    591 africa9.txt
 ```
 
-### Sorting
+### 3. Sorting
 
 Now let's use the `sort` command to sort its contents. We will also use the -n flag to specify that the sort is  numerical instead of alphabetical. This does *not* change the file; instead, it sends the sorted result to the screen:
 
@@ -122,7 +117,7 @@ $ head -1 sorted-lengths
 
 Using the parameter `-1` with `head` tells it that we only want the first line of the file; `-20` would get the first 20, and so on. Since `sorted-lengths` contains the lengths of our files ordered from least to greatest, the output of `head` must be the file with the fewest lines.
 
-### Pipes
+### 4. Pipes
 
 If you think this is confusing, you're in good company: even once you understand what `wc`, `sort`, and `head` do, all those intermediate files make it hard to follow what's going on. We can make it easier to understand by running `sort` and `head` together:
 
@@ -155,7 +150,7 @@ $ ls -1 | wc -l
 
 This uses `wc` to do a count of the number of lines (`-l`) in the output of `ls -1`.
 
-### Processes, Inputs, Outputs, and Filters
+### 5. Processes, Inputs, Outputs, and Filters
 
 Here's what actually happens behind the scenes when we create a pipe. When a computer runs a program --- any program --- it creates a **process** in memory to hold the program's software and its current state. Every process has an input channel called **standard input**. (By this point, you may be surprised that the name is so memorable, but don't worry: most Unix programmers call it "stdin". Every process also has a default output channel called **standard output** (or "stdout").
 
@@ -180,55 +175,16 @@ and writes lines of text to standard output can be combined with every other pro
 > have told the shell to send the contents of `africa1.txt` to `wc`'s
 > standard input.
 
-## Rochelle's Pipeline: Concatenating Files.
-
-Rochelle has her bulk text downloads in the `new-york-times/2015-01-01` directory described earlier.
-
-As a quick sanity check, she types:
-
-```shell
-$ cd ~/programming-fundamentals/data/new-york-times/2015-01-01
-$ wc -l *.TXT
-
-   63661 human-rights-2000.TXT
-   56035 human-rights-2001.TXT
-   60045 human-rights-2002.TXT
-   46873 human-rights-2003.TXT
-   62611 human-rights-2004.TXT
-   55557 human-rights-2005.TXT
-   62905 human-rights-2006.TXT
-   44866 human-rights-2007.TXT
-   54580 human-rights-2008.TXT
-   66540 human-rights-2009.TXT
-  573673 total
-```
-
-Now she wants to concatenate (or merge) all of these text files into one big text file that she can later use to parse into a CSV.
-
-```shell
-$ cat *.TXT all.TXT
-$ wc -l *.TXT
-
-  573673 all.TXT
-   63661 human-rights-2000.TXT
-   56035 human-rights-2001.TXT
-   60045 human-rights-2002.TXT
-   46873 human-rights-2003.TXT
-   62611 human-rights-2004.TXT
-   55557 human-rights-2005.TXT
-   62905 human-rights-2006.TXT
-   44866 human-rights-2007.TXT
-   54580 human-rights-2008.TXT
-   66540 human-rights-2009.TXT
- 1147346 total
-```
-
-Notice that `all.TXT` is the sum of all the lines of the other `*.TXT` files.
-
-
 ## Exercises
 
 #### Challenge 1
+
+1. cd into the `data/new-york-times/2015-01-01` directory
+2. list the line count of each file
+3. concatenate all of these text files into one big text file called `all.TXT`
+4. list the line count of `all.TXT`
+
+#### Challenge 2
 
 If we run `sort` on this file:
 
@@ -262,7 +218,7 @@ If we run `sort -n` on the same input, we get this instead:
 
 Explain why `-n` has this effect.
 
-#### Challenge 2
+#### Challenge 3
 
 What is the difference between:
 
@@ -276,7 +232,7 @@ and:
 wc -l mydata.dat
 ```
 
-#### Challenge 3
+#### Challenge 4
 
 The command `uniq` removes adjacent duplicated lines from its input.
 For example, if a file `salmon.txt` contains:
@@ -301,7 +257,7 @@ steelhead
 
 Why do you think `uniq` only removes *adjacent* duplicated lines? (Hint: think about very large data sets.) What other command could you combine with it in a pipe to remove all duplicated lines?
 
-#### Challenge 4
+#### Challenge 5
 
 A file called `animals.txt` contains the following data:
 
@@ -322,7 +278,7 @@ What text passes through each of the pipes and the final redirect in the pipelin
 cat animals.txt | head -5 | tail -3 | sort -r > final.txt
 ```
 
-#### Challenge 5
+#### Challenge 6
 
 The command:
  

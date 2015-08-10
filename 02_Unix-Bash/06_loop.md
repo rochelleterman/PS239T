@@ -1,10 +1,4 @@
----
-title: The Unix Shell
-subtitle: Loops
-minutes: 15
----
-
-# The Unix Shell: Loops and Repeating Things
+# The Unix Shell: 6. Loops and Repeating Things
 
 > ## Learning Objectives
 >

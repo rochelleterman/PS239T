@@ -1,12 +1,6 @@
----
-title: The Unix Shell
-subtitle: Creating Things
-minutes: 15
----
+# The Unix Shell: 4. Creating Things
 
-# The Unix Shell: Creating Things
-
-> ## Learning Objectives
+> ### Learning Objectives
 >
 > *   Create a directory hierarchy that matches a given diagram.
 > *   Create files in that hierarchy using an editor or by copying and renaming existing files.
@@ -14,23 +8,21 @@ minutes: 15
 > *   Delete specified files and/or directories.
 
 
-### Creating Things
+### 1. Creating Things
 
-We now know how to explore files and directories, but how do we create them in the first place? Let's go back to Rochelle's home directory, `/home/oski`,
-and use `ls -F` to see what it contains:
+We now know how to explore files and directories, but how do we create them in the first place? Let's go back to this unit's working directory, `PS239T/02_Unix-Git`, and use `ls -F` to see what it contains:
 
 ```bash
-$ pwd
+$ cd ~/PS239T/02_Unix-Git
 
 /home/oski
 
 $ ls -F
 
-data/       Music/                     setup_ipython_notebook.sh*
-Desktop/    Pictures/                  Templates/
-Documents/  programming-fundamentals/  Videos/
-Downloads/  Public/
-file.txt    R/
+01_unix.md          05_pipe.md          Cheatsheet.md
+02_shell.md         06_loop.md          data/
+03_fildir.md        07_scripts.md   
+04_create.md        Assignment.md
 ```
 
 Let's create a new directory called `thesis` using the command `mkdir thesis` (which has no output):
@@ -44,11 +36,10 @@ As you might (or might not) guess from its name, `mkdir` means "make directory".
 ```bash
 $ ls -F
 
-data/       Music/                     setup_ipython_notebook.sh*
-Desktop/    Pictures/                  Templates/
-Documents/  programming-fundamentals/  thesis/
-Downloads/  Public/                    Videos/
-file.txt    R/
+01_unix.md          05_pipe.md          Cheatsheet.md
+02_shell.md         06_loop.md          data/
+03_fildir.md        07_scripts.md       thesis/
+04_create.md        Assignment.md
 ```
 
 However, there's nothing in it yet:
@@ -57,7 +48,7 @@ However, there's nothing in it yet:
 $ ls -F thesis
 ```
 
-### Text Editors
+### 2. Text Editors
 
 Let's change our working directory to `thesis` using `cd`, then run a text editor called Nano to create a file called `draft.txt`:
 
@@ -118,7 +109,7 @@ draft.txt
 > differences. In general, if something went wrong and you just want to get 
 > your shell prompt back, it is better to use `CTRL+c`.
 
-### Removing
+### 3. Removing
 
 Let's tidy up by running `rm draft.txt`:
 
@@ -145,7 +136,7 @@ Let's re-create that file and then move up one directory to `/home/oski` using `
 ```bash
 $ pwd
 
-/home/oski/thesis
+/home/oski/PS239T/02_Unix-Bash/thesis
 
 $ nano draft.txt
 $ ls
@@ -199,14 +190,14 @@ $ rmdir thesis
 > them, and so on. It's very handy, but can do a lot of damage if used
 > without care.
 
-### Moving
+### 4. Moving
 
 Let's create that directory and file one more time. (Note that this time we're running `nano` with the path `thesis/draft.txt`, rather than going into the `thesis` directory and running `nano` on `draft.txt` there.)
 
 ```bash
 $ pwd
 
-/home/oski
+/home/oski/PS239T/02_Unix-Bash
 
 $ mkdir thesis
 $ nano thesis/draft.txt
@@ -252,7 +243,7 @@ quotes.txt
 ```
 
 
-### Copying
+### 5. Copying
 
 The `cp` command works very much like `mv`, except it copies a file instead of moving it. We can check that it did the right thing using `ls` with two paths as parameters --- like most Unix commands, `ls` can be given thousands of paths at once:
 
@@ -271,56 +262,7 @@ $ ls quotes.txt thesis/quotations.txt
 ls: cannot access quotes.txt: No such file or directory thesis/quotations.txt
 ```
 
-## Rochelle's Pipeline: Organizing and Moving Files
 
-Knowing just this much about files and directories, Rochelle is ready to organize the files for her text project. First, she `cd's` into the `programming-fundamentals` directory. From there, she creates a directory called `new-york-times` (to remind herself where the data came from) inside her `data` directory. Inside that, she creates a directory called `2015-01-01`, which is the date she started processing the texts. She used to use names like `conference-paper` and `revised-results`, but she found them hard to understand after a couple of years. (The final straw was when she found herself creating a directory called `revised-revised-results-3`.)
-
-> Rochelle names her directories "year-month-day", with leading zeroes for 
-> months and days, because the shell displays file and directory names in 
-> alphabetical order. If she used month names, December would come before July;
-> if she didn't use leading zeroes, November ('11') would come before July 
-> ('7').
-
-```bash
-$ cd ~/programming-fundamentals/data
-$ mkdir new-york-times
-$ mkdir new-york-times/2015-01-01
-```
-
-Now she's ready to add the text files that she downloaded from LexisNexis into the directory.
-
-The text files that she downloaded are, unsurprisingly, in the directory `downloads`
-
-```bash
-$ cd downloads
-$ ls
-
-human-rights-2000.TXT  human-rights-2004.TXT  human-rights-2008.TXT
-human-rights-2001.TXT  human-rights-2005.TXT  human-rights-2009.TXT
-human-rights-2002.TXT  human-rights-2006.TXT
-human-rights-2003.TXT  human-rights-2007.TXT
-```
-
-Rochelle wants to move them into the directory she just created.
-
-```bash
-$ cp human-rights-2000.TXT ../new-york-times/2015-01-01
-$ ls ../new-york-times/2015-01-01
-
-human-rights-2000.TXT
-```
-
-Huzzah! But does Rochelle really have to time in a command for each file she wants to move? No, there's an easier way! Instead of giving an input for each file, Rochelle can write `cp *.TXT`.  The `*` in `*.TXT` matches zero or more characters, so the shell turns `*.TXT` into a complete list of `.TXT` files
-
-```bash
-$ cp *.TXT ../new-york-times/2015-01-01
-$ ls ../new-york-times/2015-01-01
-
-human-rights-2000.TXT  human-rights-2004.TXT  human-rights-2008.TXT
-human-rights-2001.TXT  human-rights-2005.TXT  human-rights-2009.TXT
-human-rights-2002.TXT  human-rights-2006.TXT
-human-rights-2003.TXT  human-rights-2007.TXT
-```
 
 > ## Wildcards {.callout}
 > 
@@ -356,7 +298,14 @@ human-rights-2003.TXT  human-rights-2007.TXT
 ## Exercises
 
 #### Challenge 1
- 
+
+1. `cd` into the `PS239T/02_Unix-Bash/` directory
+2. make a new directory with the path `data/new-york-times/2015-01-01`
+2. list the files in the `data/downloads` directory.
+3. copy all the files in the `data/downloads` directoryinto a new directory, `data/new-york-times/2015-01-01` (hint: use wildcards so that you don't have to do each one individually)
+
+#### Challenge 2
+
 What is the output of the closing `ls` command in the sequence shown below?
  
 ```
@@ -370,7 +319,7 @@ $ cp recombine/data.csv ../data-saved.csv
 $ ls
 ```
 
-#### Challenge 2
+#### Challenge 3
 
 Suppose that:
  
@@ -389,7 +338,7 @@ $ ls analyzed
 nyt.csv   guardian.csv
 ```
 
-#### Challenge 3
+#### Challenge 4
 
 What does `cp` do when given several filenames and a directory name, as in:
 
@@ -406,7 +355,7 @@ intro.txt    methods.txt    survey.txt
 $ cp intro.txt methods.txt survey.txt
 ```
 
-#### Challenge 4
+#### Challenge 5
 
 The command `ls -R` lists the contents of directories recursively,
 i.e., lists their sub-directories, sub-sub-directories, and so on
