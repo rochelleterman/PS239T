@@ -1,0 +1,116 @@
+```{r, include=FALSE}
+knitr::opts_chunk$set(comment = "")
+```
+
+# R Basics: Problem Set
+
+### Part 1
+
+In trying to compactly store data, researchers often combine several pieces of information into a single number of character string, combinations of which are then stored as vectors.  Being able to reformat this information is a critical skill for data analysis in R.
+
+1.  Convert the character vector "dates" given below to a 3-column data frame containing only numeric vectors representing the year, month, and day.  Use the ```strsplit()``` and ```sapply()``` functions.
+
+```{r, eval=FALSE}
+date.range<-as.character(seq(from = as.Date("1900-01-01"), to = as.Date("1999-12-31"), by = "1 day"))
+dates<-sample(x = date.range, size = 30, replace = F)
+
+# Answer:
+dates.split<-strsplit(dates, split = "-")
+year<-as.numeric(sapply(X = dates.split, FUN = function(x) x[[1]]))
+month<-as.numeric(sapply(X = dates.split, FUN = function(x) x[[2]]))
+day<-as.numeric(sapply(X = dates.split, FUN = function(x) x[[3]]))
+data<-data.frame(year, month, day)
+str(data)
+```
+
+2.  Convert the character vector "dates" given below to a 3-column data frame containing only numeric vectors representing the year, month, and day.
+
+```{r, eval=FALSE}
+date.range<-as.character(seq(from = as.Date("1900-01-01"), to = as.Date("1999-12-31"), by = "1 day"))
+date.range<-gsub(pattern = "-", replacement = "", x = date.range)
+dates<-sample(x = date.range, size = 30, replace = F)
+
+# Answer:
+year<-as.numeric(substr(x = dates, start = 1, stop = 4))
+month<-as.numeric(substr(x = dates, start = 5, stop = 6))
+day<-as.numeric(substr(x = dates, start = 7, stop = 8))
+data<-data.frame(year, month, day)
+str(data)
+```
+
+3.  Convert the character vector "names" given below to a 3-column data frame containing only character vectors representing the first, middle, and last names.  Use the ```strsplit()``` and ```sapply()``` functions.  
+
+```{r, eval=FALSE}
+names<-c("Shena Buck Keen", "Merle Hyperion Jordyn Ethans", "Raguel Totty May", "Peggie Walton",
+         "Leatrice Hecate Seabrooke", "Brandy Sionann Abney", "Jasper Grey","Katherine Darian Kalie Butcher",
+         "Waylon Stacie Eógan Webster")
+
+# Answer:
+names.split<-strsplit(x = names, split = " ")
+first<-sapply(X = names.split, FUN = function(x) x[[1]])
+last<-sapply(X = names.split, FUN = function(x) x[[length(x)]])
+middle<-sapply(X = names.split, FUN = function(x) x[-c(1, length(x))])
+middle<-sapply(X = middle, FUN = paste, collapse=" ")
+data<-data.frame(first, middle, last, stringsAsFactors = F)
+print(data)
+str(data)
+```
+
+### Part 2
+
+As with any programming language, being able to write custom functions is an essential R skill.  This is particularly true when it comes to text analysis.  Write a function that takes some character string as its only input and returns a) the number of words, b) the number of unique words, c) the average word length, d) the maximum word length, and e) the longest word.  Make sure to return the values as a named list.  You may find it helpful to look at the ```stringr``` package, along with googling regular expressions for punctuation removal.  Report the results of your function on the news clip below.
+
+```{r, eval=FALSE}
+news.clip<-"Donald Trump was ensconced inside his Manhattan skyscraper early last week, preparing for his 
+first presidential debate. The celebrity billionaire wanted to turn the summer fling that had catapulted him
+to the front of the Republican pack into a candidacy capable of winning the White House — and his longtime 
+adviser Roger Stone had a plan.  Don’t get dragged down by petty attacks, Stone counseled Trump, but begin 
+offering an agenda focused on the economy and hammer home what makes you a singular candidate. In a 13-page 
+memo to Trump, Stone urged him to state that “the system is rigged against the citizens” and that he is the 
+lone candidate 'who cannot be bought.' 'A builder, an entrepreneur and a capitalist versus a bunch of 
+politicians who are clearly part of the problem' is how Stone framed the contest in the document, obtained 
+by The Washington Post from a Republican working with the campaign. The memo suggested a sound bite: 'I am 
+running because when I look at this field — all perfectly nice people — I know that none of them could ever 
+run one of my companies. They are not entrepreneurs.'"
+news.clip<-gsub(pattern = "\n", replacement = " ", x = news.clip)
+
+# Begin function
+word.analyzer<-function(text){
+  
+  # Split the text up using whitespace (\\s for regex)
+  words<-unlist(strsplit(x = news.clip, split = "\\s"))
+  
+  # Use either the "stringr" package or grep to remove punctuation and numbers
+  words<-stringr::str_replace_all(string = words, pattern = "[[:punct:]]|[0-9]", replacement = "")
+  
+  # Convert vecto to lowercase
+  words<-tolower(words)
+  
+  # Remove vector elements that have no letter content
+  words<-grep(pattern = "[a-z]", x = words, value = T)
+
+  # Calculate the number of words by looking at the word vector length
+  n.words<-length(words)
+  
+  # Calculate the number of unique words by looking at the length of the unique word vector
+  n.unique.words<-length(unique(words))
+  
+  # Use the sapply function to get the number of characters in each word
+  word.lengths<-sapply(X = words, FUN = nchar)
+  
+  # Get the average word length, longest word length, and the longest words
+  avg.wordlength<-mean(word.lengths, na.rm = T)
+  max.wordlength<-max(word.lengths, na.rm = T)
+  longest.words<-names(word.lengths[word.lengths==max.length])
+  
+  return(list(n.words=n.words,
+              n.unique.words=n.unique.words,
+              avg.wordlength=avg.wordlength,
+              max.wordlength=max.wordlength,
+              longest.words=longest.words))
+}
+
+# Run function on news clip
+word.analyzer(text = news.clip)
+```
+

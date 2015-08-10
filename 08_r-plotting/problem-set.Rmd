@@ -1,0 +1,57 @@
+```{r, include=FALSE}
+knitr::opts_chunk$set(comment = "")
+```
+
+# R Plotting: Problem Set
+
+Using the SF crime dataset, answer the following questions:
+
+1. Which district has had the most crime, defined as the greatest number of incidents? 
+```{r, eval=FALSE}
+data<-read.csv(file = "data/sfpd_incidents.csv", stringsAsFactors=F)
+sort(table(data$PdDistrict), decreasing = T)
+```
+
+2. Which day of the week has had the most crime?
+```{r, eval=FALSE}
+sort(table(data$DayOfWeek), decreasing = T)
+```
+
+3. Show how the number of incidents per month has changed over time using ggplot.  Don't forget to properly label the plot. 
+```{r, eval=FALSE}
+data$Date<-as.Date(x = data$Date, format = "%m/%d/%Y")
+data$year.month<-as.Date(paste0(format(x = data$Date, "%Y-%m"), "-15"))
+crime.time<-ddply(.data = data, .variables = "year.month", .fun = summarize, n.incidents=length(IncidntNum))
+ggplot(data = crime.time, aes(x = year.month, y = n.incidents))+geom_line()+
+  xlab("Time")+ylab("Number of Incidents")+ggtitle("Monthly Crime Rates in San Francisco")+theme_bw()
+```
+
+4. Show how the number of incidents per month has changed over time in each district.  Use the ```facet_wrap()``` function.
+```{r, eval=FALSE}
+crime.time<-ddply(.data = data, .variables = c("year.month", "PdDistrict"), .fun = summarize, n.incidents=length(IncidntNum))
+ggplot(data = crime.time, aes(x = year.month, y = n.incidents))+
+  geom_line()+xlab("Time")+ylab("Number of Incidents")+ggtitle("Monthly Crime Rates in San Francisco by
+                                                               District")+
+  theme_bw()+facet_wrap(facets = ~PdDistrict)
+```
+
+5. Show how the number of incidents per month has changed over time in each district for the city-wide top six crime categories.
+```{r, eval=FALSE}
+top<-names(sort(table(data$Category), decreasing = T)[1:6])
+data$year<-as.Date(paste0(format(x = data$Date, "%Y"), "-01-01"))
+crime.time<-ddply(.data = data[data$Category %in% top,], .variables = c("year", "PdDistrict", "Category"), 
+                  .fun = summarize, n.incidents=length(IncidntNum))
+ggplot(data = crime.time, aes(x = year, y = n.incidents, color=Category))+geom_line(size=1)+
+  xlab("Time")+ylab("Number of Incidents")+ggtitle("Monthly Crime Rates in San Francisco by District")+
+  theme_bw()+facet_wrap(facets = ~PdDistrict, scales = "free")
+```
+
+6. Using the longitude and latitude data, plot all the incidents on a map.  Using the ```stat_density2d()``` function in ggplot, add a heat map layer.
+
+```{r, eval=FALSE}
+data.sub<-data[data$X<(-121) & data$Y<60,]
+ggplot(data = data.sub, aes(x = X, y = Y))+geom_point(color="grey80")+
+  stat_density2d(aes(fill=..level..), geom="polygon")+theme_bw()+
+  xlab("Longitude")+ylab("Latitude")+ggtitle("Crime Heat Map of San Francisco")+
+  scale_fill_gradient2(name="Incidents", low = "grey80", high = "red")
+```
