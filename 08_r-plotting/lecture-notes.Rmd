@@ -1,0 +1,354 @@
+```{r, include=FALSE}
+knitr::opts_chunk$set(comment = "")
+```
+
+# Plotting in R
+
+There are two major sets of tools for creating plots in R, namely the **base** and **ggplot2** facilities.  Base graphics come with all R installations, while ggplot2 is a stand-alone package.  Note that other plotting facilities do exist (notably **lattice**), but base and ggplot2 are by far the most popular.  
+
+### The dataset
+For the following examples, we will use a dataset taken from Fair (1977) in **Econometrica**, entitled "A note on the computation of the tobit estimator".  Improbably, this dataset contains information on extramarital affairs. 
+```{r}
+library(Ecdat)
+data(Fair)
+ema<-Fair
+head(ema)
+str(ema)
+library(plyr)
+ema<-ddply(.data = ema, .variables = "age", .fun = transform, avg.nbaffairs=mean(nbaffairs, na.rm=T))
+```
+
+### base
+
+* *Minimal* call takes the following form
+
+```{r, eval=F}
+plot(x=)
+```
+```{r}
+# Note that when asked to plot a single vector, R will assume the index positions of each vector element are the implied horizontal dimension
+plot(x = ema$age) 
+```
+
+* *Basic* call takes the following form
+
+```{r, eval=F}
+plot(x=, y=)
+```
+```{r}
+plot(x = ema$age, y = ema$avg.nbaffairs)
+```
+
+### base/type (scatter, line, both)
+
+* The "type" argument accepts the following character indicators
+* "p" -- point/scatter plots (default plotting behavior)
+```{r, fig.cap=" "}
+plot(x=ema$age, y=ema$avg.nbaffairs, type="p")
+```
+* "l" -- line graphs
+```{r, fig.cap=" "}
+# Note that "line" does not create a smoothing line, just connected points
+plot(x=ema$age, y=ema$avg.nbaffairs, type="l") 
+```
+* "b" -- both line and point plots
+```{r, fig.cap=" "}
+plot(x=ema$age, y=ema$avg.nbaffairs, type="b") 
+```
+
+### base/type (histograms, density plots)
+
+* Certain plot types require different calls outside of the "type" argument
+* Ex) Histograms
+```{r, fig.cap=" "}
+hist(x=ema$age)
+hist(x=ema$age, breaks=5)
+hist(x=ema$age, breaks=10)
+```
+* Ex) Density plots
+```{r, fig.cap=" "}
+age.density<-density(x=ema$age, na.rm=T) # Create a density object (NOTE: be sure to remove missing values)
+class(age.density) # Check the class of the object
+age.density # View the contents of the object
+plot(x=age.density) # Plot the density object
+plot(x=density(x=ema$age, bw=.5, na.rm=T)) # Plot the density object, bandwidth of 0.5
+plot(x=density(x=ema$age, bw=2, na.rm=T)) # Plot the density object, bandwidth of 2
+plot(x=density(x=ema$age, bw=6, na.rm=T)) # Plot the density object, bandwidth of 6
+```
+
+### base/options [labeling]
+
+* Basic call with popular labeling arguments
+```{r, eval=F}
+plot(x=, y=, type="", xlab="", ylab="", main="") 
+```
+* From the previous example
+```{r, fig.cap=" "}
+plot(x=ema$age, y=ema$avg.nbaffairs, type="l", xlab="Age (Years)", ylab="Number of Affairs (per 12 months)", main="Annual Extramarital Affairs by Age") # Add labels for axes and overall plot
+```
+
+### base/options [axis + size scaling]
+
+* Basic call with popular scaling arguments
+```{r, eval=F}
+plot(x=, y=, type="", xlim=, ylim=, cex=)
+```
+* From the previous example
+
+```{r, fig.cap=" "}
+plot(x=ema$age, y=ema$avg.nbaffairs, type="p") # Create a basic plot
+# Limit the ages (x-axis) to between 20 and 40
+plot(x=ema$age, y=ema$avg.nbaffairs, type="p", xlim = c(20,40)) 
+# Limit the ages (x-axis) to between 20 and 40, increase point size to 2
+plot(x=ema$age, y=ema$avg.nbaffairs, type="p", xlim = c(20,40), cex=2) 
+# Limit the ages (x-axis) to between 20 and 40, decrease point size to 0.5
+plot(x=ema$age, y=ema$avg.nbaffairs, type="p", xlim = c(20,40), cex=0.5)  
+```
+
+### base/options [graphical parameters]
+
+* Basic call with popular scaling arguments
+```{r, eval=F}
+plot(x=, y=, type="", col="", pch=, lty=, lwd=)
+```
+* Colors
+```{r}
+colors() # View all elements of the color vector
+colors()[179] # View specific element of the color vector
+```
+Another option: [R Color Infographic](http://research.stowers-institute.org/efg/R/Color/Chart/ColorsChart1.jpg)
+```{r, fig.cap=" "}
+plot(x=ema$age, y=ema$avg.nbaffairs, type="l", col=colors()[145]) # or col="gold3"
+plot(x=ema$age, y=ema$avg.nbaffairs, type="l", col="seagreen4") # or col=colors()[578]
+```
+
+* Point Styles and Widths
+
+[A Good Reference](http://www.endmemo.com/program/R/pic/pchsymbols.png)
+
+```{r, fig.cap=" "}
+plot(x=ema$age, y=ema$avg.nbaffairs, type="p", pch=3) # Change point style to crosses
+plot(x=ema$age, y=ema$avg.nbaffairs, type="p", pch=15) # Change point style to filled squares
+# Change point style to filled squares and increase point size to 3
+plot(x=ema$age, y=ema$avg.nbaffairs, type="p", pch=15, cex=3) 
+plot(x=ema$age, y=ema$avg.nbaffairs, pch="w") # Change point style to "w"
+# Change point style to "$" and increase point size to 2
+plot(x=ema$age, y=ema$avg.nbaffairs, type="p", pch="$", cex=2) 
+```
+
+* Line Styles and Widths
+```{r, fig.cap=" "}
+# Line plot with solid line
+plot(x=ema$age, y=ema$avg.nbaffairs, type="l", lty=1)
+# Line plot with medium dashed line
+plot(x=ema$age, y=ema$avg.nbaffairs, type="l", lty=2)
+# Line plot with short dashed line
+plot(x=ema$age, y=ema$avg.nbaffairs, type="l", lty=3)
+# Change line width to 2
+plot(x=ema$age, y=ema$avg.nbaffairs, type="l", lty=3, lwd=2)
+# Change line width to 5
+plot(x=ema$age, y=ema$avg.nbaffairs, type="l", lty=3, lwd=5)
+# Change line width to 10 and use dash-dot
+plot(x=ema$age, y=ema$avg.nbaffairs, type="l", lty=4, lwd=10)
+```
+
+### base/options [annotations/reference lines/legends]
+
+* Text 
+```{r, fig.cap=" "}
+plot(x=ema$age, y=ema$avg.nbaffairs, type="l", lty=4, lwd=10)
+text(x=25, y=3, labels="Sharp Drop", cex = .75)
+```
+
+* Reference Lines
+```{r, fig.cap=" "}
+plot(x=ema$age, y=ema$avg.nbaffairs, type="l", lty=4, lwd=10)
+abline(v=42.5, h=2.25, lty=2)
+```
+
+### ggplot2
+
+The general call for ggplot2 takes on one of three forms:
+  
+```{r, eval=FALSE}
+# 1) Aesthetics/options are specified the initial ggplot() layer and will be used by all other layers
+ggplot(data=, aes(x=,y=), color=, size=,)+geom_xxxx()+geom_yyyy()
+
+# 2) Aesthetics/options are not specified the initial ggplot() layer, but in other layers
+ggplot()+geom_xxxx(data=, aes(x=,y=), color=, size=,)+geom_yyyy(data=, aes(x=,y=), color=, size=,)
+
+# 3) Aesthetics/options are specified partially in the ggplot() layers and partially in other layers  
+ggplot(data=, aes(x=,y=), color=, size=,)+geom_xxxx()+geom_yyyy(data=, aes(x=,y=), color=, size=,)
+```
+
+In general (but with some exceptions), aesthetics/options specified in the ```ggplot()``` layer will override aesthetics/options specified in other layers and will be the source for required argument values not present in those layers. 
+
+### Density plots
+
+```{r, fig.cap=" ", warning=FALSE}
+library(ggplot2)
+ggplot(data=ema, aes(x=age))+geom_density()
+ggplot()+geom_density(data=ema, aes(x=age))
+ggplot(data=ema)+geom_density(aes(x=age))
+ggplot(data=ema, aes(x=age))+geom_line(stat="density") # Trick for removing coverage line
+ggplot(data=ema, aes(x=age))+geom_line(stat="density")+theme_bw() # Trick for removing background shading
+```
+
+### X-Y scatter plots
+
+```{r, fig.cap=" ", warning=FALSE}
+ggplot(data=ema, aes(x=age,y = avg.nbaffairs))+geom_point()+theme_bw()
+```
+
+### X-Y line plots
+
+```{r, fig.cap=" ", warning=FALSE}
+ggplot(data=ema, aes(x=age,y = avg.nbaffairs))+geom_line()+theme_bw()
+```
+
+### bar plots 
+```{r, fig.cap=" ", warning=FALSE, message=FALSE}
+ggplot(data=ema, aes(x=age,y = avg.nbaffairs))+geom_bar(stat="identity")+theme_bw()
+```
+
+### box plots 
+```{r, fig.cap=" ", warning=FALSE}
+ggplot(data=ema, aes(x=sex,y = nbaffairs))+geom_boxplot()+theme_bw()
+ggplot(data=ema, aes(x=child,y = nbaffairs))+geom_boxplot()+theme_bw()
+ggplot(data=ema, aes(x=factor(religious),y = nbaffairs))+geom_boxplot()+theme_bw()
+ggplot(data=ema, aes(x=factor(rate),y = nbaffairs))+geom_boxplot()+theme_bw()
+```
+
+### "trellis" plots 
+```{r, fig.cap=" ", warning=FALSE}
+ggplot(data=ema, aes(x=factor(rate),y = nbaffairs))+geom_boxplot()+theme_bw()+facet_wrap(facets = ~sex)
+ggplot(data=ema, aes(x=sex,y = nbaffairs))+geom_boxplot()+theme_bw()+facet_wrap(facets = ~rate+child)
+```
+
+### options [labeling]
+
+```{r, fig.cap=" ", warning=FALSE}
+ggplot(data=ema, aes(x=age,y = avg.nbaffairs))+geom_line()+theme_bw()
+ggplot(data=ema, aes(x=age,y = avg.nbaffairs))+geom_line()+theme_bw()+
+  xlab("Age (Years)")+ylab("Number of Affairs (per 12 months)")+
+  ggtitle("Annual Extramarital Affairs by Age")
+```
+
+### options [axis + size scaling]
+
+```{r, fig.cap=" ", warning=FALSE}
+ggplot(data=ema, aes(x=age,y = avg.nbaffairs))+geom_point()+theme_bw()+
+  xlim(20,40)
+ggplot(data=ema, aes(x=age,y = avg.nbaffairs))+geom_point(size=.5)+theme_bw()+
+  xlim(20,40)
+ggplot(data=ema, aes(x=age,y = avg.nbaffairs))+geom_point(size=10)+theme_bw()+
+  xlim(20,40)
+ggplot(data=ema, aes(x=age,y = avg.nbaffairs))+geom_line()+theme_bw()+
+  xlim(20,40)
+ggplot(data=ema, aes(x=age,y = avg.nbaffairs))+geom_line(size=.1)+theme_bw()+
+  xlim(20,40)
+ggplot(data=ema, aes(x=age,y = avg.nbaffairs))+geom_line(size=3)+theme_bw()+
+  xlim(20,40)
+```
+
+### options [graphical parameters]
+
+* Colors
+```{r, fig.cap=" ", warning=FALSE}
+ggplot(data=ema, aes(x=age,y = avg.nbaffairs))+geom_line(color="red")+theme_bw()
+ggplot(data=ema, aes(x=age,y = avg.nbaffairs))+geom_line(color="seagreen4")+theme_bw()
+```
+
+* Point Styles and Widths
+```{r, fig.cap=" ", warning=FALSE}
+ggplot(data=ema, aes(x=age,y = avg.nbaffairs))+geom_point(shape=3)+theme_bw()
+ggplot(data=ema, aes(x=age,y = avg.nbaffairs))+geom_point(shape=15)+theme_bw()
+ggplot(data=ema, aes(x=age,y = avg.nbaffairs))+geom_point(shape="@", size=10)+theme_bw()
+```
+
+* Line Styles and Widths
+```{r, fig.cap=" ", warning=FALSE}
+ggplot(data=ema, aes(x=age,y = avg.nbaffairs))+geom_line(linetype=2)+theme_bw()
+ggplot(data=ema, aes(x=age,y = avg.nbaffairs))+geom_line(linetype=4)+theme_bw()
+ggplot(data=ema, aes(x=age,y = avg.nbaffairs))+geom_line(linetype=2, size=.5)+theme_bw()
+ggplot(data=ema, aes(x=age,y = avg.nbaffairs))+geom_line(linetype=4, size=10)+theme_bw()
+```
+
+### Anatomy of aes()
+
+ggplot2 tries to represent variation in data by making use of various "aesthetics".  This general approach is based on *The Grammar of Graphics*, which says that visualizing data requires four elements:
+
+1) One or more **statistics** conveying information about the data (identities, means, medians, etc.)
+
+2) A **coordinate system** that differentiates between the intersections of statistics (at most two for ggplot, three for lattice)
+
+3) **Geometries** that differentiate between off-coordinate variation in *kind*
+  
+4) **Scales** that differentiate between off-coordinate variation in *degree*
+
+All of these elements can be manipulated to display variation in the data via the ```aes()``` function.  
+```{r, eval=FALSE}
+ggplot(data=, aes(x=, y=, color=, linetype=, shape=, size=))
+```
+
+Normally, specifying options like ```color="red"``` or ```size=10``` for a given layer results in its contents being red and quite large.  Inside the ```aes()``` function, however, these arguments are given entire variables whose values will then be displayed using different realizations of that aesthetic.
+
+```{r, fig.cap=" ", warning=FALSE}
+# Compute average number of affairs by sex
+ema<-ddply(.data = ema, .variables = c("age", "sex"), .fun = transform, 
+           avg.nbaffairs.age.sex=mean(nbaffairs, na.rm=T))
+# Differences in kind using color
+ggplot(data=ema, aes(x=age, y=avg.nbaffairs.age.sex))+geom_line()+theme_bw()
+ggplot(data=ema, aes(x=age, y=avg.nbaffairs.age.sex, color=sex))+geom_line()+theme_bw()
+```
+
+```{r, fig.cap=" ", warning=FALSE}
+ggplot(data=ema, aes(x=age, y=avg.nbaffairs.age.sex, linetype=sex))+geom_line()+theme_bw()
+ggplot(data=ema, aes(x=age, y=avg.nbaffairs.age.sex, shape=sex))+geom_point()+theme_bw()
+ggplot(data=ema, aes(x=age, y=religious, color=nbaffairs))+geom_jitter()+theme_bw() # Note the use of the jitter layer
+ggplot(data=ema, aes(x=age, y=religious, size=nbaffairs))+geom_jitter()+theme_bw() # Note the use of the jitter layer
+```
+
+### Fitted lines and curves 
+```{r, fig.cap=" ", warning=FALSE, message=FALSE}
+ggplot(data=ema, aes(x=age, y=nbaffairs))+geom_point()+theme_bw()
+ggplot(data=ema, aes(x=age, y=nbaffairs))+geom_point()+theme_bw()+geom_smooth(method="lm")
+ggplot(data=ema, aes(x=age, y=nbaffairs))+geom_point()+theme_bw()+geom_smooth(method="loess")
+ggplot(data=ema, aes(x=age, y=nbaffairs))+geom_point()+theme_bw()+geom_smooth(method="loess", span=.5)
+ggplot(data=ema, aes(x=age, y=nbaffairs))+geom_point()+theme_bw()+geom_smooth(method="loess", span=.99)
+ggplot(data=ema, aes(x=age, y=nbaffairs))+geom_point()+theme_bw()+geom_smooth()
+ggplot(data=ema, aes(x=age, y=nbaffairs))+geom_point()+theme_bw()+geom_smooth(se=F)
+ggplot(data=ema, aes(x=age, y=nbaffairs))+geom_point()+theme_bw()+geom_smooth(se=F, color="red")
+ggplot(data=ema, aes(x=age, y=nbaffairs))+geom_point()+theme_bw()+geom_smooth(aes(color=sex, fill=sex))
+```
+
+### Exporting
+
+Two basic image types
+
+1) **Raster/Bitmap** (.png, .jpeg)
+
+Every pixel of a plot contains its own separate coding; not so great if you want to resize the image
+
+```{r, eval=FALSE}
+jpeg(filename="example.png", width=, height=)
+plot(x,y)
+dev.off()
+```
+
+2) **Vector** (.pdf, .ps)
+
+Every element of a plot is encoded with a function that gives its coding conditional on several factors; great for resizing
+
+```{r, eval=FALSE}
+pdf(filename="example.pdf", width=, height=)
+plot(x,y)
+dev.off()
+```
+
+### Exporting with ggplot
+
+```{r, eval=FALSE}
+# Assume we saved our plot is an object called example.plot
+ggsave(filename="example.pdf", plot=example.plot, scale=, width=, height=)
+```
