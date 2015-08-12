@@ -65,12 +65,18 @@ img {
 <h1>R Basics: Problem Set</h1>
 <div id="part-1" class="section level3">
 <h3>Part 1</h3>
-<p>In trying to compactly store data, researchers often combine several pieces of information into a single number of character string, combinations of which are then stored as vectors. Being able to reformat this information is a critical skill for data analysis in R.</p>
+<p>In trying to compactly store data, researchers often combine several pieces of information into a single character string, combinations of which are then stored as vectors. Being able to reformat this information is a critical skill for data analysis in R.</p>
 <ol style="list-style-type: decimal">
-<li>Convert the character vector “dates” given below to a 3-column data frame containing only numeric vectors representing the year, month, and day. Use the <code>strsplit()</code> and <code>sapply()</code> functions.</li>
+<li>Below, you are given a character vector called <code>dates</code> Each value is stored in the format “YYYY-MM-DD”, e.g. “1986-04-11”.</li>
 </ol>
+<p>Convert the character vector <code>dates</code> to a 3-column data frame containing only numeric vectors representing the year, month, and day. For example, the final data frame should look something like this:</p>
+<pre><code>  year   month    day
+1 1912     8       2
+2 1984    11      20</code></pre>
+<p>Use the <code>strsplit()</code> and <code>sapply()</code> functions.</p>
 <pre class="r"><code>date.range&lt;-as.character(seq(from = as.Date(&quot;1900-01-01&quot;), to = as.Date(&quot;1999-12-31&quot;), by = &quot;1 day&quot;))
 dates&lt;-sample(x = date.range, size = 30, replace = F)
+dates
 
 # Answer:
 dates.split&lt;-strsplit(dates, split = &quot;-&quot;)

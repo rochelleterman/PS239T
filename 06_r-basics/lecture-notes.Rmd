@@ -4,11 +4,13 @@ knitr::opts_chunk$set(comment = "")
 
 # R Basics
 
-### Basic R Syntax
+## 1. Syntax and Types
+
+### 1.1 Basic R Syntax
 
 All programming languages have variables, and R is no different. To create a variable, just name it and set it with one of two methods --- either the equals sign or the native R assignment operator ```<-```. Note that one can also use ```->``` as an assignment operator.  The important thing is that the arrow points from the object content to the proposed object name.  In general, the native R assignment operator is preferred.  
 
-Variable names can only contain letters, numbers, the underscore character, and (unlike python) the period character. Whereas an object name like ```myobject.thing``` would point to the subclass ```thing``` of ```myobject```, R only understands the object to be freestanding.  Put another way, R interprets ```myobject.thing``` the same way that python would interpret ```myobject_thing```.  
+Variable names can only contain letters, numbers, the underscore character, and (unlike Python) the period character. Whereas an object name like ```myobject.thing``` would point to the subclass ```thing``` of ```myobject```, R only understands the object to be freestanding.  Put another way, R interprets ```myobject.thing``` the same way that Python would interpret ```myobject_thing```.
 
 Back to the main point --- let's set a variable.
 
@@ -16,7 +18,7 @@ Back to the main point --- let's set a variable.
 experiment<-"current vs. voltage"
 ```
 
-In R, the contents of an object can be printed by either simply executing the the object name or calling the ```print()``` function.  Note that, unlike in python, ```print()``` must have object names passed directly to it as arguments inside parentheses.
+In R, the contents of an object can be printed by either simply executing the the object name or calling the ```print()``` function.  Note that, unlike in Python 2, ```print()``` must have object names passed directly to it as arguments inside parentheses. (Note: This changes in Python 3)
 
 ```{r, error=FALSE}
 # Executing the object name
@@ -33,16 +35,16 @@ current<-0.5
 print(list(voltage, current))
 ```
 
-### Types and Dynamic Programming
+### 1.2 Types and Dynamic Programming
 
-Like python, R is a dynamically typed.  There are a few differences in terminology, however, that are pertinent.  First, types in python are referred to as classes in R.  Second, R has some different names for the types string, integer, and float --- specifically **character**, **integer** (not different), and **numeric**.  Third, the function for recovering object classes is ```class()```.
+Like Python, R is a dynamically typed.  There are a few differences in terminology, however, that are pertinent.  First, "types"" in Python are referred to as "classes"" in R.  Second, R has some different names for the types string, integer, and float --- specifically **character**, **integer** (not different), and **numeric**. There is no **float** class in R. Third, the function for recovering object classes is ```class()```.
 
 ```{r}
 class("current vs. voltage")
 class(experiment)
 ```
 
-While strings are initiated in generally the same way in R as in python, the default class assignment of numbers printed as integers or floats is as **numeric**.  For instance:
+While strings are initiated in generally the same way in R as in Python, the default class assignment of numbers printed as integers or floats is as **numeric**.  For instance:
 
 ```{r}
 class(2)
@@ -57,7 +59,7 @@ To create an object containing an integer, the number must be immediately follow
 class(2L)
 ```
 
-### Changing Types: Coercion
+### 1.3 Changing Types: Coercion
 
 R has a number of coercion functions that will attempt to change an object from one class to another.  All of these functions generally start with ```as.``` and are followed by the class to which the object will be converted.  For instance, ```as.integer()``` will try to convert an object to an integer, while ```as.character()``` will attempt a character conversion.
 
@@ -71,7 +73,7 @@ resistance<-as.numeric(resistanceString)
 resistance
 ```
 
-### Integer and Float Operations
+### 1.4 Integer and Float Operations
 
 Operations between integers...
 ```{r}
@@ -117,14 +119,18 @@ x==y
 all.equal(x,y) # To avoid the class fuzziness problem
 ```
 
-### Intro to Operations on Strings
+Because there is no "float" class in R, users tend to default to the "numeric" class when they want to work with numerical data.
+
+## 2. Strings
+
+### 2.1 Intro to Operations on Strings
 
 ```{r}
 firstName<-"Johan"
 lastName<-"Gambolputty"
 ```
 
-Unlike in python, R does not have a reserved operator for string concatenation such as "+".  Furthermore, using the usual concatenation operator ```c()``` on two or more character strings will not create a single character string, but rather a vector of character strings.
+Unlike in Python, R does not have a reserved operator for string concatenation such as "+".  Furthermore, using the usual concatenation operator ```c()``` on two or more character strings will not create a single character string, but rather a **vector** of character strings. (We'll talk more about vectors in a bit)
 
 ```{r}
 fullName<-c(firstName, lastName)
@@ -143,7 +149,11 @@ fullName<-paste(firstName, lastName, sep = "___")
 print(fullName)
 ```
 
-As with python, R can also extract substrings based on the index position of its characters.  There are, however, two critical differences.  First, **index positions in R start at 1**.  This is in contrast to python, where indexation starts at 0.  Second, **object subsets using index positions in R contain all the elements in the specified range**.  If some object called ```data``` contains five elements, ```data[2:4]``` will return the elements at the second, third, and fourth positions.  By contrast, the same subset in python would return the objects at the third and fourth positions (or second and third positions, depending upon whether your index starts at 0 or 1).  Third, **R does not allow index-based character string subsetting using the object name***, as this functionality is generally reserved for vector subsetting.  Instead, you must use the ```substr()``` function.  Note that this function must receive both the ```start``` and ```stop``` arguments.  So if you want to get all the characters between some index and the end of the string, you must make use of the ```nchar()``` function, which will tell you the length of a character string.
+As with Python, R can also extract substrings based on the index position of its characters.  There are, however, two critical differences.  First, **index positions in R start at 1**.  This is in contrast to Python, where indexation starts at 0.  Fun huh?
+
+Second, **object subsets using index positions in R contain all the elements in the specified range**.  If some object called ```data``` contains five elements, ```data[2:4]``` will return the elements at the second, third, and fourth positions.  By contrast, the same subset in Python would return the objects at the third and fourth positions (or second and third positions, depending upon whether your index starts at 0 or 1).  
+
+Third, **R does not allow index-based character string subsetting using the object name***, as this functionality is generally reserved for vector subsetting.  Instead, you must use the ```substr()``` function.  Note that this function must receive both the ```start``` and ```stop``` arguments.  So if you want to get all the characters between some index and the end of the string, you must make use of the ```nchar()``` function, which will tell you the length of a character string.
 
 ```{r}
 fullName<-paste(firstName, lastName)
@@ -159,9 +169,9 @@ substr(x = fullName, start = 1, stop = 5)
 substr(x = fullName, start = 6, stop = nchar(fullName))
 ```
 
-### Character String Methods
+### 2.2 Character String Methods
 
-Like python, R has a number of string methods, though these exist as separate functions.  For example:
+Like Python, R has a number of string methods, though these exist as separate functions. For example:
 
 ```{r}
 print(fullName)
@@ -172,20 +182,22 @@ strsplit(x = fullName, split = "a")
 gsub(pattern = "G", replacement = "B", x = fullName)
 gsub(pattern = "Johan", replacement = "Mike", x = fullName)
 gsub(pattern = "johan", replacement = "Mike", x = fullName) # Note the importance of cases!
-gsub(pattern = " ", replacement = "", x = fullName) # same function used for replacements and stripping
+gsub(pattern = " ", replacement = "", x = fullName) # The same function is used for replacements and stripping
 ```
 
-### Compound Data Types: Vectors, Matrices, Arrays, Data Frames, and Lists
+## 3. Compound Data Types: Vectors, Matrices, Arrays, Data Frames, and Lists
 
-Whereas python generally stores compound data as either lists or dictionaries, R has a number of different data storage facilities that differ in both the allowed classes for the stored elements and the dimensionality of the object.  Specifically:
+Whereas Python generally stores compound data as either lists or dictionaries, R has a number of different data storage facilities that differ in both the allowed classes for the stored elements and the dimensionality of the object.  Specifically:
 
 1.  ***Vectors*** are one-dimensional and contain objects drawn from the same class.  These classes can be one of integer, numeric, character, or factor.
 2.  ***Matrices*** are two-dimensional and contain objects drawn from the same class.  These classes can be one of integer, numeric, or character.
 3.  ***Arrays*** are n-dimensional and contain objects drawn from the same class.  These classes can be one of integer, numeric, or character.
-4.  ***Data Frames*** are two-dimensional and contain objects drawn from any number of classes, including integer, numeric, character, and factor.
+4.  ***Data Frames*** are two-dimensional and contain objects drawn from any number of classes, including integer, numeric, character, and factor. They are commonly used to store tabular data, like a spreadsheet. 
 5.  ***Lists*** are one-dimensional and contain objects drawn from any class, including lists themselves.
 
-All of these object types are ordered and indexable, as with python objects.  While indexing methods are fairly constant across object types, there are a few differences.  For the simplest object type --- vectors --- indexing works just as with python objects.
+### 3.1 Vectors
+
+All of these object types are ordered and indexable.  While indexing methods are fairly constant across object types, there are a few differences.  For the simplest object type --- vectors --- indexing works just as with Python lists.
 
 ```{r}
 country.vector<-c("Afghanistan", "Canada", "Sierra Leone", "Denmark", "Japan")
@@ -197,7 +209,7 @@ country.vector[1]
 country.vector[3]
 ```
 
-Recall that python allows the user to get the last element of an object by calling for the element at position -1, or the element at the second-to-last position by calling for the element at position -2, etc.  R allows negative subsetting, but the result is entirely different.  **Any negative indexation in R will return the elements of an object NOT at those index positions.**
+Recall that Python allows the user to get the last element of an object by calling for the element at position -1, or the element at the second-to-last position by calling for the element at position -2, etc.  R allows negative subsetting, but the result is entirely different.  **Any negative indexation in R will return the elements of an object NOT at those index positions.**
 
 ```{r}
 country.vector[-1]
@@ -209,16 +221,19 @@ country.vector[-c(2:4)]
 To get the last or second-to-last element of an object, simply use the ```length()``` function.
 
 ```{r}
+length(country.vector)
 country.vector[length(country.vector)]
 country.vector[length(country.vector)-1]
 ```
 
-To add items to the end of a vector, or to combine multiple vectors, you can use the ```c()``` function.  Note that, unlike with python's append or extend methods, you must assign the result of any ```c()``` call to an object.  Often, it is convenient to simply overwrite a pre-existing object.
+To add items to the end of a vector, or to combine multiple vectors, you can use the ```c()``` function.  Note that, unlike with Python's `append` or `extend` methods, you must assign the result of any ```c()``` call to an object. There is no in-place editing in R. Often, it is convenient (and efficient) to simply overwrite a pre-existing object. (In general, variables and naming works differently in R than in Python.)
 
 ```{r}
 country.vector<-c(country.vector, "Brazil")
+c(country.vector, c("Vietnam", "South Africa"))
+country.vector # see, nothing changed! We have to assign it.
 country.vector<-c(country.vector, c("Vietnam", "South Africa"))
-print(country.vector)
+country.vector
 ```
 
 There are also a number of helpful functions for working with vectors, including:
@@ -233,21 +248,29 @@ any(country.vector %in% "Denmark")
 all(country.vector %in% "Denmark")
 ```
 
-Matrix subsetting is a very logical extension of vector subsetting.  With vectors, only one dimension may be subsetted.  With matrices, where are two dimensions to be subsetted.  In R, subsets for multiple dimensions are just separated by a comma.  Note that the first index position refers to rows, while the second refers to columns.  And in the case that no index numbers are specified for a particular dimension, all values are returned.
+> #### Quick Exercise:
+> Subset country.vector to return every value EXCEPT "Canada" and "Brazil"
+
+### 3.2 Matrices
+
+Matrix subsetting is a very logical extension of vector subsetting.  With vectors, only one dimension may be subsetted.  With matrices, where are two dimensions to be subsetted.  In R, subsets for multiple dimensions are just separated by a comma.  Note that the **first index position refers to rows, while the second refers to columns**. And in the case that no index numbers are specified for a particular dimension, all values are returned.
 
 ```{r}
 country.matrix<-matrix(data = c(sort(country.vector), sort(country.vector, decreasing = T)), ncol = 2)
-print(country.matrix)
+country.matrix
 class(country.matrix)
 is(country.matrix)
 is.character(country.matrix)
-country.matrix[4,2]
-country.matrix[2:4, 1]
-country.matrix[1:3,]
-country.matrix[,2]
-country.matrix[-1,]
-country.matrix[-c(1,3,5),]
+country.matrix[4,2] # fourth row, second column
+country.matrix[2:4, 1] # rows 2-4, first column
+country.matrix[1:3,] # rows 1-3
+country.matrix[,2] # second column
+country.matrix[-1,] # everything but the first row
+country.matrix[-c(1,3,5),] # everything but the first, third, and fifth rows
 ```
+
+> #### Quick Exercise:
+> How would you index country.matrix to get the last 3 rows of the second column?
 
 If you want to add data to a matrix, you must add either an entire row or column of data.  If you attempt to use the ```c()``` function, R will automatically coerce that matrix back into a vector.  To avoid this, you can use either ```rbind()``` to add rows or ```cbind()``` to add columns.
 
@@ -257,6 +280,8 @@ c(country.matrix, c("USA","UK"))
 rbind(country.matrix, c("USA", "UK"))
 cbind(country.matrix, seq(from = 1, to = 8, by = 1))
 ```
+
+### 3.3 Data frames
 
 Data frames are the true workhorse of data structures.  The tabular format fits nicely with most common data storage formats, and the ability to hold multiple data classes is very helpful.  Data frame subsetting can be done in a manner similar to the index-based methods shown previously.  But data frames (along with certain other R structures) can also be subset using named attributes of the object via the ```$``` operator or by specifying the named attribute in the index position.  This is most commonly used to isolate certain columns by their column names.
 
@@ -298,6 +323,8 @@ print(country.df)
 country.df[,"day"]<-c(12,15,2,5,31,10,19,8)
 print(country.df)
 ```
+
+### 3.4 Lists
 
 List subsetting generally works the same way as with other objects, though two things are important to note.  First, subsets of a list can be subset themselves in the same call --- one need only use double square brackets (```[[]]```) to access the interior portions of an element and then place a single bracketed subset immediately to the right.  Second, as with data frames, lists can be subset using the ```$``` operator.
 
@@ -343,9 +370,9 @@ country.list$some.numbers<-c(5,10,15,20)
 print(country.list)
 ```
 
-### Flow Control
+### 4. Flow Control
 
-Almost all the conditional operators used in python also work in R.  The basic loop set up is also very similar, with some small syntax adjustments.  Just as with printing objects, ```if()``` is not a reserved operator in R.  Instead, it is a function whose arguments must be specified inside parentheses.  ```else```, however, is a reserved operator that takes no arguments.  Note that there is no ```elif``` option --- one simply writes ```else if()```.  Whereas operations to be executed after conditional evaluations in python come after a ```:```, R operations must only be enclosed in curly brackets.  Furthermore, there is no requirement for indentation.  The only thing to keep in mind is that each new operation must be on a separate line.
+Almost all the conditional operators used in Python also work in R.  The basic loop set up is also very similar, with some small syntax adjustments.  Just as with printing objects, ```if()``` is not a reserved operator in R.  Instead, it is a function whose arguments must be specified inside parentheses.  ```else```, however, is a reserved operator that takes no arguments.  Note that there is no ```elif``` option --- one simply writes ```else if()```.  Whereas operations to be executed after conditional evaluations in Python come after a ```:```, R operations must only be enclosed in curly brackets.  Furthermore, there is no requirement for indentation.  The only thing to keep in mind is that each new operation must be on a separate line.
 
 ```{r}
 x<-5
@@ -372,7 +399,7 @@ if(x<0){
 }
 ```
 
-R also does some class coercion that makes boolean evaluations harder to break that in python.  But be careful --- R has a set of special coercions used for fast logical evaluation and subsetting.  Specifically, ```TRUE``` is considered equal to ```1```, while ```FALSE``` is equal to ```0```. The boolean logicals can also be specified as a full word in all caps, or simply as ```T``` or ```F```.
+R also does some class coercion that makes boolean evaluations harder to break that in Python.  But be careful --- R has a set of special coercions used for fast logical evaluation and subsetting.  Specifically, ```TRUE``` is considered equal to ```1```, while ```FALSE``` is equal to ```0```. The boolean logicals can also be specified as a full word in all caps, or simply as ```T``` or ```F```.
 
 ```{r}
 1<2
@@ -389,9 +416,9 @@ FALSE==1
 FALSE==2
 ```
 
-### Functions
+### 5. Functions
 
-While functions are defined in python using the ```def``` reserved operator, R sees functions as just any other object.  Thus, they require explicit assignment to an object.  This is done using the function ```function()```, which creates a function taking the arguments specified in parentheses.  
+While functions are defined in Python using the ```def``` reserved operator, R sees functions as just any other object.  Thus, they require explicit assignment to an object.  This is done using the function ```function()```, which creates a function taking the arguments specified in parentheses.  
 
 ```{r}
 simple.function<-function(x){
@@ -404,7 +431,7 @@ less.simple.function<-function(x,y){
 less.simple.function(x = 2, y = 10)
 ```
 
-With respect to returning function output, all the same rules apply as with python (save for the fact that ```return()``` is a function rather than a reserved operator).  Also be sure to remember that ```return()``` will only process a single object, so multiple items must usually be returned as a list.
+With respect to returning function output, all the same rules apply as with Python (save for the fact that ```return()``` is a function rather than a reserved operator).  Also be sure to remember that ```return()``` will only process a single object, so multiple items must usually be returned as a list.
 
 ```{r}
 dumbfun<-function(x){
@@ -450,9 +477,9 @@ send(message = "Hello", cc = "Rochelle", bcc = "Laura", recipient = "World")
 send("Hello", "Rochelle", "Laura", "World")
 ```
 
-### Loops
+### 6. Loops
 
-Loops in R work basically the same way as in python, with just a few adjustments.  First, recall that index positions in R start at 1.  Second, ```while()``` and ```for()``` are functions rather than reserved operators, meaning  they must take arguments in parentheses.  Third, just like ```else```, the ```in``` operator *is* reserved and takes no arguments in parentheses.  Fourth, the conditional execution must appear between curly brackets.  Finally, indentation is meaningless, but each new operation must appear on a new line.
+Loops in R work basically the same way as in Python, with just a few adjustments.  First, recall that index positions in R start at 1.  Second, ```while()``` and ```for()``` are functions rather than reserved operators, meaning  they must take arguments in parentheses.  Third, just like ```else```, the ```in``` operator *is* reserved and takes no arguments in parentheses.  Fourth, the conditional execution must appear between curly brackets.  Finally, indentation is meaningless, but each new operation must appear on a new line.
 
 ```{r}
 fruits<-c("apples", "oranges", "pears", "bananas")
@@ -466,4 +493,4 @@ for(i in 1:length(fruits)){
 }
 ```
 
-Unlike in python, while and for loops in R can become very slow.  For this reason, R users generally prefer to use other iteration methods to speed up execution times.  These will be covered in a subsequent section.
+Unlike in Python, while and for loops in R can become very slow.  For this reason, R users generally prefer to use other iteration methods to speed up execution times.  These will be covered in a subsequent section.

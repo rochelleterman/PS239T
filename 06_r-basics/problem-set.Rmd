@@ -6,9 +6,19 @@ knitr::opts_chunk$set(comment = "")
 
 ### Part 1
 
-In trying to compactly store data, researchers often combine several pieces of information into a single number of character string, combinations of which are then stored as vectors.  Being able to reformat this information is a critical skill for data analysis in R.
+In trying to compactly store data, researchers often combine several pieces of information into a single character string, combinations of which are then stored as vectors.  Being able to reformat this information is a critical skill for data analysis in R.
 
-1.  Convert the character vector "dates" given below to a 3-column data frame containing only numeric vectors representing the year, month, and day.  Use the ```strsplit()``` and ```sapply()``` functions.
+1.  Below, you are given a character vector called `dates` Each value is stored in the format "YYYY-MM-DD", e.g. "1986-04-11".
+
+Convert the character vector `dates` to a 3-column data frame containing only numeric vectors representing the year, month, and day. For example, the final data frame should look something like this:
+
+```
+  year   month    day
+1 1912     8       2
+2 1984    11      20
+```
+
+Hint: Use the ```strsplit()``` and ```sapply()``` functions.
 
 ```{r, eval=FALSE}
 date.range<-as.character(seq(from = as.Date("1900-01-01"), to = as.Date("1999-12-31"), by = "1 day"))
@@ -23,7 +33,9 @@ data<-data.frame(year, month, day)
 str(data)
 ```
 
-2.  Convert the character vector "dates" given below to a 3-column data frame containing only numeric vectors representing the year, month, and day.
+2.  We just switched up the character vector so that "dates" is now in the format "YYYYMMDD". Convert the character vector "dates" given below to a 3-column data frame containing only numeric vectors representing the year, month, and day.
+
+Hint: Use the `substr` function.
 
 ```{r, eval=FALSE}
 date.range<-as.character(seq(from = as.Date("1900-01-01"), to = as.Date("1999-12-31"), by = "1 day"))
@@ -58,7 +70,7 @@ str(data)
 
 ### Part 2
 
-As with any programming language, being able to write custom functions is an essential R skill.  This is particularly true when it comes to text analysis.  Write a function that takes some character string as its only input and returns a) the number of words, b) the number of unique words, c) the average word length, d) the maximum word length, and e) the longest word.  Make sure to return the values as a named list.  You may find it helpful to look at the ```stringr``` package, along with googling regular expressions for punctuation removal.  Report the results of your function on the news clip below.
+As with any programming language, being able to write custom functions is an essential R skill. This is particularly true when it comes to text analysis.  Write a function that takes some character string as its only input and returns a) the number of words, b) the number of unique words, c) the average word length, d) the maximum word length, and e) the longest word.  Make sure to return the values as a named list.  You may find it helpful to look at the ```stringr``` package, along with googling regular expressions for punctuation removal.  Report the results of your function on the news clip below.
 
 ```{r, eval=FALSE}
 news.clip<-"Donald Trump was ensconced inside his Manhattan skyscraper early last week, preparing for his 
@@ -83,7 +95,7 @@ word.analyzer<-function(text){
   # Use either the "stringr" package or grep to remove punctuation and numbers
   words<-stringr::str_replace_all(string = words, pattern = "[[:punct:]]|[0-9]", replacement = "")
   
-  # Convert vecto to lowercase
+  # Convert vector to lowercase
   words<-tolower(words)
   
   # Remove vector elements that have no letter content
