@@ -320,7 +320,7 @@ This is called **tab completion**, and we will see it in many other tools as we 
 
 #### Challenge 1
 
-1. Change your working directory to the `02_Unix-Git` directory of the `PS239T` github repo you downloaded in your Desktop last week.
+1. Change your working directory to the `PS239T` github repo you cloned on your computer last week. `cd` into the `02_Unix-Git` sub-directory.
 2. list the files in the `downloads` directory
 
 #### Challenge 2

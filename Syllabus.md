@@ -51,11 +51,9 @@ Section/Lab: Fr 2-4P
 
 202 Barrows
 
-####Piazza
+####bCourses
 
-We will use Piazza for communication (announcements and questions). You should ask questions about class material and problem sets through the course Piazza website so that everyone can benefit from the discussion. We encourage you to respond to each other’s questions as well. Questions of a personal nature can marked Private on Piazza and you can also email us directly.
-
-Find our class page at: https://piazza.com/berkeley/fall2015/ps239t/home
+We will use bCourses for communication (announcements and questions) and turning in assignments. You should ask questions about class material and problem sets through the bcourse website so that everyone can benefit from the discussion. We encourage you to respond to each other’s questions as well. Questions of a personal nature can be emailed to us directly.
 
 ####GitHub
 

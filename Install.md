@@ -9,7 +9,11 @@ Bash is a commonly-used shell that gives you the power to do simple tasks more q
 
 #### Windows
 
-Install Git for Windows by downloading and running the [installer](http://msysgit.github.io/). This will provide you with both Git and Bash in the Git Bash program.
+Install Git for Windows by downloading and running the [installer](http://msysgit.github.io/). This will provide you with both Git and Bash in the Git Bash program. 
+
+After the installer does its thing, it leaves the window open, so that you can play with the "Git Bash".
+
+Chances are that you want to have an easy way to restart that Git Bash. You can install shortcuts in the start menu, on the desktop or in the QuickStart bar by calling the script /share/msysGit/add-shortcut.tcl (call it without parameters to see a short help text).
 
 #### Mac OS X
 
@@ -98,6 +102,19 @@ Install R by downloading and running [this .pkg file from CRAN](http://cran.r-pr
 ####Linux
 
 You can download the [binary files](http://cran.r-project.org/index.html) for your distribution from CRAN. Or you can use your package manager (e.g. for Debian/Ubuntu run `sudo apt-get install r-base` and for Fedora run `sudo yum install R`). Also, please install the [RStudio IDE](http://www.rstudio.com/ide/download/desktop).
+
+## Pandoc and Latex
+
+Pandoc is a univesal document converter. We use it to convert ipython notebooks into pdfs for assignments. For PDF output, you’ll also need to install LaTeX, a type-setting system.
+
+####Windows
+Install Pandoc and Latex using the instructions [here](http://pandoc.org/installing.html).
+
+####MAC OS X
+Install Pandoc and Latex using the instructions [here](http://pandoc.org/installing.html).
+
+####Linux
+Install Pandoc and Latex using the instructions [here](http://pandoc.org/installing.html).
 
 ##Testing your installation
 
