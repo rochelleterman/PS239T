@@ -13,6 +13,8 @@
 3. [Google Developer's R Tutorials](https://www.youtube.com/playlist?list=PLOU2XLYxmsIK9qQfztXeybpHvru-TrqAP)
 4. [Cookbook for R](http://www.cookbook-r.com/Graphs/)
 5. [UC Berkeley's R Bootcamp](https://github.com/berkeley-scf/r-bootcamp-2015)
+6. [Hadley Wickham's Advanced R Book](http://adv-r.had.co.nz/)
+7. [R for Python Programmers](https://ramnathv.github.io/pycon2014-r/)
 
 ##Python
 
