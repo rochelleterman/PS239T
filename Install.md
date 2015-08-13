@@ -1,6 +1,6 @@
 #Setup
 
-To participate in PS239T, you will need access to the software described below. In addition, you will need an up-to-date web browser.
+To participate in PS239T, you will need access to the software described below. In addition, you will need an up-to-date web browser. I recommend [Google Chrome](https://www.google.com/chrome/). 
 
 Once you've installed all of the software below, test your installation by following the instructions at the bottom on this page.
 
