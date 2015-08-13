@@ -1,0 +1,169 @@
+---
+title: "Introduction to R"
+author: "Rochelle Terman"
+date: "August 12, 2015"
+output: html_document
+---
+
+# Introduction to R
+
+R is a versatile, open source programming/scripting language that's useful both for statistics but also data science. Inspired by the programming language [`S`][S].
+
+* Open source software under [GPL][].
+* Superior (if not just comparable) to commercial alternatives. R has over 5,000 user contributed packages at this time. It's widely used both in academia and industry.
+* Available on all platforms.
+* As a result, if you do your analysis in R, anyone can easily replicate it.
+* Not just for statistics, but also general purpose programming.
+* Is object oriented and functional.
+* Large and growing community of peers.
+
+[S]: http://stat.bell-labs.com/S/
+[GPL]: https://www.gnu.org/licenses/gpl.html
+
+### R Environment
+
+**Viewing objects in your global environment and how to clean them up**
+
+List objects in your current environment
+
+```{r, eval = FALSE}
+ls()
+```
+
+remove objects from your current environment
+
+```{r, eval = TRUE, echo = TRUE}
+x <- 5
+rm(x)
+#print(x)
+```
+
+remove all objects from your current environment
+
+```{r, eval = FALSE}
+rm(list = ls())
+```
+
+*Notice that we have nested one function inside another.*
+
+**Package management**
+
+* `install.packages("package-name")` will download a package from one of the CRAN mirrors assuming that a binary is available for your operating system. If you have not set a preferred CRAN mirror in your `options()`, then a menu will pop up asking you to choose a location.
+* `library("package-name")` will load a package so you can use it. It is required at the beginning of each R session.
+
+```{r, eval = FALSE}
+library(stats)
+```
+
+### Basic Syntax
+
+**Comments**
+
+Use `#` signs to comment. Comment liberally in your R scripts. Anything to the right of a `#` is ignored by R. There is no docstring, or equivalent to `"""` in R
+
+**Variable Names**
+
+Variable names can only contain letters, numbers, the underscore character, and (unlike Python) the period character. Whereas an object name like ```myobject.thing``` would point to the subclass ```thing``` of ```myobject```, R only understands the object to be freestanding.  Put another way, R interprets ```myobject.thing``` the same way that Python would interpret ```myobject_thing```.
+
+**Assignment operator**
+
+`<- ` is the assignment operator. Assigns values on the right to objects on the left. Mostly similar to `=` but not always. Learn to use `<-` as it is good programming practice. Using `=` in place of `<-` can lead to issues down the line.
+
+```{r}
+experiment<-"current vs. voltage"
+```
+
+**Printing**
+In R, the contents of an object can be printed by either simply executing the the object name or calling the ```print()``` function.  Note that, unlike in Python 2, ```print()``` must have object names passed directly to it as arguments inside parentheses. (Note: This changes in Python 3)
+
+```{r, error=FALSE}
+# Executing the object name
+experiment
+# Printing the object R-style
+print(experiment)
+```
+
+**Help**
+
+* `?` + object opens a help page for that specific object
+* `??` + object searches help pages containing the name of the object
+
+```{r, eval = FALSE}
+?mean
+??mean
+```
+
+#### Bonus: More about R
+
+From [Hadley Wickham](http://adv-r.had.co.nz/Introduction.html):
+
+If you are new to R, you might wonder what makes learning such a quirky language worthwhile. To me, some of the best features are:
+
+* It's free, open source, and available on every major platform. As a result, if 
+  you do your analysis in R, anyone can easily replicate it.
+
+* A massive set of packages for statistical modelling, machine learning,
+  visualisation, and importing and manipulating data. Whatever model or
+  graphic you're trying to do, chances are that someone has already tried
+  to do it. At a minimum, you can learn from their efforts.
+
+* Cutting edge tools. Researchers in statistics and machine learning will often
+  publish an R package to accompany their articles. This means immediate
+  access to the very latest statistical techniques and implementations.
+
+* Deep-seated language support for data analysis. This includes features
+  likes missing values, data frames, and subsetting.
+
+* A fantastic community. It is easy to get help from experts on the
+  [R-help mailing list](https://stat.ethz.ch/mailman/listinfo/r-help),
+  [stackoverflow](http://stackoverflow.com/questions/tagged/r),
+  or subject-specific mailing lists like
+  [R-SIG-mixed-models](https://stat.ethz.ch/mailman/listinfo/r-sig-mixed-models)
+  or [ggplot2](https://groups.google.com/forum/#!forum/ggplot2). You
+  can also connect with other R learners via
+  [twitter](https://twitter.com/search?q=%23rstats),
+  [linkedin](http://www.linkedin.com/groups/R-Project-Statistical-Computing-77616),
+  and through many local
+  [user groups](http://blog.revolutionanalytics.com/local-r-groups.html).
+
+* Powerful tools for communicating your results. R packages make it easy to
+  produce html or pdf [reports](http://yihui.name/knitr/), or create
+  [interactive websites](http://www.rstudio.com/shiny/).
+
+* A strong foundation in functional programming. The ideas of functional
+  programming are well suited to solving many of the challenges of data
+  analysis. R provides a powerful and flexible toolkit which allows
+  you to write concise yet descriptive code.
+
+* An [IDE](http://www.rstudio.com/ide/) tailored to the needs of interactive
+  data analysis and statistical programming.
+
+* Powerful metaprogramming facilities. R is not just a programming language, it
+  is also an environment for interactive data analysis. Its metaprogramming
+  capabilities allow you to write magically succinct and concise functions and
+  provide an excellent environment for designing domain-specific languages.
+
+* Designed to connect to high-performance programming languages like C,
+  Fortran, and C++.
+
+Of course, R is not perfect. R's biggest challenge is that most R users are not programmers. This means that:
+
+* Much of the R code you'll see in the wild is written in haste to solve
+  a pressing problem. As a result, code is not very elegant, fast, or easy to
+  understand. Most users do not revise their code to address these shortcomings.
+
+* Compared to other programming languages, the R community tends to be more
+  focussed on results instead of processes. Knowledge of software engineering
+  best practices is patchy: for instance, not enough R programmers use source
+  code control or automated testing.
+
+* Metaprogramming is a double-edged sword. Too many R functions use
+  tricks to reduce the amount of typing at the cost of making code that
+  is hard to understand and that can fail in unexpected ways.
+
+* Inconsistency is rife across contributed packages, even within base R.
+  You are confronted with over 20 years of evolution every time you use R. 
+  Learning R can be tough because there are many special cases to remember.
+
+* R is not a particularly fast programming language, and poorly written R code
+  can be terribly slow. R is also a profligate user of memory. 
