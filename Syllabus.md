@@ -53,11 +53,11 @@ Section/Lab: Fr 2-4P
 
 ####bCourses
 
-We will use bCourses for communication (announcements and questions) and turning in assignments. You should ask questions about class material and problem sets through the bcourse website so that everyone can benefit from the discussion. We encourage you to respond to each other’s questions as well. Questions of a personal nature can be emailed to us directly.
+We will use bCourses for communication (announcements and questions) and turning in assignments. You should ask questions about class material and assignments through the bcourse website so that everyone can benefit from the discussion. We encourage you to respond to each other’s questions as well. Questions of a personal nature can be emailed to us directly.
 
 ####GitHub
 
-All course materials will be posted on Github at https://github.com/rochelleterman/PS239T, including class notes, code demonstrations, sample data, and assignments. Students are encouraged to add commits to these materials, for example if they find a particularly helpful resource that would aid other students. Students are required to use GitHub for their final projects, which will be publically available, unless they have special considerations (e.g. proprietary data). 
+All course materials will be posted on Github at https://github.com/rochelleterman/PS239T, including class notes, code demonstrations, sample data, and assignments. Students are encouraged to submit pull requests to this repository, for example if they find a particularly helpful resource that would aid other students. Students are required to use GitHub for their final projects, which will be publically available, unless they have special considerations (e.g. proprietary data). 
 
 ####Accessibility
 
@@ -72,20 +72,27 @@ This is a graded class based on the following:
 * Participation (25%)
 * Final project (25%)
 
-####Homework
+####Assignments
 
-Homework will be assigned at the end of every session. It will be due at the start of the following class unless otherwise  noted. The assignments will be frequent but each of them should be fairly short. You are encouraged to work in groups, but the work you turn in must be your own. Group submission of homework, or turning in copies of the same code or output, is not acceptable. Remember, the only way you actually learn how to write code is to write code.
+Assignments will be assigned at the end of every session. They will be due at the start of the following class unless otherwise noted. The assignments will be frequent but each of them should be fairly short. 
+
+You are encouraged to work in groups, but the work you turn in must be your own. Group submission of homework, or turning in copies of the same code or output, is not acceptable. Remember, the only way you actually learn how to write code is to write code.
+
+Unless otherwise specified, assignments should be turned in as **pdf documents** via the bCourses site. 
 
 ####Class Participation
 
 The class participation portion of the grade can be satisfied in one or more of the following ways:
-1. asking and answering questions in class
-2. contributing to class discussion through the Piazza site, and/or
+1. attending the lecture and section
+2. asking and answering questions in class
+2. contributing to class discussion through the bCourse site, and/or
 3. collaborating with the campus computing community, either by attending a D-Lab or BIDS workshop, submitting a pull request to a campus github repository (including the class repository), or other involvement in the social computing / digital humanities community. 
 
 ####Final Project
 
-The final project consists of using the tools we learned in class on your own data of interest. Students are required to write a short proposal by November 10 (no more than 2 paragraphs) in order to get approval / feedback from the instructors.
+The final project consists of using the tools we learned in class on your own data of interest. Students are required to write a short proposal by November 10 (no more than 2 paragraphs) in order to get approval / feedback from the instructors. 
+
+On Dec 15 we will have a **lightening talk session** where students can present their projects in a maximum 5 minute talk.
 
 ##4. Class Activities and Materials
 
