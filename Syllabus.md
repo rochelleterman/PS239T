@@ -116,11 +116,9 @@ See [Install.md](Install.md) for more information.
 
 There are no official textbooks for this class. There is a list of topic-specific tutorials and resources in the GitHub repo in the document `resources.md`. If you find a good online resources, you are encouraged to add to the document. 
 
-##5. Curriculum Outline
+##5. Curriculum Outline / Schedule
 
-The following is a sketchy outline of the curriculum. Applications will be drawn from the following list, depending on interest: automated text analysis, machine learning, geospatial analysis, network analysis, data collection via APIs, crowdsourcing and online experiments, and data visualization. We will include a range of substantive topics from which to draw our data and examples, including humanities oriented topics, to demonstrate the broad application of such tools across all realms of social inquiry.
-
-1. **Sept 1** - Introduction
+1. **Sept 1** - Introduction (InstallFest on Sept 4)
 2. **Sept 8** - Unix, Bash, and Git
 3. **Sept 15** - Python 1 (Basics)
 4. **Sept 22** - Python 2 (Pythonic Code)
@@ -134,4 +132,4 @@ The following is a sketchy outline of the curriculum. Applications will be drawn
 12. **Nov 17** - GeoSpatial (Guest Speaker)
 13. **Nov 24** - AtlasTI (Guest Speaker)
 14. **Dec 1** - Git
-15. **Dec 14** - Final projects due
+15. **Dec 15** - Final project lightening talks
