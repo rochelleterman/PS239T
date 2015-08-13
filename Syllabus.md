@@ -122,12 +122,12 @@ The following is a sketchy outline of the curriculum. Applications will be drawn
 
 1. **Sept 1** - Introduction
 2. **Sept 8** - Unix, Bash, and Git
-3. **Sept 15** - Python: (Basics)
-4. **Sept 22** - Python: (Pythonic Code)
-5. **Sept 29** - Python: (Information Retrieval)
-6. **Oct 6** - R: (Basics)
-7. **Oct 13** - R: (Data Analysis)
-8. **Oct 20** - R: (Visualization)
+3. **Sept 15** - Python 1 (Basics)
+4. **Sept 22** - Python 2 (Pythonic Code)
+5. **Sept 29** - Python 3 (Information Retrieval)
+6. **Oct 6** - R 1 (Basics)
+7. **Oct 13** - R 2 (Data Analysis)
+8. **Oct 20** - R 3 (Visualization)
 9. **Oct 27** - Web Scraping
 10. **Nov 3** - APIs
 11. **Nov 10** - Text Analysis
