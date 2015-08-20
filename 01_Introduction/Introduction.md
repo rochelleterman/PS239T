@@ -58,26 +58,25 @@ Why learn to program?
 > programming documentation, StackExchange and other online fora, or D-Lab 
 > workshops.
 
-Specifically, by the end of this 3 hours course, I want everyone here be able to:
+By the end of the course, students should be able to:
 
-* Understand basic programming terminologies, structures, and workflows
-* Get comfortable with the Berkeley Common Environment
-* Use shall/bash/terminal without fear
-* Know and use essential Unix commands
-* Write your own script that automates tasks
-* Run somebody else's script on your own data
-* Manage your own software and collaborate with others on GitHub
-* Master basic Git workflow
-* Install packages, modules, and other software from the command line
-* Read StackExchange, online documentation, or other instructions and know what the heck they're talking about
+* Understand basic programming terminologies, structures, and conventions
+* Navigate and operate effectively in a UNIX environment
+* Master basic Git and GitHub workflows
+* Write, execute, and debug R code for assignments involving statistical analysis
+* Write, execute, and debug Python code for assignments involving data collection and manipulation, as well as other computing tasks
+* Collect data through a variety of means, including webscraping and APIs.
+* Be familiar with the concepts and tools of a variety of computational social science / digital humanities applications
+* Be familiar with the basic guidelines around reproducible research, good scientific computing practices, and ethics/privacy/legal quandaries. 
+* Learn independently and train themselves in a variety of computational applications and tasks through online documentation
 
 ### About Me and Disclaimers
 
 My name is Rochelle Terman and I'm a Ph.D. Candidate in Political Science. 
 
-* A year ago, I didn't know how to program. Now I program almost every day. 
-* I program mostly in Python, R, and PHP. I'm interested in text analysis, webscraping, and visualization.
-* I also do a lot of web development, especially in Drupal + Wordpress.
+* A few years ago, I didn't know how to program. Now I program almost every day. 
+* I program mostly in Python and R. I have a special interest in text analysis and webscraping.
+* I also do a lot of web development, especially in Drupal and Wordpress.
 * My dissertation is on human rights. 
 * I won't be able to answer all your questions.
 * No one will.
@@ -86,9 +85,13 @@ My name is Rochelle Terman and I'm a Ph.D. Candidate in Political Science.
 
 ### Acknowledgments
 
-This learning module borrows and adapts materials from the following organizations and individuals. Thank you!
+This course adapts materials from the following organizations and individuals. Thank you!
 
+*   [Christopher Krogslund](https://github.com/ckrogs)
 *   [Software Carpentry](http://software-carpentry.org)
 *   [Mark Huberty](http://polisci.berkeley.edu/people/person/mark-huberty)
-*   [Dav Clark](https://github.com/davclark)
-*   [Aaron Culich](https://github.com/aculich)
+*   [Peter McMahan and Michael Castelle](http://cfss.uchicago.edu/)
+*   [Hadley Wickham](http://adv-r.had.co.nz/)
+*   [Graham Williams](http://onepager.togaware.com/TextMiningO.pdf)
+*   [Allen Riddell](https://de.dariah.eu/tatom/)
+*   [R for Python Programmers](https://ramnathv.github.io/pycon2014-r/)
