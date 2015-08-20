@@ -5,7 +5,9 @@
 
 Complete the Codecademy Python Track!
 
-1. Login into https://www.codecademy.com/. Your username is listed on bCourses. Your password is `pythonisawesome`. If it important that you use this username/password combo, even if you already have a codecademy account, because otherwise I can't track your progress and you won't get credit for the assignment.
+1. Login into https://www.codecademy.com/. Your username is listed on bCourses. Your password is `pythonisawesome`. 
+
+If it important that you use this username/password combo, even if you already have a codecademy account, because otherwise I can't track your progress and you won't get credit for the assignment.
 
 2. Navigate to the Python track and complete the course. 
 You can skip Lesson 18: Introduction to Bitwise (unless you want to learn about Bitwise).
