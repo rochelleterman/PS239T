@@ -123,6 +123,7 @@ If you have trouble with installation, please come to the Installfest [TBD].
 Open a command line window ('terminal' or, on windows, 'git bash'), and enter the following commands (without the $ sign): 
 
 ```bash
+$ R --version
 $ git --version
 $ python --version
 $ nano --version
