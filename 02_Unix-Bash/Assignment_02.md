@@ -2,7 +2,7 @@
 
 #### Due Sept 15
 
-1. Complete the Codecademy Command-Line Track!
+Part 1: Complete the Codecademy Command-Line Track.
 
 Login into https://www.codecademy.com/. Your username is listed on bCourses. Your password is `pythonisawesome`. 
 
@@ -10,4 +10,4 @@ If it important that you use this username/password combo, even if you already h
 
 Navigate to the Command Line track and complete the course.
 
-2. Define one term in the glossery section of this week's [cheat-sheet](cheatsheet.md) by submitting a pull request on github.
+Part 2: Define one term in the glossery section of this week's [cheat-sheet](cheatsheet.md) by submitting a pull request on github. Don't do one somebody else has already defined.

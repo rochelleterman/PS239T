@@ -86,10 +86,11 @@ Unless otherwise specified, assignments should be turned in as **pdf documents**
 ####Class Participation
 
 The class participation portion of the grade can be satisfied in one or more of the following ways:
-1. attending the lecture and section
-2. asking and answering questions in class
-2. contributing to class discussion through the bCourse site, and/or
-3. collaborating with the campus computing community, either by attending a D-Lab or BIDS workshop, submitting a pull request to a campus github repository (including the class repository), or other involvement in the social computing / digital humanities community. 
+
+- attending the lecture and section
+- asking and answering questions in class
+- contributing to class discussion through the bCourse site, and/or
+- collaborating with the campus computing community, either by attending a D-Lab or BIDS workshop, submitting a pull request to a campus github repository (including the class repository), answering a question on StackExchange, or other involvement in the social computing / digital humanities community. 
 
 ####Final Project
 
