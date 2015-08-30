@@ -96,7 +96,7 @@ The class participation portion of the grade can be satisfied in one or more of 
 
 The final project consists of using the tools we learned in class on your own data of interest. Students are required to write a short proposal by November 10 (no more than 2 paragraphs) in order to get approval / feedback from the instructors. 
 
-On Dec 15 we will have a **lightening talk session** where students can present their projects in a maximum 5 minute talk.
+On Dec 11 we will have a **lightning talk session** where students can present their projects in a maximum 5 minute talk.
 
 ##4. Class Activities and Materials
 
@@ -143,4 +143,4 @@ There are no official textbooks for this class. There is a list of topic-specifi
 12. **Nov 17** - GeoSpatial (Guest Speaker)
 13. **Nov 24** - AtlasTI (Guest Speaker)
 14. **Dec 1** - Git
-15. **Dec 15** - Final project lightening talks
+15. **Dec 11** - Final project lightning talks
