@@ -89,7 +89,7 @@ We recommend the all-in-one scientific Python installer [Anaconda](http://contin
 
 ##5. R
 
-[R](http://www.r-project.org/) is a programming language that is especially powerful for data exploration, visualization, and statistical analysis. To interact with R, we use [RStudio](http://www.rstudio.com/.
+[R](http://www.r-project.org/) is a programming language that is especially powerful for data exploration, visualization, and statistical analysis. To interact with R, we use [RStudio](http://www.rstudio.com/).
 
 ####Windows
 
@@ -127,6 +127,8 @@ $ R --version
 $ git --version
 $ python --version
 $ nano --version
+$ pdflatex --version
+$ pandoc --version
 ```
 
 If git and python and nano (a text editor) have been installed, those commands *should* print output version information. The python version should include "Anaconda" and its version information.
