@@ -74,6 +74,7 @@ subtitle: Reference
 *   `head` displays the first few lines of its input.
 *   `tail` displays the last few lines of its input.
 *   `sort` sorts its inputs.
+*   `uniq` reports or filters out repeated lines in a file.
 *   `wc` counts lines, words, and characters in its inputs.
 *   `command > file` redirects a command's output to a file.
 *   `first | second` is a pipeline: the output of the first command is used as the input to the second.
@@ -208,6 +209,9 @@ sub-directories
 :   FIXME
 
 tab completion
+:   FIXME
+
+uniq
 :   FIXME
 
 variable
