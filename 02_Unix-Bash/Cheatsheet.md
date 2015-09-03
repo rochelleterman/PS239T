@@ -5,19 +5,15 @@ subtitle: Reference
 
 # Summaries and Resources
 
-## [Unix](01_Unix.md)
+## [Unix](01_unix.md)
 
 *   An operating system is a suite of programs which make the computer work.
 *   UNIX is an very popular operating system, used on Macs and bunch of others.
 *   UNIX has a kernel, file system, and programs.
 *   Linux is an open source Unix-like system
-*   A virtual machine is like using somebody else's computer on your very own laptop
-*   The Berkeley Common Environment (BCE) is a standardized VM using Linux
-*   BCE comes with Python, R, and a bunch of other cool stuff to do your science.
-*   You can share files between your laptop and your BCE.
-*   BCE will take some time getting use to, especially the keyboard if you're using a Mac.
+*   Unix has three main components: kernael, shell, and file system.
 
-## [Introducing the Shell](02_Shell.md)
+## [Introducing the Shell](02_shell.md)
 
 *   A shell is a program whose primary purpose is to read commands and run other programs.
 *   The shell's main advantages are its high action-to-keystroke ratio,
@@ -26,7 +22,7 @@ subtitle: Reference
 *   The shell's main disadvantages are its primarily textual nature
     and how cryptic its commands and operation can be.
 
-## [Files and Directories](03_Filedir.md)
+## [Files and Directories](03_filedir.md)
 
 *   The file system is responsible for managing information on the disk.
 *   Information is stored in files, which are stored in directories (folders).
@@ -54,7 +50,7 @@ subtitle: Reference
 *	Copy a file/directory in the GUI and paste them into the command line to give the file/directory's full path.
 
 
-## [Creating Things](04-Create.md)
+## [Creating Things](04-create.md)
 
 *   `cp old new` copies a file.
 *   `mkdir path` creates a new directory.
@@ -68,7 +64,7 @@ subtitle: Reference
 *   `*` is a wildcard. It matches zero or more characters
 *   Naming/structuring your files and directories in a systematic way is important. 
 
-## [Pipes and Filters](05_Pipe.me)
+## [Pipes and Filters](05_pipe.me)
 
 *   `cat` displays the contents of its inputs.
 *   `head` displays the first few lines of its input.
@@ -80,7 +76,7 @@ subtitle: Reference
 *   `first | second` is a pipeline: the output of the first command is used as the input to the second.
 *   The best way to use the shell is to use pipes to combine simple single-purpose programs (filters).
 
-## [Loops](06_Loop.md)
+## [Loops](06_loop.md)
 
 *   `history` displays recent commands, and `!number` to repeat a command by number.
 *   A `for` loop repeats commands once for every thing in a list.
@@ -91,7 +87,7 @@ subtitle: Reference
 *   Use the up-arrow key to scroll up through previous commands to edit and repeat them.
 *   Use `history` to display recent commands, and `!number` to repeat a command by number.
 
-## [Shell Scripts](07_Scripts.md)
+## [Shell Scripts](07_scripts.md)
 
 *   Save commands in files (usually called shell scripts) for re-use.
 *   `bash filename` runs the commands saved in a file.
