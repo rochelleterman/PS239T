@@ -50,7 +50,7 @@ subtitle: Reference
 *	Copy a file/directory in the GUI and paste them into the command line to give the file/directory's full path.
 
 
-## [Creating Things](04-create.md)
+## [Creating Things](04_create.md)
 
 *   `cp old new` copies a file.
 *   `mkdir path` creates a new directory.
@@ -64,7 +64,7 @@ subtitle: Reference
 *   `*` is a wildcard. It matches zero or more characters
 *   Naming/structuring your files and directories in a systematic way is important. 
 
-## [Pipes and Filters](05_pipe.me)
+## [Pipes and Filters](05_pipe.md)
 
 *   `cat` displays the contents of its inputs.
 *   `head` displays the first few lines of its input.
