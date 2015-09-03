@@ -57,9 +57,3 @@ If you're a good programmer, you're a good detective!
 * Remove user- and data-specific information first!
 * See if you can find examples that do and don’t produce the error
 
-### Helpful Resources
-
-* Stack Overflow 
-* Stack Exchange
-* the D-Lab!
-

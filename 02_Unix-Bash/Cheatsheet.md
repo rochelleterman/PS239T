@@ -108,7 +108,7 @@ subtitle: Reference
 *   `man command` displays the manual page for a given command.
 *   Find the whole lesson [here](http://software-carpentry.org/v5/novice/shell/06-find.html)
 
-## [Getting Help](08_help.md)
+## [Getting Help](08_Help.md)
 
 *   Don't learn specific programming languages; learn *how to program*
 *   Most of your programming will be spent debugging, looking things up on the internet, and testing. 
