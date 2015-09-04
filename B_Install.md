@@ -9,7 +9,7 @@ Bash is a commonly-used shell that gives you the power to do simple tasks more q
 
 #### Windows
 
-Install Git for Windows by downloading and running the [installer](http://msysgit.github.io/). This will provide you with both Git and Bash in the Git Bash program. 
+Install Git for Windows by downloading and running the [installer](http://msysgit.github.io/). This will provide you with both Git and Bash in the Git Bash program. **NOTE**: on the ~6th step of installation, you will need to select the option "Use Windows' default console window" rather than the default of "Use MinTTY" in order for nano to work correctly.
 
 After the installer does its thing, it leaves the window open, so that you can play with the "Git Bash".
 
