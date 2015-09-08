@@ -133,6 +133,8 @@ $ pandoc --version
 
 If git and python and nano (a text editor) have been installed, those commands *should* print output version information. The python version should include "Anaconda" and its version information.
 
+**NB**: If you're using git bash, the `R --version` command may not work. In this case, just make sure you can open up RStudio.
+
 Ipython is a python development environment that comes pre-installed with the Anaconda python distribution. To see if you have it, type the following into your terminal window:
 
 ```bash
