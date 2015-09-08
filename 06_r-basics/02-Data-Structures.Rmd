@@ -83,13 +83,13 @@ We'll explain each data structure in this order:
 * [Vectors](#vectors) introduces you to atomic vectors and lists, R's 1d 
   data structures.
   
+* [Matrices and arrays](#matrices) introduces matrices,
+  data structures for storing 2d and higher dimensional data.
+  
 * [Attributes](#attributes) takes a small detour to discuss attributes,
   R's flexible metadata specification. Here you'll learn about factors,
   an important data structure created by setting attributes of an atomic 
   vector.
-  
-* [Matrices and arrays](#matrices-and-arrays) introduces matrices and arrays,
-  data structures for storing 2d and higher dimensional data.
   
 * [Data frames](#data-frames) teaches you about the data frame, the most
   important data structure for storing data in R.
@@ -542,32 +542,118 @@ str(attributes(y))
 
 ### Exercises
 
-1.  An early draft used this code to illustrate `structure()`:
-
-    ```{r}
-    structure(1:5, comment = "my attribute")
-    ```
-
-    But when you print that object you don't see the comment attribute.
-    Why? Is the attribute missing, or is there something else special about
-    it? (Hint: try using help.) \index{attributes!comment}
-
 1.  What happens to a factor when you modify its levels? 
     
-    ```{r, results = "none"}
-    f1 <- factor(letters)
-    levels(f1) <- rev(levels(f1))
-    ```
+```{r, results = "none"}
+f1 <- factor(letters)
+levels(f1) <- rev(levels(f1))
+```
 
-1.  What does this code do? How do `f2` and `f3` differ from `f1`?
+2.  What does this code do? How do `f2` and `f3` differ from `f1`?
 
-   ```{r, results = "none"}
-   
-   f2 <- rev(factor(letters))
+```{r, results = "none"}
+f2 <- rev(factor(letters))
+f3 <- factor(letters, levels = rev(letters))
+```
 
-    f3 <- factor(letters, levels = rev(letters))
-    ```
- 
+3.  Here's some code that prints a simple barplot:
+
+```{r}
+f <- factor(c("low","medium","high","medium","high","medium"))
+table(f)
+barplot(table(f))
+```
+
+How would you relevel `f` to be in the correct order?
+
+## Data frames {#data-frames}
+
+A data frame is a very important data type in R. It's pretty much the **de facto** data structure for most tabular data and what we use for statistics. Under the hood, a data frame is a list of equal-length vectors. This makes it a 2-dimensional structure, so it shares properties of both the matrix and the list.  This means that a data frame has `names()`, `colnames()`, and `rownames()`, although `names()` and `colnames()` are the same thing. The `length()` of a data frame is the length of the underlying list and so is the same as `ncol()`; `nrow()` gives the number of rows. \index{data frames|(}
+
+### Creation
+
+You create a data frame using `data.frame()`, which takes named vectors as input:
+
+```{r}
+df <- data.frame(x = 1:3, y = c("a", "b", "c"))
+str(df)
+```
+
+Beware `data.frame()`'s default behaviour which turns strings into factors. Use `stringAsFactors = FALSE` to suppress this behaviour: \indexc{stringsAsFactors}
+
+```{r}
+df <- data.frame(
+  x = 1:3,
+  y = c("a", "b", "c"),
+  stringsAsFactors = FALSE)
+str(df)
+```
+
+In reality, the most common way to make a data.frame is through `read.csv` or other data file input.
+
+### Testing and coercion
+
+Because a `data.frame` is an S3 class, its type reflects the underlying vector used to build it: the list. To check if an object is a data frame, use `class()` or test explicitly with `is.data.frame()`:
+
+```{r}
+typeof(df)
+class(df)
+is.data.frame(df)
+```
+
+You can coerce an object to a data frame with `as.data.frame()`:
+
+* A vector will create a one-column data frame.
+
+* A list will create one column for each element; it's an error if they're 
+  not all the same length.
+  
+* A matrix will create a data frame with the same number of columns and rows as the matrix.
+
+### Combining data frames
+
+You can combine data frames using `cbind()` and `rbind()`: \indexc{cbind()} \indexc{rbind()}
+
+```{r}
+cbind(df, data.frame(z = 3:1))
+rbind(df, data.frame(x = 10, y = "z"))
+```
+
+When combining column-wise, the number of rows must match, but row names are ignored. When combining row-wise, both the number and names of columns must match. Use `plyr::rbind.fill()` to combine data frames that don't have the same columns. 
+
+It's a common mistake to try and create a data frame by `cbind()`ing vectors together. This doesn't work because `cbind()` will create a matrix unless one of the arguments is already a data frame. Instead use `data.frame()` directly:
+
+```{r}
+bad <- data.frame(cbind(a = 1:2, b = c("a", "b")))
+str(bad)
+good <- data.frame(a = 1:2, b = c("a", "b"),
+  stringsAsFactors = FALSE)
+str(good)
+```
+
+The conversion rules for `cbind()` are complicated and best avoided by ensuring all inputs are of the same type.
+
+### Special columns
+
+Since a data frame is a list of vectors, it is possible for a data frame to have a column that is a list: \index{data frames!list in column}
+
+```{r}
+df <- data.frame(x = 1:3)
+df$y <- list(1:2, 1:3, 1:4)
+df
+```
+
+Use list columns with caution: many functions that work with data frames assume that all columns are atomic vectors. \index{data frames|)}
+
+### Exercises
+
+1.  What attributes does a data frame possess?
+
+1.  What does `as.matrix()` do when applied to a data frame with 
+    columns of different types?
+
+1.  Can you have a data frame with 0 rows? What about 0 columns?
+
 **Other objects**
 
 Missing values are specified with `NA`, which is a logical vector of length 1. `NA` will always be coerced to the correct type if used inside `c()`
