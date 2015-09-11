@@ -165,7 +165,7 @@ parent
 :   FIXME
 
 pipe
-:  A vertical bar between two commands. It allows use of output of the first command (on the left) as input for the second command (on the right)
+:   FIXME
 
 process
 :   FIXME
@@ -204,7 +204,7 @@ sub-directories
 :   FIXME
 
 tab completion
-:   FIXME
+:   Tab completion refers to using the "tab" button while typing in the command line in order to "auto-complete" the command and save time typing. For example, if you're trying to type the path to the "Desktop" and type "Des" and then press "tab," it will automatically complete the path to "Desktop" (assuming there aren't other files or directories that start with the same letters). Pressing "tab" twice brings up a list of all the files and directories in the current working directory.
 
 uniq
 :   FIXME
