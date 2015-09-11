@@ -147,7 +147,7 @@ flag
 :   FIXME
 
 graphical user interface
-:   FIXME
+:   also called gui. This is how the user sees information represented on the computer screen, ie. directories as folders.
 
 home directory
 :   FIXME
