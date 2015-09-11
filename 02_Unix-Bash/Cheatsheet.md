@@ -132,7 +132,7 @@ comment
 :   FIXME
 
 current working directory
-:   current working directory is our current default directory, i.e., the directory that the computer assumes we want to run commands in unless we explicitly specify something else.
+:   FIXME
 
 file system
 :   FIXME
@@ -165,7 +165,7 @@ parent
 :   FIXME
 
 pipe
-:  A vertical bar between two commands. It allows use of output of the first command (on the left) as input for the second command (on the right)
+:   FIXME
 
 process
 :   FIXME
@@ -213,4 +213,4 @@ variable
 :   FIXME
 
 wildcard
-:   FIXME
+:   a meta-character, usually an asterisk, that allows a coder to search for an object, directory, etc. without specifying a full path. For instance, if one searches for Desktop/D*, that search will return all folders and items on the desktop that begin with a capital letter 'D.' 
