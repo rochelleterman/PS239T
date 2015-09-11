@@ -165,7 +165,7 @@ parent
 :   FIXME
 
 pipe
-:   FIXME
+:  A vertical bar between two commands. It allows use of output of the first command (on the left) as input for the second command (on the right)
 
 process
 :   FIXME
