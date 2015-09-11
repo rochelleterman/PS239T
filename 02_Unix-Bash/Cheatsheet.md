@@ -117,7 +117,7 @@ subtitle: Reference
 ## Glossary
 
 absolute path
-:  or a full path, points to the location of a filesystem object (i.e.,file, directory or link) in a file system regardless of the current working direcotyr. It must contain the root directory.
+:  or a full path, points to the location of a filesystem object (i.e.,file, directory or link) in a file system regardless of the current working directory. It must contain the root directory.
 
 argument
 :   FIXME
