@@ -129,7 +129,7 @@ command-line interface
 :   FIXME
 
 comment
-:   FIXME
+:   text added to code syntax which is ignored by the computer/compiler but provides guidance to coders for debuging and review.  Generally specifies the purpose of following code as well as helpful hints
 
 current working directory
 :   current working directory is our current default directory, i.e., the directory that the computer assumes we want to run commands in unless we explicitly specify something else.
