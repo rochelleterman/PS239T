@@ -132,7 +132,7 @@ comment
 :   FIXME
 
 current working directory
-:   current working directory is our current default directory, i.e., the directory that the computer assumes we want to run commands in unless we explicitly specify something else.
+:   FIXME
 
 file system
 :   FIXME
@@ -165,7 +165,7 @@ parent
 :   FIXME
 
 pipe
-:  A vertical bar between two commands. It allows use of output of the first command (on the left) as input for the second command (on the right)
+:   FIXME
 
 process
 :   FIXME
@@ -177,7 +177,7 @@ quoting
 :   FIXME
 
 read-evaluate-print loop
-:   FIXME
+:   A read–eval–print loop (REPL), also known as an interactive toplevel or language shell, is a simple, interactive computer programming environment that takes single user inputs (i.e. single expressions), evaluates them, and returns the result to the user; a program written in a REPL environment is executed piecewise (from <a href="https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop">Wikipedia</a>).
 
 redirect
 :   FIXME
