@@ -132,7 +132,7 @@ comment
 :   FIXME
 
 current working directory
-:   FIXME
+:   current working directory is our current default directory, i.e., the directory that the computer assumes we want to run commands in unless we explicitly specify something else.
 
 file system
 :   FIXME
