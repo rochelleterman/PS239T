@@ -213,4 +213,4 @@ variable
 :   FIXME
 
 wildcard
-:   FIXME
+: An asterisk ('*'). Represents any number of characters (including zero, i.e. zero or more characters).
