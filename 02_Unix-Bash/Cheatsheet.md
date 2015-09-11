@@ -105,7 +105,6 @@ subtitle: Reference
 *   `*` matches zero or more characters in a filename, so `*.txt` matches all files ending in `.txt`.
 *   `?` matches any single character in a filename, so `?.txt` matches `a.txt` but not `any.txt`.
 *   `$(command)` inserts a command's output in place.
-*   `man command` displays the manual page for a given command.
 *   Find the whole lesson [here](http://software-carpentry.org/v5/novice/shell/06-find.html)
 
 ## [Getting Help](08_Help.md)
