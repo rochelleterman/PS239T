@@ -207,7 +207,7 @@ tab completion
 :   FIXME
 
 uniq
-:   FIXME
+:   The command uniq removes (ONLY!) adjacent duplicated lines from its input.
 
 variable
 :   FIXME
