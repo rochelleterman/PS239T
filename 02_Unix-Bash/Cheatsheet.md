@@ -210,7 +210,7 @@ uniq
 :   The command uniq removes (ONLY!) adjacent duplicated lines from its input.
 
 variable
-:   FIXME
+:   A variable is a named storage location containing a set of information values.
 
 wildcard
 : An asterisk ('*'). Represents any number of characters (including zero, i.e. zero or more characters).
