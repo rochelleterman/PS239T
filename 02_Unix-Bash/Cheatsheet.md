@@ -120,7 +120,7 @@ absolute path
 :  or a full path, points to the location of a filesystem object (i.e.,file, directory or link) in a file system regardless of the current working directory. It must contain the root directory.
 
 argument
-:   FIXME
+:  the value to which a function (or a command) refers. For example, in cp thesis.txt, thesis.txt is the argument. In f(6), 6 is the argument. Some people on the interwebs (e.g., [here] (http://www.quora.com/What-is-an-Argument-in-Programming-means), have tried to explain the difference between arguments and parameters. The former represents the "value" or "instance" passed to the function, and the latter represent the "variable" or "type."
 
 command shell
 :   FIXME
