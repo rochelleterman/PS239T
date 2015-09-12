@@ -189,7 +189,7 @@ relative path
 :   FIXME
 
 root directory
-:   FIXME
+:   The root directory (sometimes just the root) is the first directory in a hierarchical file system. 
 
 shell script
 :   FIXME
