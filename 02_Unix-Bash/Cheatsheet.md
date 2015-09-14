@@ -150,7 +150,7 @@ graphical user interface
 :   also called gui. This is how the user sees information represented on the computer screen, ie. directories as folders.
 
 home directory
-:   FIXME
+:   The home directory is often the directory users find themselves in when they first log-in to their computer. It serves as a repository for the user's files such as their documents, programs, desktop, etc. Different users on the same computer have different home directories. You can access your home directory in Git-Bash by entering cd ~ . 
 
 loop
 :   FIXME
