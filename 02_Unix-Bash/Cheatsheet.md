@@ -180,7 +180,7 @@ read-evaluate-print loop
 :   FIXME
 
 redirect
-:   FIXME
+:   Allows you to direct the input and ouput of a command to and from other files and programs. Also capable of chaining commands together in a pipeline.
 
 regular expressions
 :   FIXME
