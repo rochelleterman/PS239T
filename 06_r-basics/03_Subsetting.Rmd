@@ -18,7 +18,7 @@ R's subsetting operators are powerful and fast. Mastery of subsetting allows you
 
 * The use of subsetting in conjunction with assignment.
 
-This chapter helps you master subsetting by starting with the simplest type of subsetting: subsetting an atomic vector with `[`. It then gradually extends your knowledge, first to more complicated data types (like arrays and lists), and then to the other subsetting operators, `[[` and `$`. You'll then learn how subsetting and assignment can be combined to modify parts of an object, and, finally, you'll see a large number of useful applications.
+This unit helps you master subsetting by starting with the simplest type of subsetting: subsetting an atomic vector with `[`. It then gradually extends your knowledge, first to more complicated data types (like dataframes and lists), and then to the other subsetting operators, `[[` and `$`. You'll then learn how subsetting and assignment can be combined to modify parts of an object, and, finally, you'll see a large number of useful applications.
 
 Subsetting is a natural complement to `str()`. `str()` shows you the structure of any object, and subsetting allows you to pull out the pieces that you're interested in. \index{subsetting}
 
@@ -27,7 +27,7 @@ Subsetting is a natural complement to `str()`. `str()` shows you the structure o
 * [Data types](#data-types) starts by teaching you about `[`. You'll start
   by learning the six types of data that you can use to subset atomic vectors.
   You'll then learn how those six data types act when used to subset lists,
-  matrices, data frames, and S3 objects.
+  matrices, and data frames.
   
 * [Subsetting operators](#subsetting-operators) expands your knowledge of 
   subsetting operators to include `[[` and `$`, focussing on the important
@@ -207,14 +207,6 @@ str(df["x"])
 str(df[, "x"])
 ```
 
-### S3 objects
-
-S3 objects are made up of atomic vectors, arrays, and lists, so you can always pull apart an S3 object using the techniques described above and the knowledge you gain from `str()`. \index{subsetting!S3} \index{S3!subsetting}
-
-### S4 objects
-
-There are also two additional subsetting operators that are needed for S4 objects: `@` (equivalent to `$`), and `slot()` (equivalent to `[[`). `@` is more restrictive than `$` in that it will return an error if the slot does not exist. These are described in more detail in [the OO field guide](#s4). \index{subsetting!S4} \index{S4!subsetting} \indexc{@}
-
 ### Exercises
 
 1.  Fix each of the following common data frame subsetting errors:
@@ -226,22 +218,8 @@ There are also two additional subsetting operators that are needed for S4 object
     mtcars[mtcars$cyl == 4 | 6, ]
     ```
 
-1.  Why does `x <- 1:5; x[NA]` yield five missing values? (Hint: why is 
-    it different from `x[NA_real_]`?)
-
-1.  What does `upper.tri()` return? How does subsetting a matrix with it 
-    work? Do we need any additional subsetting rules to describe its behaviour?
-
-    ```{r, eval = FALSE}
-    x <- outer(1:5, 1:5, FUN = "*")
-    x[upper.tri(x)]
-    ```
-
 1.  Why does `mtcars[1:20]` return an error? How does it differ from the 
     similar `mtcars[1:20, ]`?
-
-1.  Implement your own function that extracts the diagonal entries from a
-    matrix (it should behave like `diag(x)` where `x` is a matrix).
 
 1.  What does `df[is.na(df)] <- 0` do? How does it work?
 
