@@ -153,7 +153,7 @@ home directory
 :   The home directory is often the directory users find themselves in when they first log-in to their computer. It serves as a repository for the user's files such as their documents, programs, desktop, etc. Different users on the same computer have different home directories. You can access your home directory in Git-Bash by entering cd ~ . 
 
 loop
-:   FIXME
+: is a sequence of instructions that repeats either a specified number of times or until a particular condition is met.
 
 loop body
 :   FIXME
