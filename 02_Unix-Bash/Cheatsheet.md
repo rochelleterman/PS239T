@@ -157,7 +157,7 @@ home directory
 :   FIXME
 
 loop
-:   FIXME
+: is a sequence of instructions that repeats either a specified number of times or until a particular condition is met.
 
 loop body
 :   FIXME
