@@ -1,5 +1,5 @@
 ---
-title: "Data Structure"
+title: "Data Structures"
 author: "Rochelle Terman"
 date: "August 12, 2015"
 output: html_document
