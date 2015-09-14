@@ -677,3 +677,40 @@ typeof(x)
 ```{r, eval = TRUE}
 0/0
 ```
+
+##### Quiz
+
+You can check your answers in [answers](#data-structure-answers).
+
+1. What are the three properties of a vector, other than its contents?
+
+1. What are the four common types of atomic vectors? 
+
+1. What are attributes? How do you get them and set them?
+
+1. How is a list different from an atomic vector? How is a matrix different
+   from a data frame?
+
+1. Can a data frame have a column 
+   that is a matrix?
+
+## Answers {#data-structure-answers}
+
+1.  The three properties of a vector are type, length, and attributes.
+   
+1.  The four common types of atomic vector are logical, integer, double 
+    (sometimes called numeric), and character. The two rarer types are
+    complex and raw.
+    
+1.  Attributes allow you to associate arbitrary additional metadata to
+    any object. You can get and set individual attributes with `attr(x, "y")`
+    and `attr(x, "y") <- value`; or get and set all attributes at once with
+    `attributes()`.
+
+1.  The elements of a list can be any type (even a list); the elements of 
+    an atomic vector are all of the same type. Similarly, every element of 
+    a matrix must be the same type; in a data frame, the different columns 
+    can have different types.
+    
+1.  You can make a matrix a column of a data frame with `df$x <- matrix()`, or
+    using `I()` when creating a new data frame `data.frame(x = I(matrix()))`.

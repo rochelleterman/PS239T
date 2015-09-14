@@ -22,22 +22,6 @@ This chapter helps you master subsetting by starting with the simplest type of s
 
 Subsetting is a natural complement to `str()`. `str()` shows you the structure of any object, and subsetting allows you to pull out the pieces that you're interested in. \index{subsetting}
 
-##### Quiz
-
-Take this short quiz to determine if you need to read this chapter. If the answers quickly come to mind, you can comfortably skip this chapter. Check your answers in [answers](#subsetting-answers).
-
-1.  What is the result of subsetting a vector with positive integers, 
-    negative integers, a logical vector, or a character vector?
-
-1.  What's the difference between `[`, `[[`, and `$` when applied to a list?
-
-1.  When should you use `drop = FALSE`?
-
-1.  If `x` is a matrix, what does `x[] <- 0` do? How is it different to
-    `x <- 0`?
-
-1.  How can you use a named vector to relabel categorical variables?
-
 ##### Outline
 
 * [Data types](#data-types) starts by teaching you about `[`. You'll start
@@ -683,6 +667,22 @@ When first learning subsetting, a common mistake is to use `x[which(y)]` instead
     final row, and every row in between)?
     
 1.  How could you put the columns in a data frame in alphabetical order?
+
+##### Quiz
+
+Check your answers in [answers](#subsetting-answers).
+
+1.  What is the result of subsetting a vector with positive integers, 
+    negative integers, a logical vector, or a character vector?
+
+1.  What's the difference between `[`, `[[`, and `$` when applied to a list?
+
+1.  When should you use `drop = FALSE`?
+
+1.  If `x` is a matrix, what does `x[] <- 0` do? How is it different to
+    `x <- 0`?
+
+1.  How can you use a named vector to relabel categorical variables?
 
 ## Answers {#subsetting-answers}
 
