@@ -177,7 +177,7 @@ quoting
 :   FIXME
 
 read-evaluate-print loop
-:   FIXME
+:   A read–eval–print loop (REPL), also known as an interactive toplevel or language shell, is a simple, interactive computer programming environment that takes single user inputs (i.e. single expressions), evaluates them, and returns the result to the user; a program written in a REPL environment is executed piecewise. The term is most usually used to refer to programming interfaces similar to the classic Lisp machine interactive environment. Common examples include command line shells and similar environments for programming languages, and is particularly characteristic of scripting languages.
 
 redirect
 :   Allows you to direct the input and ouput of a command to and from other files and programs. Also capable of chaining commands together in a pipeline.
