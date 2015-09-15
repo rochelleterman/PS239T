@@ -126,7 +126,7 @@ command shell
 :   FIXME
 
 command-line interface
-:   FIXME
+: A CLI (command line interface) is a user interface to a computer's operating system or an application in which the user responds to a visual prompt by typing in a command on a specified line, receives a response back from the system, and then enters another command, and so forth.
 
 comment
 :   text added to code syntax which is ignored by the computer/compiler but provides guidance to coders for debuging and review.  Generally specifies the purpose of following code as well as helpful hints
