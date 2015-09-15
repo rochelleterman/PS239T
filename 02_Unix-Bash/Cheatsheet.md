@@ -138,7 +138,7 @@ file system
 :   FIXME
 
 filename extension
-:   FIXME
+:   A filename extension is a suffix appended to a name that identifies the file format, file type, and/or indended usage of that file. It is often separated from the base filename by a dot or space.
 
 filter
 :   FIXME
