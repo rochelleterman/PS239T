@@ -198,7 +198,7 @@ shell script
 :   a bunch of commands saved in a file; a small program
 
 standard input
-:   FIXME
+:   standard input, abbreviated as stdin, is information inputted into the terminal through the keyboard or input device.
 
 standard output
 :   FIXME
