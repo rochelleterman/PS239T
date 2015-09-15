@@ -7,8 +7,7 @@ This unit provides a basic introduction to Python. By the end of the week, you s
 3. Grasp the major Python object types, including integers, floats, strings, lists, sets, and dictionaries
 4. Operate and manipulate those objects
 5. Integrate choices into your programs using conditionals
-6. Re-use code by creating functions
-7. Repeat actions through loops
+
 
 # What is Programming
 
