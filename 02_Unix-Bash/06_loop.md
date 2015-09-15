@@ -83,7 +83,7 @@ We have called the variable in this loop `filename` in order to make its purpose
 ```shell
 $ for x in africa1.text africa2.txt
  do
-    wc -w $filename
+    wc -w $x
  done
 ```
 
@@ -92,7 +92,7 @@ or:
 ```shell
 $ for temperature in africa1.text africa2.txt
  do
-    wc -w $filename
+    wc -w $temperature
  done
 ```
 
