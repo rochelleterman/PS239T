@@ -138,7 +138,7 @@ file system
 :   FIXME
 
 filename extension
-:   FIXME
+:   A filename extension is a suffix appended to a name that identifies the file format, file type, and/or indended usage of that file. It is often separated from the base filename by a dot or space.
 
 filter
 :   FIXME
@@ -207,7 +207,7 @@ sub-directories
 :   FIXME
 
 tab completion
-:   FIXME
+:   A method to autocomplete file paths; hit tab and the file name will complete. 
 
 uniq
 :   The command uniq removes (ONLY!) adjacent duplicated lines from its input.
