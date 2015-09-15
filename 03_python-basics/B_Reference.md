@@ -79,7 +79,7 @@ To load a [library](#library) into a program.
 #### in-place operators
 An operator such as `+=` that provides a shorthand notation for the common case in which the variable being assigned to is also an operand on the right hand side of the assignment. For example, the statement `x += 3` means the same thing as `x = x + 3`.
 
-i#### index
+#### index
 A subscript that specifies the location of a single value in a collection, such as a single pixel in an image.
 
 #### inner loop
@@ -102,6 +102,9 @@ A variable contained within an [object](#object).
 
 #### method
 A function which is tied to a particular [object](#object). Each of an object's methods typically implements one of the things it can do, or one of the questions it can answer.
+
+#### mutable
+Changeable. The value of mutable data can be altered after it has been created. See also: [immutable](#immutable).
 
 #### object
 A collection of conceptually related variables ([members](#member)) and functions using those variables ([methods](#method)).
