@@ -186,7 +186,10 @@ regular expressions
 :   FIXME
 
 relative path
-:   FIXME
+: relative path tells ls how to find something from where we are, rather than from the root of the file system.
+  
+example: $ ls -F data
+The output shows us that there are four text files and two sub-sub-directories
 
 root directory
 :   The root directory (sometimes just the root) is the first directory in a hierarchical file system. 
