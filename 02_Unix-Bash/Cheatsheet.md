@@ -123,7 +123,7 @@ argument
 :  the value to which a function (or a command) refers. For example, in cp thesis.txt, thesis.txt is the argument. In f(6), 6 is the argument. Some people on the interwebs (e.g., [here] (http://www.quora.com/What-is-an-Argument-in-Programming-means), have tried to explain the difference between arguments and parameters. The former represents the "value" or "instance" passed to the function, and the latter represent the "variable" or "type."
 
 command shell
-:   FIXME
+:   a command-line, or non-graphical, user interface that provides access to an operating system's services.  It is an environment for direct communication between the user and the operating system using a command-line interface (CLI).
 
 command-line interface
 : A CLI (command line interface) is a user interface to a computer's operating system or an application in which the user responds to a visual prompt by typing in a command on a specified line, receives a response back from the system, and then enters another command, and so forth.
