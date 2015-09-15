@@ -177,7 +177,7 @@ quoting
 :   FIXME
 
 read-evaluate-print loop
-:   FIXME
+:   (REPL) takes a single command line (or expression), evaluates it, and then outputs the results (prints them).
 
 redirect
 :   Allows you to direct the input and ouput of a command to and from other files and programs. Also capable of chaining commands together in a pipeline.
