@@ -1,10 +1,16 @@
----
-title: Getting Help
-subtitle: An never-ending google search
-minutes: 10
----
+# Python Basics: 0-1 Introduction.
 
-# Programming: An never-ending google search.
+This unit provides a basic introduction to Python. By the end of the week, you should be able to:
+
+1. Run Python from both the Shell and in an IPython Notebook
+2. Write basic commands using Python syntax
+3. Grasp the major Python object types, including integers, floats, strings, lists, sets, and dictionaries
+4. Operate and manipulate those objects
+5. Integrate choices into your programs using conditionals
+6. Re-use code by creating functions
+7. Repeat actions through loops
+
+# What is Programming
 
 > ## Learning Objectives
 >
@@ -38,7 +44,7 @@ Thus "knowing how to program" means learning how to *think* like a programmer, n
 
 ![xkcd](http://sslimgs.xkcd.com/comics/wisdom_of_the_ancients.png)
 
-Here's the sad reality: When you're programming, 80% or more of you time will be spent debugging, looking stuff up (like program-specific syntax, documentation for packages, useful functions, etc.), or testing. This may only apply to beginner or intermediate programmers, but I doubt it.
+Here's the sad reality: When you're programming, 80% or more of you time will be spent debugging, looking stuff up (like program-specific syntax, documentation for packages, useful functions, etc.), or testing. This does not just apply to beginner or intermediate programmers, although you will grow more "fluent" over time.
 
 If you're a good programmer, you're a good detective!
 
