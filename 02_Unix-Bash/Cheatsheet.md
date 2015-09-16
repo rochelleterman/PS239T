@@ -162,7 +162,7 @@ orthogonal
 :   FIXME
 
 parent
-:   FIXME
+:   A parent is one level up from where you are located.
 
 pipe
 :  A vertical bar between two commands. It allows use of output of the first command (on the left) as input for the second command (on the right)
