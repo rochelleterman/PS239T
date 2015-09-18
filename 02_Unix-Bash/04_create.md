@@ -302,7 +302,7 @@ ls: cannot access quotes.txt: No such file or directory thesis/quotations.txt
 1. `cd` into the `PS239T/02_Unix-Bash/` directory
 2. make a new directory with the path `data/new-york-times/2015-01-01`
 2. list the files in the `data/downloads` directory.
-3. copy all the files in the `data/downloads` directoryinto a new directory, `data/new-york-times/2015-01-01` (hint: use wildcards so that you don't have to do each one individually)
+3. copy all the files in the `data/downloads` directory into a new directory, `data/new-york-times/2015-01-01` (hint: use wildcards so that you don't have to do each one individually)
 
 #### Challenge 2
 

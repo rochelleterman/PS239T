@@ -11,8 +11,6 @@
 
 Wildcards and tab completion are two ways to reduce typing (and typing mistakes). Another is to tell the shell to do something over and over again.
 
-Wildcards and tab completion are two ways to reduce typing (and typing mistakes). Another is to tell the shell to do something over and over again.
-
 Let's go back to our `data/articles directory`, where we have over 1000 text articles on different regions of the world.
 
 Let's say we'd like to make a backup directory called 'backup' and copy our articles in there, renaming each one `original-africa1.txt` and `original-africa2.txt`.
@@ -85,7 +83,7 @@ We have called the variable in this loop `filename` in order to make its purpose
 ```shell
 $ for x in africa1.text africa2.txt
  do
-    wc -w $filename
+    wc -w $x
  done
 ```
 
@@ -94,7 +92,7 @@ or:
 ```shell
 $ for temperature in africa1.text africa2.txt
  do
-    wc -w $filename
+    wc -w $temperature
  done
 ```
 

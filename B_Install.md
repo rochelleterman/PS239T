@@ -9,7 +9,7 @@ Bash is a commonly-used shell that gives you the power to do simple tasks more q
 
 #### Windows
 
-Install Git for Windows by downloading and running the [installer](http://msysgit.github.io/). This will provide you with both Git and Bash in the Git Bash program. 
+Install Git for Windows by downloading and running the [installer](http://msysgit.github.io/). This will provide you with both Git and Bash in the Git Bash program. **NOTE**: on the ~6th step of installation, you will need to select the option "Use Windows' default console window" rather than the default of "Use MinTTY" in order for nano to work correctly.
 
 After the installer does its thing, it leaves the window open, so that you can play with the "Git Bash".
 
@@ -132,6 +132,8 @@ $ pandoc --version
 ```
 
 If git and python and nano (a text editor) have been installed, those commands *should* print output version information. The python version should include "Anaconda" and its version information.
+
+**NB**: If you're using git bash, the `R --version` command may not work. In this case, just make sure you can open up RStudio.
 
 Ipython is a python development environment that comes pre-installed with the Anaconda python distribution. To see if you have it, type the following into your terminal window:
 
