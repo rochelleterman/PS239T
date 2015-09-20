@@ -156,7 +156,7 @@ loop
 : is a sequence of instructions that repeats either a specified number of times or until a particular condition is met.
 
 loop body
-:   FIXME
+:   it is the specific statement or condition based on specified boundaries that is going to be repeated or looped, it is also called code block and goes between {}. 
 
 orthogonal
 :   FIXME
