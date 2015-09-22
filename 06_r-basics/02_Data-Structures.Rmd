@@ -33,7 +33,7 @@ It is **Very Important** to understand because these are the objects you will ma
 | 2 (Must add a `L` at end to denote integer) | integer |
 | `TRUE`, `FALSE` | logical |
 
-Like Python, R is a dynamically typed.  There are a few differences in terminology, however, that are pertinent. First, "types" in Python are referred to as "classes"" in R.  Second, R has some different names for the types string, integer, and float --- specifically **character**, **integer** (not different), and **numeric**. Because there is no "float" class in R, users tend to default to the "numeric" class when they want to work with numerical data.
+Like Python, R is a dynamically typed.  There are a few differences in terminology, however, that are pertinent. First, "types" in Python are referred to as "classes" in R.  Second, R has some different names for the types string, integer, and float --- specifically **character**, **integer** (not different), and **numeric**. Because there is no "float" class in R, users tend to default to the "numeric" class when they want to work with numerical data.
 
 The function for recovering object classes is ```class()```.
 
