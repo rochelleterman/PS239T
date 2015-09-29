@@ -1,11 +1,9 @@
 ## Python Glossary
 
 #### argument
-
 A value given to a function or program when it runs. The term is often used interchangeably (and inconsistently) with [parameter](#parameter).
 
 #### assertion
-
 An expression which is supposed to be true at a particular point in a program.
 Programmers typically put assertions in their code to check for errors; if the assertion fails (i.e., if the expression evaluates as false), the program halts and produces an error message. See also: [invariant](#invariant), [precondition](#precondition), [postcondition](#postcondition).
 
@@ -14,6 +12,9 @@ To give a value a name by associating a variable with it.
 
 #### body
 (of a function): the statements that are executed when a function runs.
+
+#### boolean operators
+logical operators, i.e. `and`, `or`, and `not`, that allow us to build more complex conditional statements from simpler conditional statements. See: [contitional statements](#contitional-statement)
 
 #### call stack
 A data structure inside a running program that keeps track of active function calls.
@@ -31,7 +32,7 @@ A remark in a program that is intended to help human readers understand what is 
 To apply one function to the result of another, such as `f(g(x))`.
 
 #### conditional statement
-A statement in a program that might or might not be executed depending on whether a test is true or false.
+A statement in a program that might or might not be executed depending on whether a test is true or false. Also called "boolean expression."
 
 #### comma-separated values
 (CSV) A common textual representation for tables in which the values in each row are separated by commas.
