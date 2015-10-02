@@ -183,7 +183,9 @@ redirect
 :   Allows you to direct the input and ouput of a command to and from other files and programs. Also capable of chaining commands together in a pipeline.
 
 regular expressions
-:   FIXME
+:   abbreviated regex or regexp, is a sequence of characters to search for patterns. It is used most commonly in pattern matching with strings. One example of its application is in "find-and-replace" type of operations.
+
+
 
 relative path
 : relative path tells ls how to find something from where we are, rather than from the root of the file system.
