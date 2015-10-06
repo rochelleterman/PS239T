@@ -191,7 +191,7 @@ is.character(char_var)
 is.atomic(char_var)
 
 num_var <- c(1, 2.5, 4.5)
-class(dbl_var)
+class(num_var)
 is.double(num_var)
 is.atomic(num_var)
 ```
