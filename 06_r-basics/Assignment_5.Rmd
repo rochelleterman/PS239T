@@ -23,7 +23,7 @@ output: html_document
 
 #### 2.1 Create three vectors:
 
-* a character vecotr, `titles`, that contain the names of 3 of your favorite movies
+* a character vector, `titles`, that contain the names of 3 of your favorite movies
 
 * a numeric vector, `year`, that contains the years in which those movies were produced
 
