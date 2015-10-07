@@ -87,7 +87,7 @@ Let's work with some real life data! I've prepared for your a basic country-year
 Run the code below to set it loaded into R.
 
 ```{r}
-dat <- read.csv("country-year2.csv")
+dat <- read.csv("country-year.csv")
 ```
 
 #### 4.1 How many rows and columns are in the dataset?
