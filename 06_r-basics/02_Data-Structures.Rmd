@@ -564,6 +564,7 @@ df <- data.frame(
   y = c("a", "b", "c"),
   stringsAsFactors = FALSE)
 str(df)
+df
 ```
 
 In reality, the most common way to make a data.frame is through `read.csv` or other data file input.
@@ -594,6 +595,9 @@ colnames(df)
 
 # change the colnames
 colnames(df) <- c("Number", "Character")
+df
+
+names(df) <- c("Number", "Character")
 df
 
 # change the rownames
@@ -671,19 +675,39 @@ The conversion rules for `cbind()` are complicated and best avoided by ensuring 
 1.  Create a 3x2 data frame called `basket`. The first column should contain the names of 3 fruits. The second column should contain the price of those fruits. 
 
 ```{r eval = FALSE}
-# YOUR CODE HERE
+
+fruit = c("apples", "orange", "bananas")
+price = c(.89, .99, 1.00)
+
+basket <- data.frame(fruit, price)
+class(basket)
+
+data.frame(fruit = c("apples", "orange", "bananas"), price = c(.89, .99, 1.00))
+
+basket
+
+names(basket)
+colnames(basket)
 ```
 
-2. Now give you dataframe appropriate column and row names.
+2. Now give your dataframe appropriate column and row names.
 
 ```{r eval = FALSE}
-# YOUR CODE HERE
+names(basket) <- c("name", "price")
+names(basket)
+
 ```
 
 3. Add a third column called `color`, that tells me what color each fruit is.
 
 ```{r eval = FALSE}
-# YOUR CODE HERE
+
+color = c("red", "orange", "yellow")
+
+data.frame(basket, color)
+
+cbind(basket, color)
+
 ```
 
 **Other objects**

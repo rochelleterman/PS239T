@@ -5,6 +5,10 @@ date: "October 9, 2015"
 output: slidy_presentation
 ---
 
+x <- 1
+rm(x)
+ls()
+
 ## Atomic Types
 
 | Type | Example |

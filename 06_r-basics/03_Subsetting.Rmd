@@ -60,12 +60,14 @@ There are five things that you can use to subset a vector:
 
 ```{r}
 x <- c(2.1, 4.2, 3.3, 5.4)
-
+x
+x[1]
 x[c(3, 1)]
 
 # `order(x)` gives the positions of smallest to largest values.
 order(x)
 x[order(x)]
+x[c(1, 3, 2, 4)]
 
 # Duplicated indices yield duplicated values
 x[c(1, 1)]
@@ -84,7 +86,10 @@ You can't mix positive and negative integers in a single subset:
 ```{r, error = TRUE}
 x <- c(2.1, 4.2, 3.3, 5.4)
 
-x[c(-1, 2)]
+x[-c(1, 2)]
+
+c(1, 2, 3) + c(4, 5, 6)
+
 ```
 
 #### 3.   __Logical vectors__ select elements where the corresponding logical 
@@ -101,6 +106,7 @@ This is probably the most useful type of subsetting because you write the expres
 ```{r}
 # this returns a logical vector
 x > 3
+x
 
 # use a conditional statement to create an implicit logical vector
 x[x > 3]
@@ -113,6 +119,8 @@ x <- c(2.1, 4.2, 3.3, 5.4)
 
 # combing two conditional statements with &
 x > 3 & x < 5
+
+
 x[x > 3 & x < 5]
 
 # combing two conditional statements with |
@@ -129,6 +137,7 @@ Another way to generate implicit conditional statements is using the `%in%` oper
 ```{r}
 # generate implicit logical vectors through the %in% operator
 x %in% c(3.3, 4.2)
+x
 x[x %in% c(3.3, 4.2)]
 ```
 
@@ -139,6 +148,7 @@ x <- c(2.1, 4.2, 3.3, 5.4)
 
 # apply names
 names(x) <- c("a", "b", "c", "d")
+x
 
 # subset using names
 x[c("d", "c", "a")]
@@ -161,11 +171,20 @@ country.vector<-c("Afghanistan", "Canada", "Sierra Leone", "Denmark", "Japan", "
 
 # Do it using positive integers
 
+country.vector[c(1, 3, 4, 5)]
+
 # Do it using negative integers
+
+country.vector[-c(2, 6)]
 
 # Do it using a logical vector
 
+country.vector[c(TRUE, FALSE, TRUE, TRUE, TRUE, FALSE )]
+
 # Do it using a conditional statement (and an implicit logical vector)
+
+country.vector[!country.vector %in% c("Canada", "Brazil")]
+
 ```
 
 ### Lists
@@ -191,9 +210,14 @@ colnames(a) <- c("A", "B", "C")
 a
 
 # rows come first, then columns
-a[1:2, ]
+a[c(1, 2), ]
 a[c(T, F, T), c("B", "A")]
 a[0, -2]
+a[c(1,2) , -2]
+a[ , ]
+
+
+
 ```
 
 ### Data frames {#df-subsetting}
@@ -202,6 +226,12 @@ Data from data frames can be addressed like matrices, using two vectors separate
 
 ```{r}
 df <- data.frame(x = 4:6, y = 3:1, z = letters[1:3])
+df
+
+df
+
+df$x <- NULL
+df$r <- 1
 df
 
 # return only the rows where x == 6
@@ -249,6 +279,33 @@ mtcars[mtcars$cyl = 4, ]
 mtcars[-1:4, ]
 mtcars[mtcars$cyl <= 5]
 mtcars[mtcars$cyl == 4 | 6, ]
+
+names(mtcars)
+"mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "vs"   "am"   "gear" "carb"
+
+#using positive integers
+mtcars[ , 2:11] # like a matrix, all rows, columns 2 through 11
+mtcars[2:11] # like a list, taking all columsn 2 through 11
+
+#using negative integers
+mtcars[ , -1] # like a matrix, all rows, all columns except first column
+mtcars[-1] # like a list, all columns except first
+
+#using logical
+mtcars[, !colnames(mtcars) %in% c("mpg")] # like a matrix, all rows, all columns except columns called "mpg"
+mtcars[!colnames(mtcars) %in% c("mpg")]  # like a list, all columns except columns called "mpg"
+
+#using names
+mtcars[, c("cyl","disp","hp","drat","wt", "qsec","vs","am","gear","carb")]
+mtcars[c("cyl","disp","hp","drat","wt", "qsec","vs","am","gear","carb")]
+
+# by deleting columns explicitely
+mtcars$mpg <- NULL # delete column "mpg"
+
+and since mtcars$mpg == mtcars[["mpg"]], we can also use
+
+mtcars[["mpg"]] <- NULL
+
 ```
 
 2.  Why does `mtcars[1:20]` return an error? How does it differ from the 
@@ -275,7 +332,12 @@ Because data frames are lists of columns, you can use `[[` to extract a column f
 ```{r}
 mtcars
 mtcars[[1]] 
-mtcars[["cyl"]]
+mtcars[1]
+mtcars[ ,1]
+
+mtcars$cyl <- NULL
+
+
 ```
 
 ### `$`
