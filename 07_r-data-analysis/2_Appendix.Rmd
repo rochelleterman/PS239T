@@ -1,0 +1,515 @@
+---
+title: "Data Analysis in R - Appendix"
+author: "Rochelle Terman"
+date: "Fall 2015"
+output: html_document
+---
+
+This appendix goes into further detail of several topics using a dataset on airlines.
+
+Table of Contents:
+
+1. [A. Importing Data](A.Importing-Data)
+2. [B. Group-wise Operations]
+3. [C. Reshape]
+4. [D. Inferences](inferences)
+
+# A. Importing Data
+
+### A1. Spreadsheets
+
+For spreadsheet data that **is not** explicitly saved as a Microsoft Excel file:
+
+```{r, eval=FALSE}
+# Import data with header row, values separated by ",", decimals as "."
+mydataset<-read.csv(file="  ", stringsAsFactors=) # Basic Call
+```
+```{r}
+# Example
+air<-read.csv(file="data/airline_small.csv", stringsAsFactors=F) 
+dim(air) # Check dimensionality of dataset
+air[1:5, 1:5] # View first 5 rows/columns
+```
+```{r, eval=FALSE}
+# Import data with header row, values separated by ";", decimals as ","
+mydataset<-read.csv2(file="  ", stringsAsFactors=)
+
+# Import data with header row, values separated by tab, decimals as "."
+mydataset<-read.delim(file="  ", stringsAsFactors=)
+
+# Import data with header row, values separated by tab, decimals as ";"
+mydataset<-read.delim2(file="  ", stringsAsFactors=)
+
+# For importing tabular data with maximum customizeability
+mydataset<-read.table(file=, header=, sep=, quote=, dec=, fill=, stringsAsFactors=)
+```
+
+For spreadsheet data that **is** explicitly saved as a Microsoft Excel file (.xls or .xlsx):
+
+```{r message=F}
+# Install the "XLConnect" package (only necessary one time)
+# install.packages("XLConnect") # Not Run
+
+# Load the "XLConnect" package (necessary every new R session)
+library(XLConnect)
+```
+
+```{r, eval=FALSE}
+# For importing both .xls and .xlsx files
+mydataset<-read.xls(xls=, sheet=) # Basic Call
+```
+
+```{r}
+# Example with .xls (single sheet)
+air<-loadWorkbook(file = "data/airline_small.xls") 
+air<-readWorksheet(object = air, sheet = 1)
+air[1:5, 1:5]
+# Example with .xlsx (single sheet)
+air<-loadWorkbook(file = "data/airline_small.xlsx") 
+air<-readWorksheet(object = air, sheet = 1)
+air[1:5, 1:5]
+```
+
+### A2. Proprietaries (e.g.: .dta, .spss, .ssd)
+
+```{r}
+# Install the "foreign" package (only necessary one time)
+# install.packages("foreign") # Not Run
+
+# Load the "foreign" package (necessary every new R session)
+library(foreign)
+```
+```{r, eval=FALSE}
+read.xxxx(file=) # Basic call, where .xxxx is the imported file's extension/client
+
+# For importing Stata files
+mydataset<-read.dta(file=)
+```
+```{r}
+# Example
+air<-read.dta(file="data/airline_small.dta")
+air[1:5, 1:5]
+```
+```{r, eval=FALSE}
+# For importing SPSS files
+mydataset<-read.spss(file=)
+
+# For importing SAS files
+mydataset<-read.ssd(file=)
+mydataset<-read.xport(file=)
+
+# For importing Fortran files
+mydataset<-read.fortran(file=)
+
+# For importing DBF files
+mydataset<-read.dbf(file=)
+```
+
+### A3. URLs (e.g.: http, https, ftp)
+
+Most data importing facilities in R can be adapted to import non-local files via http/s/ftp.  For instance, [this online dataset](https://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-mpg.data)
+```{r}
+# Import dataset on different car characteristics 
+link<-"http://archive.ics.uci.edu/ml/machine-learning-databases/autos/imports-85.data"
+cars<-read.csv(file = link, header = F)
+cars[1:25, 1:5]
+```
+
+### A4. Other (e.g.: html tables, html, xml, json) 
+
+Say we wanted to scrape a list of votes in the US Congress contained in an html table (like [this](http://clerk.house.gov/evs/2015/index.asp))
+```{r}
+# Install the "XML" package (only necessary one time)
+# install.packages("XML") # Not Run
+
+# Load the "XML" package (necessary every new R session)
+library(XML)
+```
+```{r, eval=FALSE}
+mydataset<-readHTMLTable(doc=, header=, which=, stringsAsFactors=) # Basic Call
+```
+```{r}
+link<-"http://clerk.house.gov/evs/2015/index.asp"
+votes.2015<-readHTMLTable(doc=link, header=T, which=1, stringsAsFactors=F)
+
+dim(votes.2015) # Check data dimensionality
+colnames(votes.2015) # Get column names
+votes.2015[1:10, 1:5]
+```
+
+# B. Group-wise Operations
+
+### B1. Split-Apply-Combine
+
+All techniques for group-wise operations rely on the ***split-apply-combine*** strategy
+
+**First,** take the data (or some object) and *split* it into smaller datasets on the basis of some variable
+
+Dataset A
+
+x|y|z
+-----|------|-----
+1|1|1
+2|2|1
+3|3|1
+4|1|2
+5|2|2
+6|3|2
+
+Datasets B and C (Dataset A split according to "z") 
+
+x|y|z| | | | | |x|y|z
+-----|------|-----|-----|-----|-----|-----|-----|-----|-----|-----
+1|1|1| | | | | |4|1|2
+2|2|1| | | | | |5|2|2
+3|3|1| || | | |6|3|2
+
+**Second,** apply some function to each one of the smaller datasets/objects 
+
+Example function: *mean* of variables "x" and "y"
+
+Datasets B' and C'
+
+mean(x)|mean(y)|z| | | | | |mean(x)|mean(y)|z
+-----|------|-----|-----|-----|-----|-----|-----|-----|-----|-----
+2|2|1| | | | | |5|2|2
+
+**Third,** combine the results into a larger dataset/object
+
+Datasets B' and C'
+
+mean(x)|mean(y)|z| | | | | |mean(x)|mean(y)|z
+-----|------|-----|-----|-----|-----|-----|-----|-----|-----|-----
+2|2|1| | | | | |5|2|2
+
+Dataset A'
+
+mean(x)|mean(y)|z
+-----|------|-----
+2|2|1
+5|2|2
+
+### B2. plyr
+
+```{r}
+air$AirTime <- as.numeric(air$AirTime)
+air$ArrDelay <- as.numeric(air$ArrDelay)
+air$DepTime <- as.numeric(air$DepDelay)
+air$DepTime <- as.numeric(air$DepTime)
+```
+
+*plyr* is the go-to package for all your splitting-applying-combining needs.  Among its many benefits (above base R capabilities):
+a) Don't have to worry about different name, argument, or output consistencies
+b) Easily parallelized 
+c) Input from, and output to, data frames, matricies, and lists
+d) Progress bars for lengthy computation
+e) Informative error messages
+
+```{r}
+# Install the "plyr" package (only necessary one time)
+# install.packages("plyr") # Not Run
+
+# Load the "plyr" package (necessary every new R session)
+library(plyr)
+```
+
+### B3: Selecting functions and writing commands
+
+- Two essential questions:
+1) What is the class of your input object?
+2) What is the class of your desired output object?
+- If you want to split a **d**ata frame, and return results as a **d**ata frame, you use **dd**ply
+- If you want to split a **d**ata frame, and return results as a **l**ist, you use **dl**ply
+- If you want to split a **l**ist, and return results as a **d**ata frame, you use **ld**ply
+
+All of the major plyr functions have the same basic syntax
+
+```{r, eval=FALSE}
+xxply(.data=, .variables=, .fun=, ...)
+```
+
+Consider the case where we want to calculate arrival delay statistics across airlines from a data.frame, and return them as a data.frame:
+
+```{r}
+ddply(.data=air, .variables=.(UniqueCarrier), .fun=summarize, mean.delay=mean(ArrDelay, na.rm = T))
+```
+
+Consider the case where we want to calculate arrival delay statistics across airlines from a data.frame, and return them as a list:
+
+```{r}
+dlply(.data=air, .variables=.(UniqueCarrier), .fun=summarize, mean.delay=mean(ArrDelay, na.rm = T))
+```
+
+Consider the case where we want to calculate arrival delay statistics across airlines from a list, and return them as a data.frame:
+
+```{r}
+# Split the data.frame into a list on the basis of "UniqueCarrier"
+air.delay.list<-split(x=air, f=air$UniqueCarrier)
+str(air.delay.list, max.level = 1)
+
+# Check the class of the object
+class(air.delay.list)
+# Check for list element names
+objects(air.delay.list)
+# Compute delay statistics (note: no .variable argument)
+ldply(.data=air.delay.list, .fun=summarize, mean.delay=mean(ArrDelay, na.rm = T)) 
+```
+
+Consider the case where we want to calculate arrival delay statistics across airlines from a list, and return them as a list:
+
+```{r}
+# Compute delay statistics (note: no .variable argument)
+llply(.data=air.delay.list, .fun=summarize, mean.delay=mean(ArrDelay, na.rm = T))
+```
+
+### B4. plyr Functions
+
+plyr can accomodate any user-defined function, but it also comes with some pre-defined functions that assist with the most common split-apply-combine tasks.  We've already seen **summarize**, which creates user-specified vectors and combines them into a data.frame.  Here are some other helpful functions:
+
+**transform**: applies a function to a data.frame and adds new vectors (columns) to it
+
+```{r}
+ddply(.data=air, .variables=.(UniqueCarrier), .fun=summarize, mean.delay=mean(ArrDelay, na.rm = T))
+
+# Add a column containing the average delay for the airline of each flight
+air.transform<-ddply(.data=air, .variables=.(UniqueCarrier), .fun=transform,
+      mean.delay=mean(ArrDelay, na.rm = T))
+head(air.transform)
+tail(air.transform)
+```
+
+Note that **transform** can't do transformations that involve the results of *previous* transformations from the same call.  For this, we need **mutate**: just like transform, but it executes the commands iteratively so  transformations can be carried out that rely on previous transformations from the same call
+
+```{r}
+# Attempt to add new columns that draw on other (but still new) columns
+air.mutate<-ddply(.data=air, .variables=.(UniqueCarrier), .fun=mutate,
+      mean.delay=mean(ArrDelay, na.rm = T),
+      mean.delay.per.airtime=mean.delay/sum(AirTime, na.rm = T))
+head(air.mutate)
+
+```
+
+Another very useful function is **arrange**, which orders a data frame on the basis of column contents
+
+```{r}
+# Calculate mean and standard deviation of arrival delay times by airline and day of week 
+air.summarize<-ddply(.data=air, .variables=.(UniqueCarrier, DayOfWeek), .fun=summarize, 
+                     mean.delay=mean(ArrDelay, na.rm = T),
+                     sd.delay=sd(ArrDelay, na.rm = T))
+# Arrange by average delay (ascending)
+arrange(air.summarize, mean.delay)
+# Arrange by average delay (descending)
+arrange(air.summarize, desc(mean.delay))
+# Arrange by day (ascending) then average delay (ascending)
+arrange(air.summarize, DayOfWeek, mean.delay)
+# Arrange by day (descending) then SD delay (descending)
+arrange(air.summarize, desc(DayOfWeek), desc(sd.delay))
+```
+
+# C. Reshaping Data/reshape2
+
+Often times, even before we're interested in doing all this group-wise stuff, we need to reshape our data.  For instance, datasets often arrive at your desk in wide (long) form and you need to convert them to long (wide) form.
+
+Though base R does have commands for reshaping data (including **aggregate**, **by**, **tapply**, etc.), each of their input commands are slightly different and are only suited for specific reshaping tasks.
+
+The **reshape2** package overcomes these argument and task inconsistencies to provide a simple, relatively fast way to alter the form of a data.frame.  The package contains effectively two commands, and their functions are in their names: **melt** and **cast**.
+
+```{r}
+# Install the "reshape2" package (only necessary one time)
+# install.packages("reshape2") # Not Run
+
+# Load the "reshape2" package (necessary every new R session)
+library(reshape2)
+```
+
+### C1. Melt
+
+```melt()``` is used to convert wide-form data to long-form.  The basic idea is to take your data.frame and melt it down to a minimal number of columns using two essential pieces of information:
+1) **Unit-of-Analysis identifiers**, or columns you *don't* want to melt down
+2) **Characteristic variables**, or columns you *do* want to melt down
+
+```{r, eval=FALSE}
+# Basic Call
+melt(data=, id.vars=, measure.vars=, variable.name=, value.name=)
+```
+
+To see how this works in practice, consider a subset of the "air" data.frame containing only the first 10 rows and 5 columns
+```{r}
+air.subset<-air[1:10, 1:5]
+air.subset
+```
+
+Let's also add a unique identifier to each flight so we can keep track of it.
+
+```{r}
+air.subset$id<-1:nrow(air.subset)
+air.subset
+```
+
+Suppose we wanted to convert this data from its current wide format to an entirely long format.  How to proceed?
+
+**First**, select which columns you want to keep (i.e. not melt).  In this case, I'm interested in having individual flights as my unit of analysis.  This is exactly the "id" column just added.  
+
+**Second**, select which columns you want to melt.  In this case, I'd like to melt the "DayOfWeek" and "DepTime" columns.
+
+With these two pieces of information, I'm ready to melt down the data.frame:
+```{r}
+melt(data=air.subset, id.vars="id", 
+     measure.vars=c("DayOfWeek", "DepTime"))
+# If you want to melt ALL columns that aren't ID variables, you can also omit the "measure.vars" argument
+melt(data=air.subset, id.vars="id")
+```
+
+Note that melt collapses all of the measure variables into two columns: one containing the column/measurement name, the other containing the column/measurement value for that row.  By default, these columns are named "variable" and "value", though they can be customized using the "variable.name" and "value.name" arguments.  For example:
+```{r}
+air.melted<-melt(data=air.subset, id.vars="id", 
+                 measure.vars=c("DayOfWeek", "DepTime"),
+                 variable.name="characteristic",
+                 value.name="response")
+```
+
+### C2. Cast
+
+There are two main cast functions in the reshape2 package for converting data from a long format to a wide format: **a**cast() (for producing **a**rrays) and **d**cast() (for producing **d**ata frames)
+
+The generic call for (d)cast looks like this:
+
+```{r eval=FALSE}
+dcast(data=, formula=xvar1+xvar2 ~ yvar1+yvar2, value.var=, fun.aggregate=)
+```
+
+Some example usages:
+```{r}
+# Original melted data.frame (take note of column names)
+air.melted
+
+# Cast a new data.frame from the melted data.frame containing the "id" column and expanding the "characteristic" column
+dcast(data=air.melted, formula=id~characteristic, value.var="response")
+```
+
+# D. Inferences
+
+Once we've imported our data, summarized it, carried out group-wise operations, and perhaps reshaped it, we may also like to attempt causal inference.
+
+This often requires doing the following:
+1) Carrying out Classical Hypothesis Tests
+2) Estimating Regressions
+
+### D.1 Hypothesis Tests
+
+Suppose we have two different samples, A and B, both drawn from the standard normal distribution:
+```{r}
+a<-rnorm(n=5000, mean=0, sd=1)
+b<-rnorm(n=5000, mean=0, sd=1)
+```
+
+Suppose we also have a third sample, C, drawn from the normal distribution with mean=1 and sd=0:
+```{r}
+c<-rnorm(n=5000, mean=1, sd=1)
+```
+```{r, echo=FALSE, fig.cap=" "}
+plot(density(a), col="red", lwd=3, main="Distributions of A, B, & C")
+lines(density(b), col="blue", lwd=3)
+lines(density(c), col="green4", lwd=3)
+legend("topleft", legend=c("A", "B", "C"), col=c("red", "blue", "green4"), lwd=3)
+```
+
+One can test for differences in these distributions in either a) their means using t-tests, or b) their entire distributions using ks-tests
+
+```{r, eval=FALSE}
+# Basic Call
+t.test(x=, y=, var.equal=, conf.level=, formula=)
+ks.test(x=, y=)
+```
+
+```{r}
+t.test(x=a, y=b) # No difference in means
+t.test(x=a, y=c) # Difference in means
+ks.test(x=a, y=b) # No difference in distributions
+ks.test(x=a, y=c) # Difference in distributions
+```
+
+As a practical example, we can ask whether the airlines "UA" and "AA" have different mean arrival delays.
+```{r}
+plot(density(air$ArrDelay[air$UniqueCarrier=="UA"], na.rm = T), col="blue", lwd=3, main="Distribution of Arrival Delays")
+lines(density(air$ArrDelay[air$UniqueCarrier=="AA"], na.rm = T), col="red", lwd=3)
+t.test(x = air$ArrDelay[air$UniqueCarrier=="UA"],air$ArrDelay[air$UniqueCarrier=="AA"])
+ks.test(x = air$ArrDelay[air$UniqueCarrier=="UA"],air$ArrDelay[air$UniqueCarrier=="AA"])
+```
+
+### D.2 Regression
+
+Running regressions in R is extremely simple, very straightforwd (though doing things with standard errors requires a little extra work).  Most basic, catch-all regression function in R is *glm*, which fits a generalized linear model with your choice of family/link function (gaussian, logit, poisson, etc.)
+
+*lm* is just a standard linear regression (equivalent to glm with family=gaussian(link="identity"))
+
+The basic glm call looks something like this:
+
+```{r eval=FALSE}
+glm(formula=y~x1+x2+x3+..., family=familyname(link="linkname"), data=)
+```
+
+There are a bunch of families and links to use (help(family) for a full list), but some essentials are **binomial(link = "logit")**, **gaussian(link = "identity")**, and **poisson(link = "log")**
+
+Example: suppose we want to regress explain the variation in departure delays.  A typical glm call would be something like this:
+
+```{r}
+air$DepDelay <- as.numeric(air$DepDelay)
+
+# Departure delays appear highly right-skewed; use inverse hyperbolic sine transformation 
+plot(density(air$DepDelay, na.rm=T))
+plot(density(log(air$DepDelay+(air$DepDelay^2+1)^0.5), na.rm=T))
+
+air$logDepDelay<-log(air$DepDelay+(air$DepDelay^2+1)^0.5)
+reg<-glm(formula = logDepDelay~Year+Month+DayOfWeek+CRSDepTime+Distance+UniqueCarrier, data = air)
+reg
+```
+
+When we store this regression in an object, we get access to several items of interest
+
+```{r}
+# View objects contained in the regression output
+objects(reg)
+# Examine regression coefficients
+reg$coefficients
+# Examine regression DoF
+reg$df.residual
+# Examine regression fit (AIC)
+reg$aic
+```
+
+R has a helpful summary method for regression objects
+```{r}
+summary(reg)
+```
+
+Can also extract useful things from the summary object (like a matrix of coefficient estimates...)
+
+```{r}
+# Store summary method results
+sum.reg<-summary(reg)
+# View summary method results objects
+objects(sum.reg)
+# View table of coefficients
+sum.reg$coefficients
+```
+
+Note that, in our results, R has broken up our variables into their different factor levels (as it will do whenever your regressors have factor levels).  If your data aren't factorized, you can tell glm to factorize a variable (i.e. create dummy variables on the fly) by writing
+
+```{r, eval=FALSE}
+glm(formula=y~x1+x2+factor(x3), family=family(link="link"), data=)
+```
+
+There are also some useful shortcuts for regressing on interaction terms:
+
+**x1:x2** interacts all terms in x1 with all terms in x2 (either by multiplication or dummy expansion)
+```{r}
+summary(glm(formula = logDepDelay~Year+Month+DayOfWeek+CRSDepTime:Distance+UniqueCarrier, 
+            data = air))
+```
+
+**x1//*x2** produces the cross of x1 and x2, or x1+x2+x1:x2
+```{r}
+summary(glm(formula = logDepDelay~Year+Month+DayOfWeek+CRSDepTime*Distance+UniqueCarrier, 
+            data = air))
+```

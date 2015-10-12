@@ -1,0 +1,357 @@
+---
+title: "Data Analysis in R"
+author: "Rochelle Terman"
+date: "Fall 2015"
+output: html_document
+---
+
+For most applied research, conducting data analysis in R involves the following core tasks: 
+
+1) ***Constructing*** a dataset
+2) ***Summarizing*** the structure and content of data
+3) Carrying out operations and calculations across ***groups*** 
+4) ***Reshaping*** data to and from various formats
+5) Attempting to conduct ***causal inference*** 
+
+### Setup environment
+
+```{r eval=F}
+# remove all objects
+rm(list=ls())
+
+# set working directory
+setwd(dir="~/Dropbox/berkeley/Dissertation/Data\ and\ Analyais/Git\ Repos/PS239T/07_r-data-analysis/")
+```
+
+# 1. Construct a dataset
+
+The first thing we want to do is construct a dataset. This usually involves one or more of the following tasks:
+
+a) ***Importing*** different types of data from different sources
+b) ***Cleaning*** the data, including subsetting, altering values, etc.
+c) ***Merging*** the data with other data
+
+### 1a: Importing Data
+
+First lets load the packages that allow us to impocountry.year data.
+
+The first thing we want to do is load some of the data we want to work with. For spreadsheet data that **is not** explicitly saved as a Microsoft Excel file:
+
+```{r, eval=FALSE}
+# Basic CSV read: Impocountry.year data with header row, values separated by ",", decimals as "."
+mydataset<-read.csv(file="  ", stringsAsFactors=)
+```
+
+Let's load the PolityVI and CIRI datasets (both csvs):
+
+```{r}
+#impocountry.year
+polity <- read.csv("data/Polity/p4v2013.csv", stringsAsFactors = F)
+# take a quick peek
+head(polity) # first 6 rows
+
+# impocountry.year
+ciri <- read.csv("data/CIRI/CIRI_1981_2011.csv", stringsAsFactors = F)
+# take a quick peer
+head(ciri)
+```
+
+We can also import:
+
+* Microsoft Excel file (.xls or .xlsx):
+* Proprietary data formats (e.g.: .dta, .spss, .ssd)
+* Data from the web
+
+**For more details on the importing datasets, see the Appendix!**
+
+### 1b. Cleaning Data
+
+Let's start with the Polity dataset on political regime characteristics and transitions. First, let's inspect the dataset.
+
+```{r}
+# Get the object class
+class(polity)
+# Get the object dimensionality 
+dim(polity) # Note this is rows by columns
+# Get the column names
+colnames(polity)
+# Get the row names
+rownames(polity)[1:50] # Only the first 50 rows
+# View first six rows and all columns
+head(polity)
+# View last six rows and all columns
+tail(polity)
+# Get detailed column-by-column information
+str(polity)
+```
+
+We'll first want to subset, and maybe alter some values.
+
+```{r}
+# find column names
+names(polity)
+
+# quickly summarize the year column
+summary(polity$year)
+
+# subset the data
+country.year <- subset(polity, year>1979 & year < 2013,select=c(ccode,country,year,polity,democ,autoc))
+
+# take a look
+head(country.year)
+
+# quickly summarize the polity column
+summary(country.year$polity)
+
+# apply NA values
+country.year$polity[country.year$polity < -10] <- NA
+summary(country.year$polity)
+
+# get a list of all the countries in the dataset
+head(unique(country.year$country))
+
+# delete records
+country.year <- country.year[-which(country.year$country=="Sudan-North"),]
+```
+
+### 1c. Merging data
+
+Oftentimes, we want to combine data from multiple datasets to construct our own dataset. This is called **merging**. In order to merge datasets, at least one column has be to shared between them. This column is usually a vector of keys, or unique identifiers, by which you can match observations.
+
+For our data, each observation is a "country-year". But the "country" column is problematic. Some datasets might use "United States", others "USA", or "United States of America" -- this makes it difficult to merge datasets.
+
+So we'll use the "ccode" column, which is a numeric code commonly used to identify countries, along with "year". Together, this makes an id for each observation.
+
+The first thing we want to do is inspect the dataset we want to merge and make it merge-able.
+
+```{r}
+# get column names
+names(ciri) # to be merged
+
+# subset for the observations we care about
+ciri.subset <- subset(ciri, YEAR > 1979 & YEAR < 2013, select=c(YEAR,COW,UNREG,PHYSINT,SPEECH,NEW_EMPINX,WECON,WOPOL,WOSOC,ELECSD))
+
+# rename columns so that they are comparable to country.year
+names(country.year)
+names(ciri.subset) <- c("year","ccode","unreg","physint","speech","new_empinx","wecon","wopol","wosoc","elecsd")
+names(ciri.subset) 
+
+# merge
+country.year <- merge(country.year,ciri.subset,by=c("year","ccode"),all.x=TRUE)
+
+# delete duplicates
+which(duplicated(country.year))
+duplicates <- which(duplicated(country.year))
+duplicates
+country.year <- country.year[-duplicates,]
+```
+
+We can keep doing this for many datasets until we have a brand-speanking new dataset! 
+
+### Fast forward:
+
+```{r}
+country.year <- read.csv("data/country-year.csv", stringsAsFactors = F)
+names(country.year)
+head(country.year)
+```
+
+# 2. Summarizing
+
+First let's get a quick summary of all variables.
+
+```{r}
+summary(country.year)
+```
+
+Look at region:
+
+```{r}
+summary(country.year$region)
+```
+
+Let's change this back to a factor.
+
+```{r}
+country.year$region <- as.factor(country.year$region)
+summary(country.year$region)
+```
+
+Sometimes we need to do some basic checking for the number of observations or types of observations in our dataset. To do this quickly and easily, `table()` is our friend. 
+
+Let's look the number of observations by region.
+
+```{r}
+table(country.year$region)
+```
+
+We can even rivide by the total number of rows to get proportion, percent, etc.
+
+```{r}
+table(country.year$region)/nrow(country.year)
+table(country.year$region)/nrow(country.year)*100
+```
+
+We can put two variables in there (check out what happens in early 1990s Eastern Europe!)
+
+```{r}
+table(country.year$year,country.year$region)
+```
+
+Finally, let's quickly take a look at a histogram of the variable `nyt.count`:
+
+```{r}
+hist(country.year$nyt.count, breaks = 100)
+```
+
+# 3. Calculating across groups
+
+Let's say we want to look at the number of NYT articles per region.
+
+```{r}
+summary(country.year$nyt.count)
+sum(country.year$nyt.count[country.year$region=="MENA"],na.rm=T)
+sum(country.year$nyt.count[country.year$region=="LA"],na.rm=T)
+```
+
+That can get tedious! A better way uses the popular `plyr` package, which uses a the ***split-apply-combine*** strategy
+
+```{r}
+# Install the "plyr" package (only necessary one time)
+# install.packages("plyr") # Not Run
+
+# Load the "plyr" package (necessary every new R session)
+library(plyr)
+```
+
+All of the major plyr functions have the same basic syntax
+
+```{r, eval=FALSE}
+xxply(.data=, .variables=, .fun=, ...)
+```
+
+**For more details on the plyr and groupwise operations, see the Appendix!**
+
+Let's say we wanted to sum up all the NYT articles per region, and return those counts into its own dataframe:
+
+```{r}
+count.region <- ddply(.data=country.year, .variables=.(region), .fun=summarize, count=sum(nyt.count))
+head(count.region)
+```
+
+Warning! Some functions, like `sum` are sensitive to missing values (NA); you should be sure to specify na.rm=T to avoid errors 
+
+```{r}
+count.region <- ddply(.data=country.year, .variables=.(region), .fun=summarize, count=sum(nyt.count, na.rm = T))
+head(count.region)
+```
+
+We can also split by multiple variables:
+
+```{r]}
+# number of articles per year in each region
+count.region.year <- ddply(.data=country.year, .variables=.(year,region), .fun=summarize, count= sum(nyt.count, na.rm = T))
+head(count.region.year)
+```
+
+Another very useful function is **arrange**, which orders a data frame on the basis of column contents.
+
+```{r}
+# arrange by count, desc
+by.count <- arrange(count.region.year, desc(count))
+head(by.count)
+
+# arrange by year, then count
+by.year.count <- arrange(count.region.year, year, desc(count))
+head(by.year.count)
+```
+
+# 4. Reshaping
+
+Let's say we wanted to make a new matrix with rows = year, cols = regions, and cells = count of nyt articles. 
+
+In this case, we our datasets is in long form and you need to convert it to wide form.
+
+Though base R does have commands for reshaping data (including **aggregate**, **by**, **tapply**, etc.), each of their input commands are slightly different and are only suited for specific reshaping tasks.
+
+The **reshape2** package overcomes these argument and task inconsistencies to provide a simple, relatively fast way to alter the form of a data.frame.  
+
+```{r}
+# Install the "reshape2" package (only necessary one time)
+# install.packages("reshape2") # Not Run
+
+# Load the "reshape2" package (necessary every new R session)
+library(reshape2)
+```
+
+The package contains effectively two commands, and their functions are in their names: **melt** and **cast**. Here, want the **cast** funciton.
+
+```{r}
+# number of articles per year in each region using plyt
+count.region.year <- ddply(.data=country.year, .variables=.(year,region), .fun=summarize, count= sum(nyt.count, na.rm = T))
+head(count.region.year)
+
+# now cast it
+casted <- dcast(data = count.region.year, formula = year ~ region, value.var = "count")
+head(casted)
+
+# write to csv
+write.csv(casted,"results/region_year_counts.csv")
+```
+
+**For more on reshape2, see the Appendix.**
+
+# 5. Inferences
+
+Once we've imported our data, summarized it, carried out group-wise operations, and perhaps reshaped it, we may also like to attempt causal inference.
+
+This often requires doing the following:
+1) Carrying out Classical Hypothesis Tests
+2) Estimating Regressions
+
+### Testing
+
+Let's say we're interested in whether the New York Times covers MENA differently than the West in terms of quantity. One can test for differences in distributions in either a) their means using t-tests, or b) their entire distributions using ks-tests
+
+```{r}
+nyt.africa <- country.year$nyt.count[country.year$region=="Africa"]
+nyt.mena <- country.year$nyt.count[country.year$region=="MENA"]
+
+plot(density(nyt.africa, na.rm = T), col="blue", lwd=1, main="NYT Coverage of Africa and MENA")
+lines(density(nyt.mena, na.rm = T), col="red", lwd=1)
+
+#these are highly skewed, so let's transform taking the logarithm  
+nyt.africa.logged <- log(country.year$nyt.count[country.year$region=="Africa"])
+nyt.mena.logged <- log(country.year$nyt.count[country.year$region=="MENA"])
+
+plot(density(nyt.africa.logged, na.rm = T), col="blue", lwd=1, main="NYT Coverage of Africa and MENA")
+lines(density(nyt.mena.logged, na.rm = T), col="red", lwd=1)
+
+# t test of means
+t.test(x=nyt.africa.logged, y=nyt.mena.logged)
+
+# ks tests of distributions
+ks.test(x=nyt.africa.logged, y=nyt.mena.logged)
+```
+
+### Regressions
+
+Running regressions in R is extremely simple, very straightforwd (though doing things with standard errors requires a little extra work).  Most basic, catch-all regression function in R is *glm*, which fits a generalized linear model with your choice of family/link function (gaussian, logit, poisson, etc.)
+
+The basic glm call looks something like this:
+
+```{r eval=FALSE}
+glm(formula=y~x1+x2+x3+..., family=familyname(link="linkname"), data=)
+```
+
+There are a bunch of families and links to use (see `?family` for a full list), but some essentials are **binomial(link = "logit")**, **gaussian(link = "identity")**, and **poisson(link = "log")**
+
+Example: suppose we want to explain the variation NYT articles.  A typical glm call would be something like this:
+
+```{r}
+names(country.year)
+reg <- glm(nyt.count ~ gdp.pc.un + pop.wdi + domestic9 + idealpoint, data = country.year)
+summary(reg)
+```
+
+**For more on regressions and testing, see the Appendix.**
