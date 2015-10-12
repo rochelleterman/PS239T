@@ -85,11 +85,7 @@ You can't mix positive and negative integers in a single subset:
 
 ```{r, error = TRUE}
 x <- c(2.1, 4.2, 3.3, 5.4)
-
-x[-c(1, 2)]
-
-c(1, 2, 3) + c(4, 5, 6)
-
+x[c(-1, 2)]
 ```
 
 #### 3.   __Logical vectors__ select elements where the corresponding logical 
@@ -104,6 +100,8 @@ x[c(TRUE, TRUE, FALSE, FALSE)]
 This is probably the most useful type of subsetting because you write the expression that creates the logical vector
 
 ```{r}
+x <- c(2.1, 4.2, 3.3, 5.4)
+
 # this returns a logical vector
 x > 3
 x
@@ -214,10 +212,6 @@ a[c(1, 2), ]
 a[c(T, F, T), c("B", "A")]
 a[0, -2]
 a[c(1,2) , -2]
-a[ , ]
-
-
-
 ```
 
 ### Data frames {#df-subsetting}
@@ -226,12 +220,6 @@ Data from data frames can be addressed like matrices, using two vectors separate
 
 ```{r}
 df <- data.frame(x = 4:6, y = 3:1, z = letters[1:3])
-df
-
-df
-
-df$x <- NULL
-df$r <- 1
 df
 
 # return only the rows where x == 6
@@ -280,32 +268,11 @@ mtcars[-1:4, ]
 mtcars[mtcars$cyl <= 5]
 mtcars[mtcars$cyl == 4 | 6, ]
 
-names(mtcars)
-"mpg"  "cyl"  "disp" "hp"   "drat" "wt"   "qsec" "vs"   "am"   "gear" "carb"
-
-#using positive integers
-mtcars[ , 2:11] # like a matrix, all rows, columns 2 through 11
-mtcars[2:11] # like a list, taking all columsn 2 through 11
-
-#using negative integers
-mtcars[ , -1] # like a matrix, all rows, all columns except first column
-mtcars[-1] # like a list, all columns except first
-
-#using logical
-mtcars[, !colnames(mtcars) %in% c("mpg")] # like a matrix, all rows, all columns except columns called "mpg"
-mtcars[!colnames(mtcars) %in% c("mpg")]  # like a list, all columns except columns called "mpg"
-
-#using names
-mtcars[, c("cyl","disp","hp","drat","wt", "qsec","vs","am","gear","carb")]
-mtcars[c("cyl","disp","hp","drat","wt", "qsec","vs","am","gear","carb")]
-
-# by deleting columns explicitely
-mtcars$mpg <- NULL # delete column "mpg"
-
-and since mtcars$mpg == mtcars[["mpg"]], we can also use
-
-mtcars[["mpg"]] <- NULL
-
+# answers
+mtcars[mtcars$cyl == 4, ]
+mtcars[-c(1:4), ]
+mtcars[mtcars$cyl <= 5,]
+mtcars[mtcars$cyl == 4 | mtcars$cyl == 6, ]
 ```
 
 2.  Why does `mtcars[1:20]` return an error? How does it differ from the 
@@ -331,13 +298,13 @@ Because data frames are lists of columns, you can use `[[` to extract a column f
 
 ```{r}
 mtcars
+
+# these two are equivalent
 mtcars[[1]] 
-mtcars[1]
 mtcars[ ,1]
 
-mtcars$cyl <- NULL
-
-
+# which differs from this:
+mtcars[1]
 ```
 
 ### `$`
@@ -345,6 +312,7 @@ mtcars$cyl <- NULL
 `$` is a shorthand operator, where `x$y` is equivalent to `x[["y", exact = FALSE]]`.  It's often used to access variables in a data frame:
 
 ```{r}
+# these two are equivalent
 mtcars[["cyl"]]
 mtcars$cyl
 ```
@@ -372,7 +340,8 @@ summary(mod)
 Extract the R squared from the model summary.
 
 ```{r}
-# YOUR CODE HERE
+mod.sum <- summary(mod)
+mod.sum$r.squared
 ```
 
 ## Subsetting and assignment
