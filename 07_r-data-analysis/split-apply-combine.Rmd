@@ -1,0 +1,62 @@
+---
+title: "Split-Apply-Combine"
+author: "Rochelle Terman"
+date: "October 13, 2015"
+output: slidy_presentation
+---
+
+## Split-Apply-Combine
+
+All techniques for group-wise operations rely on the ***split-apply-combine*** strategy
+
+## Split
+
+**First,** take the data (or some object) and *split* it into smaller datasets on the basis of some variable
+
+Dataset A
+
+x|y|z
+-----|------|-----
+1|1|1
+2|2|1
+3|3|1
+4|1|2
+5|2|2
+6|3|2
+
+Datasets B and C (Dataset A split according to "z") 
+
+x|y|z| | | | | |x|y|z
+-----|------|-----|-----|-----|-----|-----|-----|-----|-----|-----
+1|1|1| | | | | |4|1|2
+2|2|1| | | | | |5|2|2
+3|3|1| || | | |6|3|2
+
+## Apply
+
+**Second,** apply some function to each one of the smaller datasets/objects 
+
+Example function: *mean* of variables "x" and "y"
+
+Datasets B' and C'
+
+mean(x)|mean(y)|z| | | | | |mean(x)|mean(y)|z
+-----|------|-----|-----|-----|-----|-----|-----|-----|-----|-----
+2|2|1| | | | | |5|2|2
+
+## Combine
+
+**Third,** combine the results into a larger dataset/object
+
+Datasets B' and C'
+
+mean(x)|mean(y)|z| | | | | |mean(x)|mean(y)|z
+-----|------|-----|-----|-----|-----|-----|-----|-----|-----|-----
+2|2|1| | | | | |5|2|2
+
+Dataset A'
+
+mean(x)|mean(y)|z
+-----|------|-----
+2|2|1
+5|2|2
