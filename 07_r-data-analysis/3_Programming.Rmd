@@ -5,6 +5,16 @@ date: "Fall 2015"
 output: html_document
 ---
 
+### Setup environment
+
+```{r eval=F}
+# remove all objects
+rm(list=ls())
+
+# set working directory
+setwd(dir="~/Dropbox/berkeley/Dissertation/Data\ and\ Analyais/Git\ Repos/PS239T/07_r-data-analysis/")
+```
+
 We've already learned about types in R. Now let's discuss some more advanced programming in R - namely:
 
 1. String operations
@@ -228,7 +238,45 @@ for(i in 1:length(fruits)){
 }
 ```
 
-# 5. Vectorized functions
+# 5. Vectorization
+
+### 5.1 Vectorized functions
+
+Most of R’s functions are vectorised, meaning that the function will operate on all elements of a vector without needing to loop through and act on each element one at a time. This makes writing code more concise, easy to read, and less error prone.
+
+```{r}
+x <- 1:4
+x * 2
+```
+
+The multiplication happened to each element of the vector.
+
+We can also add two vectors together:
+
+```{r}
+x <- 1:4
+y <- 6:9
+x + y
+```
+
+Each element of x was added to its corresponding element of y:
+
+```{r eval = F}
+x:  1  2  3  4
+    +  +  +  +
+y:  6  7  8  9
+---------------
+    7  9 11 13
+```
+
+Most functions also operate element-wise on vectors:
+
+```{r}
+x <- 1:4
+log(x)
+```
+
+### 5.2 Apply Family
 
 Unlike in Python, while and for loops in R can become very slow.  For this reason, R users generally prefer to use other iteration methods to speed up execution times. 
 
