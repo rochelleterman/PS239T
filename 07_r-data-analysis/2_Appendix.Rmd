@@ -13,6 +13,7 @@ Table of Contents:
 2. [B. Group-wise Operations]
 3. [C. Reshape]
 4. [D. Inferences](inferences)
+5. [E. xtable]
 
 # A. Importing Data
 
@@ -512,4 +513,22 @@ summary(glm(formula = logDepDelay~Year+Month+DayOfWeek+CRSDepTime:Distance+Uniqu
 ```{r}
 summary(glm(formula = logDepDelay~Year+Month+DayOfWeek+CRSDepTime*Distance+UniqueCarrier, 
             data = air))
+```
+
+
+### E. xtable()
+**xtable()** is a function in the package **xtable** that takes objects of different classes as inputs and coerces them into Latex or Html tables that you can use in your research. For our purposes, it probably is most important that **xtable()** works with tables, data frames as well as the output from regression analysis and their summaries. Let's look at an example in which we call **xtable()** on the summary of our last regression.
+
+```{r echo=FALSE, results='asis'}
+library(xtable)
+glm.out <- glm(formula = logDepDelay~Year+Month+DayOfWeek+CRSDepTime*Distance+UniqueCarrier, 
+            data = air)
+xtable(summary(glm.out))
+```
+
+This is a nice, but it also prints the comment at the beginning that we do not like. In order to remove that comment,
+we can pass **xtable()** into **print()** and set the argument **comment** to **FALSE**.
+
+```{r echo=FALSE, results='asis'}
+print(xtable(summary(glm.out)), comment=F)
 ```
