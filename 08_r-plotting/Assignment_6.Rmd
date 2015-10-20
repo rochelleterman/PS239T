@@ -1,0 +1,88 @@
+
+# Assignment 6: Data Analysis and Plotting in R
+
+**Due:** October 27, 4pm
+
+**Important Note**: PLEASE remove all commands that print a large amount of information to the screen before you submit it. These outputs makes it difficult for me to grade. You shouldn't been printing large amounts of data to the screen anyway -- the data we're working with in this assignment is very large, and you're computer will not like you if you try to print it all. Instead, click on the data in your "Global Environment" pane (upper right), or use `head()`.
+
+## Intro
+
+For this problem set, we'll be working with the country-year data we've been using the last two weeks. But we'll be merging it with new data on U.S. news coverage of women around the world (excluding articles about women living in the US). In this new data, the unit of observation is *article*. That is, each row represents an individual article, with columns for text, title, year, country (i.e. the country the article is about), etc. The basic goal is to integrate this data into the country-year data, so that we can see which country-years the U.S. news media cover when they report about women.
+
+# 0. setup environment
+
+Set your working directory below to **PS239T/08_r-plotting**.
+
+```{r}
+# YOUR CODE HERE 
+```
+
+## 1. Loading, subsetting, summarizing
+
+1.1 Load the csv found in `data/women-media-coverage.csv` into R. Be sure to set stringsAsFactors to `FALSE`. Assign the data-frame with the name `articles` and tell me the variable names. (Note: This is a large file, so it might take a few minutes.)
+
+```{r}
+# YOUR CODE HERE 
+```
+
+1.2 How many countries are covered in the dataset? Give me both 1) the names of all unique countries, sorted by alphabetical order, and 2) the number of total countries.
+
+Protip: You can use the `sort` function to sort a vector in alphabetical order.
+
+```{r}
+# YOUR CODE HERE 
+```
+
+1.3 Remove all articles where the `ccode` variable is `NA`. How many observations are left with?
+
+```{r}
+# YOUR CODE HERE 
+```
+
+## 2. Counting Frequencies and Merging
+
+2.1 Create a new data.frame called `articles.country.year` that tells us the number of articles per **ccode** (i.e. country code), per **year**. (The final data.frame should contain three columns: `ccode`, `year`, and `reports`)
+
+**Hint**: We discussed the `table` function in class. But if you use this function, you'll have to coerce the result into a data.frame and change the column names. 
+
+As an alternative, you can use the `count` function which comes with the `plyr` package, we did not cover in class (so check out the documentation!)
+
+```{r}
+# YOUR CODE HERE 
+```
+
+2.2. Load the csv in `data/country-year.csv` (this is the country-year data we've been working with for the last few weeks.) 
+
+```{r}
+# YOUR CODE HERE 
+```
+
+2.3  Merge `articles.country.year` and `country.year` into a new dataframe called `merged`. 
+
+When you're done, `merged` should have all the rows and columns of `country.year`, along with a new column called `reporting` that contains a count of the number of articles in the `articles` dataset about each country-year.
+
+```{r}
+# YOUR CODE HERE 
+```
+
+## 3. Group-wise Operations and Plotting
+
+3.1 Using the `merged` function and our **split-apply-combine** strategies, tell me the number of articles about women per region.
+
+```{r}
+# YOUR CODE HERE 
+```
+
+3.2 Make a barplot (using either base R or ggplot graphics) illustrating the findings above.
+
+```{r}
+# YOUR CODE HERE 
+```
+
+3.3 Produce a graph in **ggplot** showing the number of articles about women per region over time, with a different colored line for each region.
+
+**Hint**: You're first going to have to make a new data frame using apply-split-combine, splitting on region + year.
+
+```{r}
+# YOUR CODE HERE 
+```
