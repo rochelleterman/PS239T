@@ -55,7 +55,7 @@ plot(x = dat$gdpPercap, y = dat$lifeExp)
 * "p" -- point/scatter plots (default plotting behavior)
 
 ```{r, fig.cap=" "}
-plot(x = dat$polity2, y = dat$gdp.pc.un, type="p")
+plot(x = dat$gdp.pc.un, y = dat$lifeExp, type="p")
 ```
 * "l" -- line graphs
 
