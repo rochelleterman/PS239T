@@ -67,7 +67,7 @@ When you're done, `merged` should have all the rows and columns of `country.year
 
 ## 3. Group-wise Operations and Plotting
 
-3.1 Using the `merged` function and our **split-apply-combine** strategies, tell me the number of articles about women per region.
+3.1 Using the `merged` data and our **split-apply-combine** strategies, tell me the number of articles about women per region.
 
 ```{r}
 # YOUR CODE HERE 
