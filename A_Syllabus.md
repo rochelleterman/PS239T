@@ -137,8 +137,8 @@ There are no official textbooks for this class. There is a list of topic-specifi
 6. **Oct 6** - R 1 (Basics)
 7. **Oct 13** - R 2 (Data Analysis)
 8. **Oct 20** - R 3 (Visualization)
-9. **Oct 27** - Web Scraping
-10. **Nov 3** - APIs
+9. **Oct 27** - APIs
+10. **Nov 3** - Web Scraping
 11. **Nov 10** - Text Analysis
 12. **Nov 17** - GeoSpatial (Guest Speaker)
 13. **Nov 24** - AtlasTI (Guest Speaker)
