@@ -9,15 +9,15 @@ This appendix goes into further detail of several topics using a dataset on airl
 
 Table of Contents:
 
-1. [A. Importing Data](#a-importing-data)
-2. [B. Group-wise Operations](#b-group-wise-operations)
-3. [C. Reshaping](#c-reshaping)
-4. [D. Inferences](#d-inferences)
-5. [E. xtable](#e-xtable)
+1. [Importing Data](#1-importing-data)
+2. [Group-wise Operations](#2-group-wise-operations)
+3. [Reshaping](#3-reshaping)
+4. [Inferences](#4-inferences)
+5. [xtable](#5-xtable)
 
-# A. Importing Data
+# 1. Importing Data
 
-### A1. Spreadsheets
+### 1a. Spreadsheets
 
 For spreadsheet data that **is not** explicitly saved as a Microsoft Excel file:
 
@@ -71,7 +71,7 @@ air<-readWorksheet(object = air, sheet = 1)
 air[1:5, 1:5]
 ```
 
-### A2. Proprietaries (e.g.: .dta, .spss, .ssd)
+### 1b. Proprietaries (e.g.: .dta, .spss, .ssd)
 
 ```{r}
 # Install the "foreign" package (only necessary one time)
@@ -106,7 +106,7 @@ mydataset<-read.fortran(file=)
 mydataset<-read.dbf(file=)
 ```
 
-### A3. URLs (e.g.: http, https, ftp)
+### 1c. URLs (e.g.: http, https, ftp)
 
 Most data importing facilities in R can be adapted to import non-local files via http/s/ftp.  For instance, [this online dataset](https://archive.ics.uci.edu/ml/machine-learning-databases/auto-mpg/auto-mpg.data)
 ```{r}
@@ -116,7 +116,7 @@ cars<-read.csv(file = link, header = F)
 cars[1:25, 1:5]
 ```
 
-### A4. Other (e.g.: html tables, html, xml, json) 
+### 1d. Other (e.g.: html tables, html, xml, json) 
 
 Say we wanted to scrape a list of votes in the US Congress contained in an html table (like [this](http://clerk.house.gov/evs/2015/index.asp))
 ```{r}
@@ -138,9 +138,9 @@ colnames(votes.2015) # Get column names
 votes.2015[1:10, 1:5]
 ```
 
-# B. Group-wise Operations
+# 2. Group-wise Operations
 
-### B1. Split-Apply-Combine
+### 2a. Split-Apply-Combine
 
 All techniques for group-wise operations rely on the ***split-apply-combine*** strategy
 
@@ -190,7 +190,7 @@ mean(x)|mean(y)|z
 2|2|1
 5|2|2
 
-### B2. plyr
+### 2b. plyr
 
 ```{r}
 air$AirTime <- as.numeric(air$AirTime)
@@ -214,7 +214,7 @@ e) Informative error messages
 library(plyr)
 ```
 
-### B3: Selecting functions and writing commands
+### 2c: Selecting functions and writing commands
 
 - Two essential questions:
 1) What is the class of your input object?
@@ -263,7 +263,7 @@ Consider the case where we want to calculate arrival delay statistics across air
 llply(.data=air.delay.list, .fun=summarize, mean.delay=mean(ArrDelay, na.rm = T))
 ```
 
-### B4. plyr Functions
+### 2d. plyr Functions
 
 plyr can accomodate any user-defined function, but it also comes with some pre-defined functions that assist with the most common split-apply-combine tasks.  We've already seen **summarize**, which creates user-specified vectors and combines them into a data.frame.  Here are some other helpful functions:
 
@@ -307,7 +307,7 @@ arrange(air.summarize, DayOfWeek, mean.delay)
 arrange(air.summarize, desc(DayOfWeek), desc(sd.delay))
 ```
 
-# C. Reshaping
+# 3. Reshaping
 
 Often times, even before we're interested in doing all this group-wise stuff, we need to reshape our data.  For instance, datasets often arrive at your desk in wide (long) form and you need to convert them to long (wide) form.
 
@@ -323,7 +323,7 @@ The **reshape2** package overcomes these argument and task inconsistencies to pr
 library(reshape2)
 ```
 
-### C1. Melt
+### 3a. Melt
 
 ```melt()``` is used to convert wide-form data to long-form.  The basic idea is to take your data.frame and melt it down to a minimal number of columns using two essential pieces of information:
 1) **Unit-of-Analysis identifiers**, or columns you *don't* want to melt down
@@ -369,7 +369,7 @@ air.melted<-melt(data=air.subset, id.vars="id",
                  value.name="response")
 ```
 
-### C2. Cast
+### 3b. Cast
 
 There are two main cast functions in the reshape2 package for converting data from a long format to a wide format: **a**cast() (for producing **a**rrays) and **d**cast() (for producing **d**ata frames)
 
@@ -388,7 +388,7 @@ air.melted
 dcast(data=air.melted, formula=id~characteristic, value.var="response")
 ```
 
-# D. Inferences
+# 4. Inferences
 
 Once we've imported our data, summarized it, carried out group-wise operations, and perhaps reshaped it, we may also like to attempt causal inference.
 
@@ -396,7 +396,7 @@ This often requires doing the following:
 1) Carrying out Classical Hypothesis Tests
 2) Estimating Regressions
 
-### D.1 Hypothesis Tests
+### 4a Hypothesis Tests
 
 Suppose we have two different samples, A and B, both drawn from the standard normal distribution:
 ```{r}
@@ -438,7 +438,7 @@ t.test(x = air$ArrDelay[air$UniqueCarrier=="UA"],air$ArrDelay[air$UniqueCarrier=
 ks.test(x = air$ArrDelay[air$UniqueCarrier=="UA"],air$ArrDelay[air$UniqueCarrier=="AA"])
 ```
 
-### D.2 Regression
+### 4b Regression
 
 Running regressions in R is extremely simple, very straightforwd (though doing things with standard errors requires a little extra work).  Most basic, catch-all regression function in R is *glm*, which fits a generalized linear model with your choice of family/link function (gaussian, logit, poisson, etc.)
 
@@ -515,7 +515,7 @@ summary(glm(formula = logDepDelay~Year+Month+DayOfWeek+CRSDepTime*Distance+Uniqu
             data = air))
 ```
 
-### E. xtable()
+### 5. xtable()
 **xtable()** is a function in the package **xtable** that takes objects of different classes as inputs and coerces them into Latex or Html tables that you can use in your research. For our purposes, it probably is most important that **xtable()** works with tables, data frames as well as the output from regression analysis and their summaries. Let's look at an example in which we call **xtable()** on the summary of our last regression.
 
 ```{r echo=FALSE, results='asis'}
