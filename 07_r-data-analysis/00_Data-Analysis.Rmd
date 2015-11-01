@@ -1,17 +1,17 @@
 ---
-title: "Data Analysis in R"
-author: "Rochelle Terman"
+title: "Data Analysis in R: Lecture Notes"
+author: "PS239T"
 date: "Fall 2015"
 output: html_document
 ---
 
 For most applied research, conducting data analysis in R involves the following core tasks: 
 
-1) ***Constructing*** a dataset
-2) ***Summarizing*** the structure and content of data
-3) Carrying out operations and calculations across ***groups*** 
-4) ***Reshaping*** data to and from various formats
-5) Attempting to conduct ***causal inference*** 
+1) [Constructing](#1-constructing-a-dataset) a dataset
+2) [Summarizing](#2-summarizing) the structure and content of data
+3) Carrying out operations and calculations across [groups](#3-calculating-across-groups)
+4) [Reshaping](#4-reshaping) data to and from various formats
+5) Attempting to conduct [causal inference](#5-inferences) 
 
 ### Setup environment
 
@@ -23,7 +23,7 @@ rm(list=ls())
 setwd(dir="~/Dropbox/berkeley/Dissertation/Data\ and\ Analyais/Git\ Repos/PS239T/07_r-data-analysis/")
 ```
 
-# 1. Construct a dataset
+# 1. Constructing a dataset
 
 The first thing we want to do is construct a dataset. This usually involves one or more of the following tasks:
 
@@ -286,7 +286,7 @@ library(reshape2)
 
 The package contains effectively two commands, and their functions are in their names: **melt** and **cast**. Here, want the **cast** funciton.
 
-```{r}
+```{r eval=F}
 # number of articles per year in each region using plyt
 count.region.year <- ddply(.data=country.year, .variables=.(year,region), .fun=summarize, count= sum(nyt.count, na.rm = T))
 head(count.region.year)
@@ -309,7 +309,7 @@ This often requires doing the following:
 1) Carrying out Classical Hypothesis Tests
 2) Estimating Regressions
 
-### Testing
+### 5a. Testing
 
 Let's say we're interested in whether the New York Times covers MENA differently than the West in terms of quantity. One can test for differences in distributions in either a) their means using t-tests, or b) their entire distributions using ks-tests
 
@@ -334,7 +334,7 @@ t.test(x=nyt.africa.logged, y=nyt.mena.logged)
 ks.test(x=nyt.africa.logged, y=nyt.mena.logged)
 ```
 
-### Regressions
+### 5b. Regressions
 
 Running regressions in R is extremely simple, very straightforwd (though doing things with standard errors requires a little extra work).  Most basic, catch-all regression function in R is *glm*, which fits a generalized linear model with your choice of family/link function (gaussian, logit, poisson, etc.)
 

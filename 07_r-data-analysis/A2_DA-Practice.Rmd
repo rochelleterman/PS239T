@@ -1,9 +1,11 @@
 ---
-title: "Practice"
-author: "Rochelle Terman"
-date: "October 16, 2015"
+title: "R Data Analysis: Practice"
+author: "PS239T"
+date: "Fall 2015"
 output: html_document
 ---
+
+This file contains practice problems (and solutions) for Data Analysis in R.
 
 ### setup environment
 

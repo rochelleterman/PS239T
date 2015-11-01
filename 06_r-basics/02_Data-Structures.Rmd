@@ -1,11 +1,11 @@
 ---
 title: "Data Structures"
-author: "Rochelle Terman"
+author: "PS239T"
 date: "Fall 2015"
 output: html_document
 ---
 
-# Classes and Data Structures
+# Intro to Data Structures
 
 To make the best of the R language, you'll need a strong understanding of the basic data types and data structures and how to operate on those.
 
@@ -17,7 +17,23 @@ It is **Very Important** to understand because these are the objects you will ma
   
 > __John Chambers__
 
-### Main Clasess
+#### Outline
+
+We'll explain each classes and data structures in this order:
+
+* 1. [Main Classes](#1-main-classes) introduces you to R's atomic classes and data structures.
+
+* 2. [Vectors](#2-vectors) introduces you to atomic vectors and lists, R's 1d data structures.
+  
+* 2. [Matrices](#3-matrices) introduces matrices, data structures for storing 2d and higher dimensional data.
+  
+* 3. [Attributes](#4-attributes) takes a small detour to discuss attributes, R's flexible metadata specification. Here you'll learn about factors, an important data structure created by setting attributes of an atomic vector.
+  
+* 4. [Data frames](#5-data-frames) teaches you about the data frame, the most important data structure for storing data in R.
+
+# 1. Main Classes
+
+### 1a. Atomic Classes
 
 `R`'s main atomic classes are:
 
@@ -43,7 +59,7 @@ class(3L)
 class("Three")
 ```
 
-## Data Structures
+### 1b. Data Structures
 
 R's base data structures can be organised by their dimensionality (1d, 2d, or nd) and whether they're homogeneous (all contents must be of the same type) or heterogeneous (the contents can be of different types). This gives rise to the five data types most often used in data analysis: 
 
@@ -55,25 +71,7 @@ R's base data structures can be organised by their dimensionality (1d, 2d, or nd
 
 Each data structure has its own specifications and behavior.
 
-##### Outline
-
-We'll explain each data structure in this order:
-
-* [Vectors](#vectors) introduces you to atomic vectors and lists, R's 1d 
-  data structures.
-  
-* [Matrices and arrays](#matrices) introduces matrices,
-  data structures for storing 2d and higher dimensional data.
-  
-* [Attributes](#attributes) takes a small detour to discuss attributes,
-  R's flexible metadata specification. Here you'll learn about factors,
-  an important data structure created by setting attributes of an atomic 
-  vector.
-  
-* [Data frames](#data-frames) teaches you about the data frame, the most
-  important data structure for storing data in R.
-
-## Vectors
+# 2. Vectors
 
 A vector is the most common and basic data structure in `R` and is pretty much the workhorse of R. Technically, vectors can be one of two types:
 
@@ -90,7 +88,7 @@ Vectors have three common properties:
 
 They differ in the types of their elements: all elements of an atomic vector must be the same type, whereas the elements of a list can have different types.
 
-### Atomic vectors
+### 2a. Atomic vectors
 
 There are four common types of atomic vectors that I'll discuss in detail: 
 * `logical` 
@@ -267,7 +265,7 @@ as.logical(x)
 # 4. Coerce is back to a numeric vector.
 ```
 
-## List
+### 2b. Lists
 
 Lists are different from atomic vectors because their elements can be of any type. You construct lists by using `list()` instead of `c()`: 
 
@@ -337,7 +335,7 @@ For lists, elements are **indexed by double brackets**. Single brackets will sti
 
 4.  If `x` is a list, what is the class of `x[1]`?  How about `x[[1]]`?
 
-## Matrices
+# 3. Matrices
 
 Matrices are a special vector in R. They are not a separate type of object but simply an atomic vector with dimensions added on to it. Matrices have rows and columns. 
 
@@ -400,7 +398,7 @@ rownames(mdat)
 colnames(mdat)
 ```
 
-## Attributes
+# 4. Attributes
 
 We just saw that a matrix can have `rownames` and `colnames`. `Names` are a kind of attribute.
 
@@ -414,7 +412,7 @@ We've already seen the following three attributes in action:
  
 Each of these attributes has a specific accessor function to get and set values. When working with these attributes, use `names(x)`, `dim(x)`, and `class(x)`
 
-#### Names
+### 4a. Names
 
 You can name a vector when you create it:
 
@@ -445,7 +443,7 @@ names(z)
 
 You can create a new vector without names using `unname(x)`, or remove names in place with `names(x) <- NULL`.
 
-### Factors
+### 4b. Factors
 
 Factors are special vectors that represent categorical data. Factors can be ordered or unordered and are important when for modelling functions such as `lm()` and `glm()` and also in plot methods.
 
@@ -541,11 +539,11 @@ f2 <- rev(factor(letters))
 f3 <- factor(letters, levels = rev(letters))
 ```
 
-## Data frames {#data-frames}
+# 5. Data frames {#data-frames}
 
 A data frame is a very important data type in R. It's pretty much the **de facto** data structure for most tabular data and what we use for statistics. 
 
-### Creation
+### 5a. Creation
 
 You create a data frame using `data.frame()`, which takes named vectors as input:
 
@@ -569,7 +567,7 @@ df
 
 In reality, the most common way to make a data.frame is through `read.csv` or other data file input.
 
-### Structure and Attributes
+### 5b. Structure and Attributes
 
 Under the hood, a data frame is a list of equal-length vectors. This makes it a 2-dimensional structure, so it shares properties of both the matrix and the list. 
 
@@ -624,7 +622,7 @@ nrow(df)
 dim(df)
 ```
 
-### Testing and coercion
+### 5c. Testing and coercion
 
 To check if an object is a data frame, use `class()` or test explicitly with `is.data.frame()`:
 
@@ -642,7 +640,7 @@ You can coerce an object to a data frame with `as.data.frame()`:
   
 * A matrix will create a data frame with the same number of columns and rows as the matrix.
 
-### Combining data frames
+### 5d. Combining data frames
 
 You can combine data frames using `cbind()` and `rbind()`:
 
@@ -734,7 +732,7 @@ typeof(x)
 0/0
 ```
 
-##### Quiz
+# 6. Quiz
 
 You can check your answers in [answers](#data-structure-answers).
 
@@ -746,8 +744,7 @@ You can check your answers in [answers](#data-structure-answers).
 
 4. How is a list different from an atomic vector? How is a matrix different from a data frame?
 
-
-## Answers {#data-structure-answers}
+### Answers {#data-structure-answers}
 
 1.  The three properties of a vector are type (or class), length, and attributes.
    

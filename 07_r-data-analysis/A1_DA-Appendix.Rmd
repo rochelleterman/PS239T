@@ -1,6 +1,6 @@
 ---
-title: "Data Analysis in R - Appendix"
-author: "Rochelle Terman"
+title: "Data Analysis in R: Appendix"
+author: "PS239T"
 date: "Fall 2015"
 output: html_document
 ---
@@ -9,11 +9,11 @@ This appendix goes into further detail of several topics using a dataset on airl
 
 Table of Contents:
 
-1. [A. Importing Data](A.Importing-Data)
-2. [B. Group-wise Operations]
-3. [C. Reshape]
-4. [D. Inferences](inferences)
-5. [E. xtable]
+1. [A. Importing Data](#a-importing-data)
+2. [B. Group-wise Operations](#b-group-wise-operations)
+3. [C. Reshape](#c-reshape)
+4. [D. Inferences](#d-inferences)
+5. [E. xtable](#e-xtable)
 
 # A. Importing Data
 

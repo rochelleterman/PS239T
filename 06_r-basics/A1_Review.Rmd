@@ -1,13 +1,9 @@
 ---
 title: "Quick Review"
-author: "Rochelle Terman"
-date: "October 9, 2015"
+author: "PS239T"
+date: "Fall 2015"
 output: slidy_presentation
 ---
-
-x <- 1
-rm(x)
-ls()
 
 ## Atomic Types
 

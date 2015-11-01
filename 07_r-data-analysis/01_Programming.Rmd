@@ -1,9 +1,17 @@
 ---
-title: "Advanced Programming in R"
-author: "Rochelle Terman"
+title: "Advanced Programming in R: Lecture Notes"
+author: "PS239T"
 date: "Fall 2015"
-output: html_document
+output: html_docdata:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAMElEQVR42mNgIAXY2Nj8x8cHC8AwMl9XVxe3QqwKcJmIVwFWhehW4LQSXQCnm3ABAHD6MDrmRgfrAAAAAElFTkSuQmCCument
 ---
+
+We've already learned about types in R. Now let's discuss some more advanced programming in R - namely:
+
+1. [String operations](#1-strings)
+2. [Flow control](#2-flow-control)
+3. [Functions](#3-functions)
+4. [Loops](#4-loops)
+5. [Vectorized Functions](#5-vectorization)
 
 ### Setup environment
 
@@ -14,14 +22,6 @@ rm(list=ls())
 # set working directory
 setwd(dir="~/Dropbox/berkeley/Dissertation/Data\ and\ Analyais/Git\ Repos/PS239T/07_r-data-analysis/")
 ```
-
-We've already learned about types in R. Now let's discuss some more advanced programming in R - namely:
-
-1. String operations
-2. Flow control
-3. Functions
-4. Loops
-5. Vectorized Functions
 
 # 1. Strings
 
@@ -103,7 +103,6 @@ gsub(pattern = "Johan", replacement = "Mike", x = fullName)
 gsub(pattern = "johan", replacement = "Mike", x = fullName) # Note the importance of cases!
 gsub(pattern = " ", replacement = "", x = fullName) # The same function is used for replacements and stripping
 ```
-
 
 # 2. Flow Control
 
