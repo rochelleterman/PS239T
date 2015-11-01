@@ -7,11 +7,11 @@ output: html_document
 
 For most applied research, conducting data analysis in R involves the following core tasks: 
 
-* 1) [Constructing](#1-constructing-a-dataset) a dataset
-* 2) [Summarizing](#2-summarizing) the structure and content of data
-* 3) Carrying out operations and calculations across [groups](#3-calculating-across-groups)
-* 4) [Reshaping](#4-reshaping) data to and from various formats
-* 5) Attempting to conduct [causal inference](#5-inferences) 
+1. [Constructing](#1-constructing-a-dataset) a dataset
+2. [Summarizing](#2-summarizing) the structure and content of data
+3. Carrying out operations and calculations across [groups](#3-calculating-across-groups)
+4. [Reshaping](#4-reshaping) data to and from various formats
+5. Attempting to conduct [causal inference](#5-inferences) 
 
 ### Setup environment
 

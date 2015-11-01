@@ -21,13 +21,10 @@ This unit helps you master subsetting by starting with the simplest type of subs
 
 ### Outline
 
-* 1. [Data types](#1-data-types) starts by teaching you about `[`. You'll start by learning the four ways to subset atomic vectors. You'll then learn how those four methods act when used to subset lists, matrices, and data frames.
-  
-* 2. [Subsetting operators](#2-subsetting-operators) expands your knowledge of subsetting operators to include `[[` and `$`, focussing on the important principles of simplifying vs. preserving.
-  
-* 3. In [Subsetting and assignment](#3-subassignment) you'll learn the art of subassignment, combining subsetting and assignment to modify parts  of an object.
-  
-* 4. [Applications](#4-applications) leads you through important, but not obvious, applications of subsetting to solve problems that you often encounter in a data analysis, using the tools above.
+1. [Data types](#1-data-types) starts by teaching you about `[`. You'll start by learning the four ways to subset atomic vectors. You'll then learn how those four methods act when used to subset lists, matrices, and data frames.
+2. [Subsetting operators](#2-subsetting-operators) expands your knowledge of subsetting operators to include `[[` and `$`, focussing on the important principles of simplifying vs. preserving.
+3. In [Subsetting and assignment](#3-subassignment) you'll learn the art of subassignment, combining subsetting and assignment to modify parts  of an object.
+4. [Applications](#4-applications) leads you through important, but not obvious, applications of subsetting to solve problems that you often encounter in a data analysis, using the tools above.
 
 # 1. Data types
 

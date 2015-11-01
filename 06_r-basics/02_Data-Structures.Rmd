@@ -21,15 +21,11 @@ It is **Very Important** to understand because these are the objects you will ma
 
 We'll explain each classes and data structures in this order:
 
-* 1. [Main Classes](#1-main-classes) introduces you to R's atomic classes and data structures.
-
-* 2. [Vectors](#2-vectors) introduces you to atomic vectors and lists, R's 1d data structures.
-  
-* 2. [Matrices](#3-matrices) introduces matrices, data structures for storing 2d and higher dimensional data.
-  
-* 3. [Attributes](#4-attributes) takes a small detour to discuss attributes, R's flexible metadata specification. Here you'll learn about factors, an important data structure created by setting attributes of an atomic vector.
-  
-* 4. [Data frames](#5-data-frames) teaches you about the data frame, the most important data structure for storing data in R.
+1. [Main Classes](#1-main-classes) introduces you to R's atomic classes and data structures.
+2. [Vectors](#2-vectors) introduces you to atomic vectors and lists, R's 1d data structures.
+2. [Matrices](#3-matrices) introduces matrices, data structures for storing 2d and higher dimensional data.
+3. [Attributes](#4-attributes) takes a small detour to discuss attributes, R's flexible metadata specification. Here you'll learn about factors, an important data structure created by setting attributes of an atomic vector.
+4. [Data frames](#5-data-frames) teaches you about the data frame, the most important data structure for storing data in R.
 
 # 1. Main Classes
 
