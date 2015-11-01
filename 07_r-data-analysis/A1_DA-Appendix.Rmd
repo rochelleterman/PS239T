@@ -11,7 +11,7 @@ Table of Contents:
 
 1. [A. Importing Data](#a-importing-data)
 2. [B. Group-wise Operations](#b-group-wise-operations)
-3. [C. Reshape](#c-reshape)
+3. [C. Reshaping](#c-reshaping)
 4. [D. Inferences](#d-inferences)
 5. [E. xtable](#e-xtable)
 
@@ -307,7 +307,7 @@ arrange(air.summarize, DayOfWeek, mean.delay)
 arrange(air.summarize, desc(DayOfWeek), desc(sd.delay))
 ```
 
-# C. Reshaping Data/reshape2
+# C. Reshaping
 
 Often times, even before we're interested in doing all this group-wise stuff, we need to reshape our data.  For instance, datasets often arrive at your desk in wide (long) form and you need to convert them to long (wide) form.
 
@@ -514,7 +514,6 @@ summary(glm(formula = logDepDelay~Year+Month+DayOfWeek+CRSDepTime:Distance+Uniqu
 summary(glm(formula = logDepDelay~Year+Month+DayOfWeek+CRSDepTime*Distance+UniqueCarrier, 
             data = air))
 ```
-
 
 ### E. xtable()
 **xtable()** is a function in the package **xtable** that takes objects of different classes as inputs and coerces them into Latex or Html tables that you can use in your research. For our purposes, it probably is most important that **xtable()** works with tables, data frames as well as the output from regression analysis and their summaries. Let's look at an example in which we call **xtable()** on the summary of our last regression.
