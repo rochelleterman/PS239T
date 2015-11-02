@@ -200,4 +200,3 @@ The inspector gives you the HTML tree, as well as all the CSS selectors and styl
     - Crawling
 
 
-

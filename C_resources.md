@@ -54,6 +54,7 @@
 3. [I Don't Need No Stinking API](https://blog.hartleybrody.com/web-scraping/)
 4. [Beautiful Soup Documentation](http://www.crummy.com/software/BeautifulSoup/bs4/doc/)
 5. [Beautiful Soup 4 Python Tutorial](http://www.pythonforbeginners.com/python-on-the-web/beautifulsoup-4-python/)
+6. [Frannie Zlotnick's tutorial on Beautiful Soup](https://web.stanford.edu/~zlotnick/TextAsData/Web_Scraping_with_Beautiful_Soup.html)
 
 ## Other
 
