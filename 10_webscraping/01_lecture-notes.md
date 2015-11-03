@@ -67,6 +67,32 @@
 </html>
 ```
 
+## HTML is a Tree
+
+![HTML](http://www.openbookproject.net/tutorials/getdown/css/images/lesson4/HTMLDOMTree.png)
+
+## Document Object Model
+
+Most modern browsers have a parser that reads in the HTML document, parses it into a DOM (Document Object Model) structure, and then renders the DOM structure.
+
+Much like HTTP, the DOM is an agreed-upon standard.
+
+The DOM is much more than what I've described, but for our purposes, what is most important to understand is that the text is only one part of an HTML element, and we need to select it explicitly.
+
+## DOM
+
+![dom](http://www.cs.toronto.edu/~shiva/cscb07/img/dom/treeStructure.png)
+
+## HTML Elements
+
+Generally speaking, an HTML element has three components:
+
+1. Tags (starting and ending the element)
+2. Atributes (giving information about the element)
+3. Text, or Content (the text inside the element)
+
+![elements](https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/HTML_element_structure.svg/330px-HTML_element_structure.svg.png)
+
 ## HTML: Tags
 
 ![html-tags](img/html-tags.png)
@@ -85,7 +111,6 @@
 | `<a href="page.html">` | link to "page.html" |
 | `<table>`,`<tr>`,`<td>`  | table, table row, table item |
 | `<div>`,`<span` | general containers |
-
 
 ## HTML Attributes
 
@@ -151,9 +176,9 @@
 > Find the CSS selectors for the following elements in the HTML above.
 > (Hint: There will be multiple solutions for each)
 > 
-> 1. Table
-> 2. Table Row
-> 3. Table Items
+> 1. The entire table
+> 2. The row containing "Kurtis McCoy"
+> 3. Just the element containing first names
 > 
 
 ## Why This Matters
@@ -177,8 +202,11 @@ The inspector gives you the HTML tree, as well as all the CSS selectors and styl
 
 > #### Exercise 2
 > 
-> Go to any website, and redesign the site using Google Chrome's inspect 
-> element.
+> Go to http://rochelleterman.github.io/. Using Google Chrome's inspect element:
+> 
+> 1. Change the background color of each of the rows in the table
+> 2. Find the image source URL
+> 3. Find the HREF attribute of the link.
 > 
 > Useful CSS declarations [here](http://miriamposner.com/blog/wp-content
 > uploads/2011/11/usefulcss.pdf)
@@ -190,7 +218,10 @@ The inspector gives you the HTML tree, as well as all the CSS selectors and styl
 3. Pray that there is some kind of pattern
 4. Leverage that pattern using Python
 
-**To the iPython Notebook!**
+> #### Exercise 3
+> 
+> Go to any website, and redesign the site using Google Chrome's inspect 
+> element.
 
 ## Scraping Multiple Pages
 
@@ -199,4 +230,4 @@ The inspector gives you the HTML tree, as well as all the CSS selectors and styl
     - URL patterns
     - Crawling
 
-
+**To the iPython Notebook!**
