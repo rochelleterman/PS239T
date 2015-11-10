@@ -1,15 +1,15 @@
 ---
 title: "Pre-processing"
-author: "Rochelle Terman"
-date: "August 2015"
+author: "PS239T"
+date: "Fall 2015"
 output: html_document
 ---
 
-### Required Pakcages
+### Setup Environment
 
 First let's load our required packages.
 
-```{r}
+```{r message=FALSE}
 setwd("~/Dropbox/berkeley/Dissertation/Data and Analyais/Git Repos/text-analysis-dhbsi")
 rm(list=ls())
 library(tm) # Framework for text mining
@@ -21,7 +21,9 @@ library(ggplot2) # for plotting word frequencies
 library(SnowballC) # for stemming
 ```
 
-## 1. Prepare a Corpus
+# 1. Reading a Corpus
+
+### 1.1 What is a Corpus
 
 A corpus is a collection of texts, usually stored electronically, and from which we perform our analysis. A corpus might be a collection of news articles from Reuters or the published works of Shakespeare. 
 
@@ -31,7 +33,7 @@ Documents come in a variety of formats, but plain text is best.
 
 For this unit, we will be using a section of Machiavelli's Prince as our corpus. Since The Prince is a monograph, we have already "chunked" the text, so that each short paragraph or "chunk" is considered a "document."
 
-### 1.1 Corpus Sources and Readers
+### 1.2 Corpus Sources and Readers
 
 The `tm` package supports a variety of sources and formats. 
 
@@ -56,6 +58,8 @@ docs <- Corpus(VectorSource(docs.df$text))
 docs
 ```
 
+### 1.3 Inspecting a Corpus
+
 Once we have the corpus, we can inspect the documents using inspect()
 
 ```{r}
@@ -70,7 +74,7 @@ And see the text using the `as.chracter`
 as.character(docs[[16]])
 ```
 
-### 1.2 Preprocessing
+# 2. Preprocessing
 
 Many text analysis applications follow a similar 'recipe' for preprecessing, involving:
 
@@ -84,6 +88,8 @@ Many text analysis applications follow a similar 'recipe' for preprecessing, inv
 8. Creating a Document-Term Matrix
 9. Removing Sparse Terms
 
+### 2.1 Basic Transformations
+
 See what transformations are available TM package
 
 ```{r}
@@ -91,18 +97,6 @@ getTransformations()
 ```
 
 The function `tm_map()` is used to apply one of these transformations across all documents. 
-
-We can also use regular R functions for custom transformations using the `content_transformer()` function.
-
-For example, we might want to replace “/”, used sometimes to separate alternative words, with a space. This will avoid the two words being run into one string of characters through the transformations. We might also replace “@” and “|” with a space, for the same reason
-```{r}
-# note: won't work on past versions of R
-toSpace <- content_transformer(function(x, pattern) gsub(pattern, " ", x))
-docs <- tm_map(docs, toSpace, "/")
-docs <- tm_map(docs, toSpace, "@")
-docs <- tm_map(docs, toSpace,"\\|")
-as.character(docs[[16]])
-```
 
 We can basic transformations using the build in `tm_map` tools.
 
@@ -123,9 +117,28 @@ as.character(docs[[16]])
 docs <- tm_map(docs, stemDocument) # stem the document
 as.character(docs[[16]])
 ```
-### 1.3 Creating a DTM
 
-A document term matrix is simply a matrix with documents as the rows and terms as the columns and a count of the frequency of words as the cells of the matrix. We use `DocumentTermMatrix()` to create the matrix:
+### 2.2 Custom Transformations
+
+We can also use regular R functions for custom transformations using the `content_transformer()` function.
+
+For example, we might want to replace “/”, used sometimes to separate alternative words, with a space. This will avoid the two words being run into one string of characters through the transformations. We might also replace “@” and “|” with a space, for the same reason
+```{r}
+# note: won't work on past versions of R
+toSpace <- content_transformer(function(x, pattern) gsub(pattern, " ", x))
+docs <- tm_map(docs, toSpace, "/")
+docs <- tm_map(docs, toSpace, "@")
+docs <- tm_map(docs, toSpace,"\\|")
+as.character(docs[[16]])
+```
+
+# 3. Document Term Matrices (DTM)
+
+A document term matrix is simply a matrix with documents as the rows and terms as the columns and a count of the frequency of words as the cells of the matrix. 
+
+### 3.1 Creating the DTM
+
+We use `DocumentTermMatrix()` to create the matrix:
 ```{r}
 dtm <- DocumentTermMatrix(docs)
 dtm
@@ -142,6 +155,8 @@ dtm <- DocumentTermMatrix(docs,
                           stemming=TRUE))
 ```
 
+### 3.2 Special Weights and Scaling
+
 One common pre-processing step that some applicaitons may call for is applying tf-idf weights. The [tf-idf](https://en.wikipedia.org/wiki/Tf%E2%80%93idf), or term frequency-inverse document frequency, is a weight that ranks the importance of a term in its contextual document corpus. The tf-idf value increases proportionally to the number of times a word appears in the document, but is offset by the frequency of the word in the corpus, which helps to adjust for the fact that some words appear more frequently in general. In other words, it places importance on terms frequent in the document but rare in the corpus.
 
 We won't be using tf-idf weghts for the rest of the unit, but you should know about it for other applications.
@@ -156,7 +171,7 @@ dtm.weighted <- DocumentTermMatrix(docs,
                           stemming=TRUE))
 ```
 
-### 1.4 Exploring the DTM
+# 4. Exploring the DTM
 
 Let's look at the structure of our DTM.
 
@@ -167,6 +182,8 @@ dim(dtm)
 inspect(dtm[1:5,1000:1005])
 inspect(dtm.weighted[1:5,1000:1005])
 ```
+
+### 4.1 Most and Least Frequent Terms
 
 We can obtain the term frequencies as a vector by converting the document term matrix into a matrix and summing the column counts:
 
@@ -202,7 +219,8 @@ plot(table(freq))
 dtm.ordered <- dtm[,order(freq, decreasing = T)]
 inspect(dtm.ordered[1:5,1:5])
 ```
-Exploring word frequences
+
+### 4.2 Exploring word frequences and correlations
 
 ```{r}
 # Have a look at common words
@@ -228,6 +246,9 @@ library(wordcloud)
 set.seed(123)
 wordcloud(names(freq), freq, max.words=100, colors=brewer.pal(6,"Dark2"))
 ```
+
+### 4.3 Removing Sparse Terms
+
 We can remove sparse terms and thus inrease efficency
 
 ```{r}
@@ -236,7 +257,7 @@ dtm # 2365 terms
 dtm.s # 1326 terms
 ```
 
-### 1.5 Exporting the DTM
+# 5 Exporting the DTM
 
 We can convert a DTM to a matrix or data.frame in order to write to a csv, add meta data, etc.
 
@@ -255,7 +276,7 @@ dtm$doc_section <- as.factor(dtm$doc_section)
 summary(dtm$doc_section)
 ```
 
-## 2. Bonus: rTextTools
+# 6. Bonus: rTextTools
 
 FYI: We can use `rTextTools` to go directly from dataframe to DTM, completing pre-processing stems automatically. If you read your corpus using Option 1 above (Section 1.1) you must first convert your corpus into a dataframe.
 

@@ -1,7 +1,7 @@
 ---
 title: "Clustering"
-author: "Rochelle Terman"
-date: "August 2015"
+author: "PS239T"
+date: "Fall 2015"
 output: html_document
 ---
 
@@ -9,7 +9,7 @@ output: html_document
 
 First let's load our required packages.
 
-```{r}
+```{r message=F}
 setwd("~/Dropbox/berkeley/Dissertation/Data and Analyais/Git Repos/text-analysis-dhbsi")
 rm(list=ls())
 library(tm)
@@ -19,7 +19,7 @@ library(cluster)
 library(fpc)
 ```
 
-## 0. Prepare Data
+### Prepare Data
 
 ```{r}
 # load corpus
@@ -33,13 +33,7 @@ inspect(dtm[,100:104])
 dtm.m <- as.matrix(dtm)
 ```
 
-### Credits:
-
-This material was adapted from:
-
-* Allen Riddell, [Text Analysis with Topic Models for the Humanities and Social Sciences](https://de.dariah.eu/tatom/)
-
-## 1. Similarity and Distance
+# 1. Similarity and Distance
 
 Arranging our texts in a document-term matrix make available a range of exploratory procedures. For example, calculating a measure of similarity between texts becomes simple. Since each row of the document-term matrix is a sequence of a novel’s word frequencies, it is possible to put mathematical notions of similarity (or distance) between sequences of numbers in service of calculating the similarity (or distance) between any two novels. 
 
@@ -83,7 +77,7 @@ d <- as.dist(1-d)
 d
 ```
 
-## 2. Visualizing distance with MDS
+# 2. Visualizing distance with MDS
 
 It is often desirable to visualize the pairwise distances between our texts. A general approach to visualizing distances is to assign a point in a plane to each text, making sure that the distance between points is proportional to the pairwise distances we calculated. This kind of visualization is common enough that it has a name, ["multidimensional scaling"](https://en.wikipedia.org/wiki/Multidimensional_scaling) (MDS)
 
@@ -100,7 +94,7 @@ plot(x, y, xlab="Coordinate 1", ylab="Coordinate 2",
 text(x, y, labels = row.names(dtm), cex=.7)
 ```
 
-## 3. Clustering texts based on distance
+# 3. Clustering texts based on distance
 
 Clustering texts into discrete groups of similar texts is often a useful exploratory step. For example, a researcher may be wondering if certain textual features partition a collection of texts by author or by genre. Pairwise distances alone do not produce any kind of classification. To put a set of distance measurements to work in classification requires additional assumptions, such as a definition of a group or cluster.
 
@@ -177,7 +171,7 @@ clusters
 plotcluster(d, clust$cluster)
 ```
 
-### 3.3 Exercise: Perform kmeans on a simple normalized matrix.
+### Exercise: Perform kmeans on a simple normalized matrix.
 
 Yet another way to scale features is simple frequency normalization. Try it out yourself.
 

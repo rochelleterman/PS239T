@@ -1,20 +1,13 @@
 ---
 title: "Discriminating Words"
-author: "Rochelle Terman"
-date: "August 2015"
+author: "PS239T"
+date: "Fall 2015"
 output: html_document
 ---
 
-### Credits:
+### Setup Environment
 
-These materials were adapted from:
-
-* Allen Riddell, [Text Analysis with Topic Models for the Humanities and Social Sciences](https://de.dariah.eu/tatom/)
-* Justin Grimmer, [PS 452: Text as Data, Fall 2014](https://web.stanford.edu/~jgrimmer/Text14/)
-
-### Required Packages
-
-```{r}
+```{r message=FALSE}
 setwd("~/Dropbox/berkeley/Dissertation/Data and Analyais/Git Repos/text-analysis-dhbsi")
 rm(list=ls())
 library(tm)
@@ -23,8 +16,8 @@ library(SnowballC) # for stemming
 library(matrixStats) # for statistics
 ```
 
+### Prepare Corpus
 
-## 0. Prepare
 ```{r}
 docs <- Corpus(DirSource("Data/British_Fiction"))
 docs
@@ -38,7 +31,7 @@ dim(dtm)
 inspect(dtm[,100:104])
 ```
 
-## 1. Measuring "distinctiveness"
+# 1. Measuring "distinctiveness"
 
 Oftentimes scholars will want to compare different corpora by finding the words (or features) distinctive to each corpora. But finding distinctive words requires a decision about what “distinctive” means. As we will see, there are a variety of definitions that we might use. 
 

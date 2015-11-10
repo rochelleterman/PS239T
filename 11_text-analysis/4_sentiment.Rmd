@@ -1,13 +1,13 @@
 ---
 title: "Dictionary Methods and Sentiment Analysis"
-author: "Rochelle Terman"
-date: "August 2015"
+author: "PS239T"
+date: "PS239T 2015"
 output: html_document
 ---
 
-### Required Packages
+### Setup Environment
 
-```{r}
+```{r message=FALSE}
 rm(list=ls())
 setwd("~/Dropbox/berkeley/Dissertation/Data\ and\ Analyais/Git\ Repos/text-analysis-dhbsi")
 
@@ -23,7 +23,7 @@ The package was originally intended to analyze transcript data. So the data must
 
 `qdap` has an [extensive vignette](https://dl.dropboxusercontent.com/u/61803503/packages/qdap_vignette.html) that will help guide you through its requirements and functionality.
 
-## 1. Comparing Songs on the Thriller Album
+# 1. Comparing Songs on the Thriller Album
 
 Let's start with a simple example using lyrics from Michael Jackson's Thriller album.
 
@@ -58,7 +58,7 @@ x <- plot(poldat)
 x$p2
 ```
 
-## 2. Visualizing Plot using Sentiments
+# 2. Visualizing Plot using Sentiments
 
 `qdap` also has several datasets pre-formatted to help you explore. Let's conduct a plot analysis of Romeo and Juliet using sentiments.
 
@@ -72,7 +72,7 @@ raj.dat <- data.table(rajSPLIT)
 
 Now that we have the data, we can add columns for cumulative word counts and polarity scores. This will allow us to capture sentiments over "time." 
 
-```{r}
+```{r results='hide'}
 # add word counts
 raj.dat[, wc := wc(dialogue,missing=0)]
 
@@ -139,11 +139,11 @@ ggplot() + theme_bw() +
 
 ```
 
-## 3. Comparing Plots
+# 3. Comparing Plots
 
 Let's use the technique we just applied above , let's compare the plots between Romeo and Julet and Hamlet.
-```{r}
 
+```{r results='hide'}
 # get Hamlet data
 ham.dat <- data.table(hamlet)
 # add word counts
@@ -161,7 +161,9 @@ polcount.ham <- na.omit(counts(poldat.ham)$polarity) # get vector of just the po
 # put it into a data frame
 len.ham <- length(polcount.ham)
 pol.df.ham <- data.frame(polarity = polcount.ham, Time=1:len.ham)
+```
 
+```{r}
 # plot HAMLET + RAJ
 ggplot() +
   geom_smooth(data = pol.df.raj, aes(y=polarity, x = Time, color="Romeo and Juliet", fill="Romeo and Juliet"), size=1.4) +
@@ -182,7 +184,7 @@ ggplot() +
                       values = c('red', 'royalblue'))
 ```
 
-## 4. Bonus: More on QDAP
+# 4. Bonus: More on QDAP
 
 Besides polarity, `qdap` has other dictionaries to measure language formality, diversity, readability, etc. It also carries a range of tools to analyze and visualize discourse data, word usage, character usage, parts of speech, etc. 
 

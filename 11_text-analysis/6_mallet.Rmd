@@ -1,7 +1,7 @@
 ---
-title: "mallet"
-author: "Rochelle Terman"
-date: "June 24, 2015"
+title: "Mallet and Topic Modelling"
+author: "PS239T"
+date: "Fall 2015"
 output: html_document
 ---
 
@@ -9,16 +9,14 @@ Mallet is a popular topic modelling software application. Mallet is in java - wh
 
 ### Setup Environment
 
-First let's load our required packages.
-
-```{r}
+```{r message=FALSE}
 setwd("~/Dropbox/berkeley/Dissertation/Data and Analyais/Git Repos/text-analysis-dhbsi")
 rm(list=ls())
 library(mallet) # a wrapper around the Java machine learning tool MALLET
 library(wordcloud) # to visualize wordclouds
 ```
 
-## 0. Prepare
+### Prepare Corpus
 
 First let's read in our data. The corpus we'll be using today is a set of New York Times and Washington Post articles about women in non-US countries.
 
