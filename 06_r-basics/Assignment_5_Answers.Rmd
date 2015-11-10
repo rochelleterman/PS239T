@@ -1,7 +1,7 @@
 ---
-title: "Assignment 5"
-author: "YOUR NAME"
-date: "THE DATE"
+title: "Assignment 5: Answers"
+author: "PS239T"
+date: "Fall 2014"
 output: html_document
 ---
 

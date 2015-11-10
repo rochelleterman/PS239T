@@ -1,0 +1,109 @@
+---
+title: "Assignment_6"
+author: "Rochelle Terman"
+date: "October 19, 2015"
+output: html_document
+---
+
+## Intro
+
+For this problem set, we'll be working with the country-year data we've been using the last two weeks. But we'll be merging it with new data on U.S. news coverage of women around the world (excluding the United States). In this new data, the unit of observation is *article*. That is, each row represents an individual article, with columns for text, title, year, country (i.e. the country the article is about), etc.  
+
+
+### setup environment
+
+```{r}
+# remove all objects
+rm(list=ls())
+
+# set working directory
+setwd(dir="~/Dropbox/berkeley/Dissertation/Data\ and\ Analyais/Git\ Repos/PS239T/08_r-plotting/")
+```
+
+## 1. Loading, subsetting, summarizing
+
+1.1 Load the csv found in `data/women-media-coverage.csv` into R. Be sure to set stringsAsFactors to `FALSE`. Assign the data-frame with the name `articles` and tell me the variable names. (Note: This is a large file, so it might take a few minutes.)
+
+```{r}
+articles <- read.csv("data/women-media-coverage.csv", stringsAsFactors = F)
+names(articles)
+```
+
+1.2 How many countries are covered in the dataset? Give me both 1) the names of all unique countries, sorted by alphabetical order, and 2) the number of total countries.
+
+Protip: You can use the `sort` function to sort a vector in alphabetical order.
+
+```{r, echo=FALSE}
+sort(unique(articles$country))
+length(unique(articles$country))
+```
+
+1.3 Remove all articles where the `ccode` variable is `NA`. How many observations are left with?
+
+```{r, echo=FALSE}
+articles <- articles[!is.na(articles$ccode), ]
+```
+
+## 2. Counting Frequencies and Merging
+
+2.1 Create a new data.frame called `articles.country.year` that tells us the number of articles per **ccode** (i.e. country code), per **year**. (The final data.frame should contain three columns: `ccode`, `year`, and `reports`)
+
+**Hint**: We discussed the `table` function in class. But if you use this function, you'll have to coerce the result into a data.frame and change the column names. 
+
+As an alternative, you can use the `count` function which comes with the `plyr` package, we did not cover in class (so check out the documentation!)
+
+```{r}
+articles.country.year <- as.data.frame(table(articles$ccode, articles$year))
+names(articles.country.year) <- c("ccode", "year", "reports")
+# or
+library(plyr)
+articles.country.year <- count(articles, c('ccode', 'year'))
+names(articles.country.year) <- c("ccode", "year", "reports")
+```
+
+2.2. Load the csv in `data/country-year.csv` (this is the country-year data we've been working with for the last few weeks.) 
+
+```{r}
+country.year <- read.csv("data/country-year.csv", stringsAsFactors = F)
+```
+
+2.3  Merge `articles.country.year` and `country.year` into a new dataframe called `merged`. 
+
+When you're done, `merged` should have all the rows and columns of `country.year`, along with a new column called `reports` that contains a count of the number of articles in the `articles` dataset about each country-year.
+
+```{r}
+merged <- merge(country.year, articles.country.year, all.x = TRUE)
+names(merged)
+```
+
+## 3. Group-wise Operations and Plotting
+
+3.1 Using the `merged` function and our **split-apply-combine** strategies, tell me the number of articles about women per region.
+
+```{r}
+library(plyr)
+n.region <- ddply(.data=merged, .variables=.(region), .fun= summarize, count = sum(reports, na.rm=T))
+n.region
+
+which(is.na(merged$region))
+```
+
+3.2 Make a barplot (using either base R or ggplot graphics) illustrating the findings above.
+
+```{r}
+barplot(n.region$count, names.arg = n.region$region)
+```
+
+3.3 Produce a graph in **ggplot** showing the number of articles about women per region over time, with a different colored line for each region.
+
+**Hint**: You're first going to have to make a new data frame using apply-split-combine, splitting on region + year.
+
+```{r}
+# make data
+n.region.year <- ddply(.data = merged, .variables = .(year, region), .fun=summarize, "count" = sum(reports, na.rm = T))
+summary(n.region.year)
+
+# plot
+require(ggplot2)
+ggplot(data=n.region.year, aes(x=year,y=count,color=region)) + geom_line() + labs(x = "Year", y = "Number of Articles about Women")
+```
