@@ -14,7 +14,7 @@ This file contains practice problems (and solutions) for Data Analysis in R.
 rm(list=ls())
 
 # set working directory
-setwd(dir="~/Dropbox/berkeley/Dissertation/Data\ and\ Analyais/Git\ Repos/PS239T/07_r-data-analysis/")
+setwd(dir="~/Dropbox/berkeley/Git-Repos/PS239T/07_r-data-analysis/")
 ```
 
 # 1. Loading and summarizing
