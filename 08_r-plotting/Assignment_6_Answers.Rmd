@@ -17,7 +17,7 @@ For this problem set, we'll be working with the country-year data we've been usi
 rm(list=ls())
 
 # set working directory
-setwd(dir="~/Dropbox/berkeley/Dissertation/Data\ and\ Analyais/Git\ Repos/PS239T/08_r-plotting/")
+setwd(dir="~/Dropbox/berkeley/Git-Repos/PS239T/08_r-plotting/")
 ```
 
 ## 1. Loading, subsetting, summarizing

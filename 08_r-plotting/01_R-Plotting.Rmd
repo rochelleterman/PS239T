@@ -23,7 +23,7 @@ Note that other plotting facilities do exist (notably **lattice**), but base and
 rm(list=ls())
 
 # set working directory
-setwd(dir="~/Dropbox/berkeley/Dissertation/Data\ and\ Analyais/Git\ Repos/PS239T/08_r-plotting/")
+setwd(dir="~/Dropbox/berkeley/Git-Repos/PS239T/08_r-plotting/")
 ```
 
 ### The dataset
