@@ -1,7 +1,7 @@
 ### Doing discriminating Words on more than 2 categories
 
 ### Required Packages
-setwd("~/Dropbox/berkeley/Dissertation/Data and Analyais/Git Repos/text-analysis-dhbsi")
+setwd("~/Dropbox/berkeley/Git-Repos/text-analysis-dhbsi")
 rm(list=ls())
 library(tm)
 library(RTextTools) # a machine learning package for text classification written in R
