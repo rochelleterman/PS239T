@@ -1,5 +1,5 @@
 # set working directory
-setwd(dir="~/Dropbox/berkeley/Dissertation/Data\ and\ Analyais/Git\ Repos/PS239T/09_APIs")
+setwd(dir="~/Dropbox/berkeley/Git-Repos/PS239T/09_APIs")
 
 # read CSV
 

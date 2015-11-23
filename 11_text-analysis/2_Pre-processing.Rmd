@@ -10,7 +10,7 @@ output: html_document
 First let's load our required packages.
 
 ```{r message=FALSE}
-setwd("~/Dropbox/berkeley/Dissertation/Data and Analyais/Git Repos/text-analysis-dhbsi")
+setwd("~/Dropbox/berkeley/Git-Repos/PS239T/11_text-analysis")
 rm(list=ls())
 library(tm) # Framework for text mining
 library(RTextTools) # a machine learning package for text classification written in R

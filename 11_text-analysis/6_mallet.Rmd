@@ -10,7 +10,7 @@ Mallet is a popular topic modelling software application. Mallet is in java - wh
 ### Setup Environment
 
 ```{r message=FALSE}
-setwd("~/Dropbox/berkeley/Dissertation/Data and Analyais/Git Repos/text-analysis-dhbsi")
+setwd("~/Dropbox/berkeley/Git-Repos/PS239T/11_text-analysis")
 rm(list=ls())
 library(mallet) # a wrapper around the Java machine learning tool MALLET
 library(wordcloud) # to visualize wordclouds
