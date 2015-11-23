@@ -9,7 +9,7 @@ output: html_document
 
 1.1 Set your working directory to the `PS239T/06_r-basics`
 ```{r}
-setwd(dir="~/Dropbox/berkeley/Dissertation/Data\ and\ Analyais/Git\ Repos/PS239T/06_r-basics/")
+setwd(dir="~/Dropbox/berkeley/Git-Repos/PS239T/06_r-basics/")
 ```
 
 1.2 Remove all objects from your environment.
