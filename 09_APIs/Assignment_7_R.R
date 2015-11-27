@@ -16,6 +16,6 @@ duke.permonth<-ddply(.data = duke.articles, .variables = "year.month", summarize
 
 # Plot the trend over time
 library(ggplot2)
-ggplot(data = duke.permonth, aes(x = year.month, y = count))+geom_point()+geom_smooth(se=F)+
+ggplot(data = duke.permonth, aes(x = year.month, y = count))+geom_point()+stat_smooth() +
   theme_bw()+xlab(label = "Date")+ylab(label = "Article Count")+ggtitle(label = "Coverage of Duke Ellington")
 ```
