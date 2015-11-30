@@ -19,13 +19,13 @@ List all other files contained in the repo, along with a brief description of ea
 
 ### Data
 
-1. polity.csv: Subset of the PolityVI dataset, available here: http://www.systemicpeace.org/inscrdata.html
-2. nyt.csv: contains data from the New York Times API collected via collect-nyt.ipynb
+1. polity.csv: The PolityVI dataset, available here: http://www.systemicpeace.org/inscrdata.html
+2. nyt.csv: Contains data from the New York Times API collected via collect-nyt.ipynb . Includes information on all articles containing the term "Programmer Cat", 1980-2010.
 3. analysis-dataset.csv: The final Analysis Dataset derived from the raw data above. It includes country-year values for all UN countries 1980-2010, with observations for the following variables: 
     - *ccode*: Correlates of War numeric code for country observation
     - *year*: Year of observation
     - *polity*: PolityVI score
-    - *nyt*: Number of New York Times articles
+    - *nyt*: Number of New York Times articles about "Programmer Cat"
 
 ### Code
 
