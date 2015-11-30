@@ -30,7 +30,7 @@ Your GitHub repository will be graded based on the following requirements:
 
 10. Each script contains commands for writing respective files to the Data or Results directory.
 
-### B. The Presentation (25%)
+### B. The Presentation
 
 Your presentation should run 5-10 minutes long and cover the following points (not necessarily in this order):
 
