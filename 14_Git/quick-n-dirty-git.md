@@ -451,6 +451,8 @@ $ git merge upstream/master
 ```
 
 
-To learn more, read the GitHub documentation on collaborating [here](https://help.github.com/categories/collaborating/).
+To learn more:
 
+1. [GitHub documentation](https://help.github.com
+2. [This great stackoverflow answer](http://stackoverflow.com/questions/315911/git-for-beginners-the-definitive-practical-guide)
 
