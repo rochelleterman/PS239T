@@ -204,14 +204,30 @@ This tells git to push our changes to the repository's "origin" -- i.e., the cop
 
 Now open up a web browser and navigate to your GitHub repository. What do you see?
 
+> Challenge 1
+> 
+> In the PS239T repo, you'll find a directory 16_final-projects/template
+> 
+> Copy all the files and directories in this folder into your new github repo
+> (ps239t-final-project). 
+> 
+> Then add, commit, and push. Use this template for your final project!
+
+**Comment cheat sheet**
+
+```bash
+$ git add .
+$ git commit -am "commit message"
+$ git push origin/master
+```
+
 ### Ignoring Things
 
-What if we have files that we do not want git to track for us, like sensitive data files?
+Oftentimes we'll have files that we do not want git to track for us. These include sensitive data files, as well as hidden files with extensions like .Rhistory, .ipynb_checkpoints, and .DS_Store (Dropbox).
 
 Let's create a few dummy files:
 
 ```bash
-$ mkdir data
 $ touch a.dat b.dat data/c.csv data/d.csv
 ```
 
@@ -297,6 +313,10 @@ $ git status --ignored
 
 nothing to commit, working directory clean
 ```
+
+> Challenge 2
+> 
+> Continue editing the .gitignore file to add extentions you don't want to track, like .DS_Store, .Rhistory, etc.
 
 ### Fetching / Syncing
 
