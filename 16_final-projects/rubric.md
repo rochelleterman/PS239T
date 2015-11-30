@@ -2,7 +2,7 @@
 
 ### Deliverables
 
-A. A github repository containing code, data, results, and a README.md file that clearly describes how to reproduce the project (75% of your grade).
+A. A github repository containing code, data, results, and a README.md file that clearly describes how to reproduce the project (75% of your grade). Submit a link to your repo on bCourses under the "Final Project" assignment.
 
 B. A 5-10 minutes presentation summarizing the project, to be delivered in class, Dec 11 (25% of your grade).
 
