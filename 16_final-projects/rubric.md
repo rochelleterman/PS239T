@@ -12,7 +12,7 @@ Your GitHub repository will be graded based on the following requirements:
 
 1. The repo is called "ps239t-final-project".
 
-2. The repo uses the file structure template in https://github.com/rochelleterman/ps239t-final-project .
+2. The repo uses the file structure template in https://github.com/rochelleterman/replication-template
 
 3. The repo includes a README.md file that contains the information I asked for in the README.md template above.
 
