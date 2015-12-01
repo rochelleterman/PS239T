@@ -10,3 +10,5 @@ This course adapts materials from the following organizations and individuals. T
 *   [Graham Williams](http://onepager.togaware.com/TextMiningO.pdf)
 *   [Allen Riddell](https://de.dariah.eu/tatom/)
 *   [R for Python Programmers](https://ramnathv.github.io/pycon2014-r/)
+*   [Zawadi Rucks Ahidiana](http://dlab.berkeley.edu/people/zawadi-rucks-ahidiana)
+*   [Shinhye Choi](https://www.ocf.berkeley.edu/~shchoi/)
