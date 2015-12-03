@@ -32,7 +32,7 @@ Your GitHub repository will be graded based on the following requirements:
 
 ### B. The Presentation
 
-Your presentation should run 5-10 minutes long and cover the following points (not necessarily in this order):
+Your presentation should run 3-5 minutes long and cover the following points (not necessarily in this order):
 
 1. Collecting Data: Where and how did you collect the data? 
 
