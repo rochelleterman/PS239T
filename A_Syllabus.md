@@ -2,9 +2,9 @@
 
 Professor Laura Stoker
 
-GSI Rochelle Terman
+GSI Rachel Bernhard
 
-Fall 2015
+Fall 2016
 
 Final(ish) Syllabus
 
@@ -38,21 +38,21 @@ The third section on community engagement will introduce topics such as ethics a
 
 ####Personnel
 
-The course is taught by Rochelle Terman (rterman@berkeley.edu) and Laura Stoker (stoker@socrates.berkeley.edu). Email Rochelle first.
+The course is taught by Rachel Bernhard (rbernhard@berkeley.edu) and Laura Stoker (stoker@socrates.berkeley.edu). Email Rochelle first.
 
 ####Time 
 
-Lecture: Tu 4-6P
+Lecture: Monday 2-3P
 
-Section/Lab: Fr 2-4P
+Section/Lab: Wednesday 4-6P
 
 ####Location
 
-202 Barrows
+791 Barrows
 
 ### Office Hours
 
-Rochelle will have office hours on Mondays, 1-4P in the GSI room on the 7th floor of Barrows.
+TBD
 
 ####bCourses
 
