@@ -19,3 +19,4 @@ vignettes/*.pdf
 
 .ipynb_checkpoints*
 python-basics/.ipynb_checkpoints/*
+Assignments/*
