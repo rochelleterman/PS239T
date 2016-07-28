@@ -98,7 +98,7 @@ Because we will be using laptops every class, the temptation to attend to other 
 
 The final project consists of using the tools we learned in class on your own data of interest. First- and second-year students in the political science department are encouraged to use this as an opportunity to gather data to be used for other courses or the second-year thesis. Students are required to write a short proposal by November 12 (no more than 2 paragraphs) in order to get approval and feedback from the instructors. 
 
-On December 7 we will have a **lightning talk session** where students can present their projects in a maximum 5 minute talk. While there is no expectation of a formal paper, you should select a project that is completable by the end of the term. In other words, submitting a research design for your future dissertation that will use skills from the class but collects no data is not acceptable, but completing a viably small portion of a study or thesis is. 
+On December 7 we will have a **lightning talk session** where students can present their projects in a maximum 5 minute talk. Since there is no expectation of a formal paper, you should select a project that is completable by the end of the term. In other words, submitting a research design for your future dissertation that will use skills from the class but collects no data is not acceptable, but completing a viably small portion of a study or thesis is. 
 
 ##4. Class Activities and Materials
 
@@ -138,12 +138,12 @@ There are no official textbooks for this class. There is a list of topic-specifi
  5. **Sept 19 / Sept 21** - Python 3 (Advanced)
  6. **Sept 26 / Sept 28** - Python 4 (Information Retrieval)
  7. **Oct 3 / Oct 5** - APIs
- 8. **Oct 10 / Oct 12** - Text Analysis (Guest Speaker)
- 9. **Oct 17 / Oct 19** - Web Scraping
-10. **Oct 24 / Oct 26** - R 1 (Basics)
-11. **Oct 31 / Nov 2** - R 2 (Data Analysis)
-12. **Nov 7 / Nov 9** - R 3 (Visualization)
+ 8. **Oct 10 / Oct 12** - Web Scraping
+ 9. **Oct 17 / Oct 19** - R 1 (Basics)
+10. **Oct 24 / Oct 26** - R 2 (Data Analysis)
+11. **Oct 31 / Nov 2** - R 3 (Visualization)
+12. **Nov 7 / Nov 9** - Text Analysis (Guest Speaker)
 13. **Nov 14 / Nov 16** - Qualtrics and MTurk
-14. **Nov 21** - GeoSpatial (Guest Speaker) **[No section Nov 23 due to Thanksgiving]**
+14. **Nov 21** - GeoSpatial Analysis (Guest Speaker) **[No section Nov 23 due to Thanksgiving]**
 15. **Nov 28 / Nov 30** - Git and Wrap-up
 16. **Dec 7** - Final Project Presentations **[Note that this is during reading week, not finals]**
