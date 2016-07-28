@@ -10,4 +10,5 @@ The course is currently divided into two main sections: skills (with an emphasis
 ### Contact
 
 Creator: Rochelle Terman: rterman@berkeley.edu
+
 Course Instructor Fall 2016: Rachel Bernhard: rbernhard@berkeley.edu
