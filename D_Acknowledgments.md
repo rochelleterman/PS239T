@@ -2,6 +2,7 @@
 
 This course adapts materials from the following organizations and individuals. Thank you!
 
+*   [Rochelle Terman](https://github.com/rochelleterman), the original creator of PS239T
 *   [Christopher Krogslund](https://github.com/ckrogs)
 *   [Software Carpentry](http://software-carpentry.org)
 *   [Mark Huberty](http://polisci.berkeley.edu/people/person/mark-huberty)

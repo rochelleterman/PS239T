@@ -64,25 +64,25 @@ Sublime Text is a more advanced editor. Download Sublime Text 3 [here](https://w
 ##4. Python
 Python is a popular language for scientific computing, and great for general-purpose programming as well. Installing all of its scientific packages individually can be a bit difficult, so we recommend an all-in-one installer.
 
-Regardless of how you choose to install it, please make sure you install Python version 2.x and not version 3.x (e.g., 2.7 is fine but not 3.4). Python 3 introduced changes that will break some of the code we teach during the class.
+Regardless of how you choose to install it, please make sure you install Python version 3.x and not version 2.x (e.g., 3.5 is fine, but not 2.7). 
 
 We will teach Python using the IPython notebook, a programming environment that runs in a web browser. For this to work you will need a reasonably up-to-date browser. The current versions of the Chrome, Safari and Firefox browsers are all supported (some older browsers, including Internet Explorer version 9 and below, are not).
 
 ####Windows
 
 * Download and install [Anaconda](https://store.continuum.io/cshop/anaconda/).
-* Download the default Python 2 installer (do not follow the link to version 3). Use all of the defaults for installation except make sure to check **Make Anaconda the default Python.**
+* Download the default Python 3 installer (do not follow the link to version 2). Use all of the defaults for installation except make sure to check **Make Anaconda the default Python.**
 
 ####Mac OS X
 
 * Download and install [Anaconda](https://store.continuum.io/cshop/anaconda/).
-* Download the default Python 2 installer (do not follow the link to version 3). Use all of the defaults for installation.
+* Download the default Python 3 installer (do not follow the link to version 2). Use all of the defaults for installation.
 
 ####Linux
 
 We recommend the all-in-one scientific Python installer [Anaconda](http://continuum.io/downloads.html). (Installation requires using the shell and if you aren't comfortable doing the installation yourself just download the installer and we'll help you during the class.)
 
-1. Download the installer that matches your operating system and save it in your home folder. Download the default Python 2 installer (do not follow the link to version 3).
+1. Download the installer that matches your operating system and save it in your home folder. Download the default Python 3 installer (do not follow the link to version 2).
 2. Open a terminal window.
 3. Type `bash Anaconda-` and then press tab. The name of the file you just downloaded should appear.
 4. Press enter. You will follow the text-only prompts. When there is a colon at the bottom of the screen press the down arrow to move down through the text. Type `yes` and press enter to approve the license. Press enter to approve the default location for the files. Type `yes` and press enter to prepend Anaconda to your `PATH` (this makes the Anaconda distribution the default Python).
@@ -93,15 +93,15 @@ We recommend the all-in-one scientific Python installer [Anaconda](http://contin
 
 ####Windows
 
-Install R by downloading and running [this .exe file from CRAN](http://cran.r-project.org/bin/windows/base/release.htm). Also, please install the [RStudio IDE](http://www.rstudio.com/ide/download/desktop).
+Install R by downloading and running [this .exe file from CRAN](http://cran.r-project.org/bin/windows/base/release.htm). Also, please install the [RStudio IDE](http://www.rstudio.com/ide/download/desktop). All you need is RStudio Desktop. 
 
 ####Mac OS X
 
-Install R by downloading and running [this .pkg file from CRAN](http://cran.r-project.org/bin/macosx/R-latest.pkg). Also, please install the [RStudio IDE](http://www.rstudio.com/ide/download/desktop).
+Install R by downloading and running [this .pkg file from CRAN](http://cran.r-project.org/bin/macosx/R-latest.pkg). Also, please install the [RStudio IDE](http://www.rstudio.com/ide/download/desktop). All you need is RStudio Desktop. Please note that if you already have R and update to a newer version, you will have to reinstall any previously installed packages. 
 
 ####Linux
 
-You can download the [binary files](http://cran.r-project.org/index.html) for your distribution from CRAN. Or you can use your package manager (e.g. for Debian/Ubuntu run `sudo apt-get install r-base` and for Fedora run `sudo yum install R`). Also, please install the [RStudio IDE](http://www.rstudio.com/ide/download/desktop).
+You can download the [binary files](http://cran.r-project.org/index.html) for your distribution from CRAN. Or you can use your package manager (e.g. for Debian/Ubuntu run `sudo apt-get install r-base` and for Fedora run `sudo yum install R`). Also, please install the [RStudio IDE](http://www.rstudio.com/ide/download/desktop). All you need is RStudio Desktop. 
 
 ##6. Pandoc and Latex
 

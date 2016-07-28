@@ -38,7 +38,7 @@ The third section on community engagement will introduce topics such as ethics a
 
 ####Personnel
 
-The course is taught by Rachel Bernhard (rbernhard@berkeley.edu) and Laura Stoker (stoker@socrates.berkeley.edu). Email Rochelle first.
+The course is taught by Rachel Bernhard (rbernhard@berkeley.edu) and Laura Stoker (stoker@berkeley.edu). Email Rachel first.
 
 ####Time 
 
@@ -52,7 +52,7 @@ Section/Lab: Wednesday 4-6P
 
 ### Office Hours
 
-TBD
+TBD (probably Wednesday 2:30-4P, GSI Office)
 
 ####bCourses
 
@@ -90,25 +90,27 @@ The class participation portion of the grade can be satisfied in one or more of 
 - attending the lecture and section
 - asking and answering questions in class
 - contributing to class discussion through the bCourse site, and/or
-- collaborating with the campus computing community, either by attending a D-Lab or BIDS workshop, submitting a pull request to a campus github repository (including the class repository), answering a question on StackExchange, or other involvement in the social computing / digital humanities community. 
+- collaborating with the campus computing community, either by attending a D-Lab or BIDS workshop, submitting a pull request to a campus github repository (including the class repository), answering a question on StackExchange, or other involvement in the social computing / digital humanities community.
+
+Because we will be using laptops every class, the temptation to attend to other things during slow moments will be high. While you may choose to do so, I do request that you think of your laptop screen as in the public domain for the duration of classtime: please do not load anything that will distract your classmates or is otherwise inappropriate to a classroom setting.  
 
 ####Final Project
 
-The final project consists of using the tools we learned in class on your own data of interest. Students are required to write a short proposal by November 10 (no more than 2 paragraphs) in order to get approval / feedback from the instructors. 
+The final project consists of using the tools we learned in class on your own data of interest. First- and second-year students in the political science department are encouraged to use this as an opportunity to gather data to be used for other courses or the second-year thesis. Students are required to write a short proposal by November 12 (no more than 2 paragraphs) in order to get approval and feedback from the instructors. 
 
-On Dec 11 we will have a **lightning talk session** where students can present their projects in a maximum 5 minute talk.
+On December 7 we will have a **lightning talk session** where students can present their projects in a maximum 5 minute talk. While there is no expectation of a formal paper, you should select a project that is completable by the end of the term. In other words, submitting a research design for your future dissertation that will use skills from the class but collects no data is not acceptable, but completing a viably small portion of a study or thesis is. 
 
 ##4. Class Activities and Materials
 
 ####Activities and Guest Speakers
 
-Classes will follow a “workshop” style, combing lecture and lab formats. We envision the class to be as interactive / hands on as possible, with students programming every session. During the “skills” part of the class, we will be learning how to program in Unix, Python, and R by following a set of course notes with demonstrations. 
+Classes will follow a “workshop” style, combining lecture and lab formats. We envision the class to be as interactive / hands on as possible, with students programming every session. During the “skills” parts of the class, we will be learning how to program in Unix, Python, and R by following a set of course notes with demonstrations. 
 
-During the “applications” section, we will be following a similar structure with the possibility of guest speakers leading the class on specific tools. These guest speakers will be members of the campus computer who are experts in the respective tool that they teaching. 
+During the “applications” sections, we will be following a similar structure with the possibility of guest speakers leading the class on specific tools. These guest speakers will be members of campus who are experts in the respective tool that they teaching. 
 
 ####Section
 
-The Friday "lab" section will be an informal session dedicated to helping students with materials from lecture and homework. It will be mostly student led, so come with questions. If there are no questions, the lab turns into a "hackathon" where groups can work on the assignments together. It is not required but *strongly* encouraged, especially if you are having difficulty with the assignments. 
+The Wednesday "lab" section will generally be a less formal session dedicated to helping students with materials from lecture and homework, though some weeks (as with Labor Day) it will substitute for lecture. It will be mostly student led, so come with questions. If there are no questions, the lab turns into a "hackathon" where groups can work on the assignments together. It is not required but *strongly* encouraged, especially if you are having difficulty with the assignments. Attending office hours is not a substitute for attending section. 
 
 ####Computer Requirements
 
@@ -121,26 +123,27 @@ The software needed for the course is as follows:
 
 This requires a computer that can handle all this software. Almost any Mac will do the job. Most Windows machines are fine too if they have enough space and memory.
 
-See [Install.md](Install.md) for more information. We will be having an **InstallFest** on September 4 for those students experiencing difficulties downloading and installing the requisite software.
+See [Install.md](Install.md) for more information. We will be having an **InstallFest** on August 24 for those students experiencing difficulties downloading and installing the requisite software.
 
 ####Books and Other Resources
 
-There are no official textbooks for this class. There is a list of topic-specific tutorials and resources in the GitHub repo in the document `resources.md`. If you find a good online resources, you are encouraged to add to the document. 
+There are no official textbooks for this class. There is a list of topic-specific tutorials and resources in the GitHub repo in the document `resources.md`. If you find good online resources, you are encouraged to add to the document. 
 
 ##5. Curriculum Outline / Schedule
 
-1. **Sept 1** - Introduction (InstallFest on Sept 4)
-2. **Sept 8** - Unix, Bash, and Git
-3. **Sept 15** - Python 1 (Basics)
-4. **Sept 22** - Python 2 (Pythonic Code)
-5. **Sept 29** - Python 3 (Information Retrieval)
-6. **Oct 6** - R 1 (Basics)
-7. **Oct 13** - R 2 (Data Analysis)
-8. **Oct 20** - R 3 (Visualization)
-9. **Oct 27** - APIs
-10. **Nov 3** - Web Scraping
-11. **Nov 10** - Text Analysis
-12. **Nov 17** - GeoSpatial (Guest Speaker)
-13. **Nov 24** - AtlasTI (Guest Speaker)
-14. **Dec 1** - Git
-15. **Dec 11** - Final project lightning talks
+ 1. **Aug 24** - Introduction and InstallFest
+ 2. **Aug 29** - Unix, Bash, and Basic Git **[No section Aug 31 due to APSA]**
+ 3. **Sept 7** - Python 1 (Basics) **[No lecture Sept 3 due to Labor Day]**
+ 4. **Sept 12 / Sept 14** - Python 2 (Intermediate)
+ 5. **Sept 19 / Sept 21** - Python 3 (Advanced)
+ 6. **Sept 26 / Sept 28** - Python 4 (Information Retrieval)
+ 7. **Oct 3 / Oct 5** - APIs
+ 8. **Oct 10 / Oct 12** - Text Analysis (Guest Speaker)
+ 9. **Oct 17 / Oct 19** - Web Scraping
+10. **Oct 24 / Oct 26** - R 1 (Basics)
+11. **Oct 31 / Nov 2** - R 2 (Data Analysis)
+12. **Nov 7 / Nov 9** - R 3 (Visualization)
+13. **Nov 14 / Nov 16** - Qualtrics and MTurk
+14. **Nov 21** - GeoSpatial (Guest Speaker) **[No section Nov 23 due to Thanksgiving]**
+15. **Nov 28 / Nov 30** - Git and Wrap-up
+16. **Dec 7** - Final Project Presentations **[Note that this is during reading week, not finals]**
