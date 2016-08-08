@@ -143,7 +143,7 @@ There are no official textbooks for this class. There is a list of topic-specifi
 10. **Oct 24 / Oct 26** - R 2 (Data Analysis)
 11. **Oct 31 / Nov 2** - R 3 (Visualization)
 12. **Nov 7 / Nov 9** - Text Analysis (Guest Speaker)
-13. **Nov 14 / Nov 16** - Qualtrics and MTurk
-14. **Nov 21** - GeoSpatial Analysis (Guest Speaker) **[No section Nov 23 due to Thanksgiving]**
+13. **Nov 14 / Nov 16** - GeoSpatial Analysis (Guest Speaker) and Qualtrics
+14. **Nov 21** - MTurk **[No section Nov 23 due to Thanksgiving]**
 15. **Nov 28 / Nov 30** - Git and Wrap-up
 16. **Dec 7** - Final Project Presentations **[Note that this is during reading week, not finals]**
