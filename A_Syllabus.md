@@ -131,15 +131,15 @@ There are no official textbooks for this class. There is a list of topic-specifi
 
 ##5. Curriculum Outline / Schedule
 
- 1. **Aug 24** - Introduction and InstallFest
- 2. **Aug 29** - Unix, Bash, and Basic Git **[No section Aug 31 due to APSA]**
- 3. **Sept 7** - Python 1 (Basics) **[No lecture Sept 3 due to Labor Day]**
- 4. **Sept 12 / Sept 14** - Python 2 (Intermediate)
- 5. **Sept 19 / Sept 21** - Python 3 (Advanced)
- 6. **Sept 26 / Sept 28** - Python 4 (Information Retrieval)
- 7. **Oct 3 / Oct 5** - APIs
- 8. **Oct 10 / Oct 12** - Web Scraping
- 9. **Oct 17 / Oct 19** - R 1 (Basics)
+1. **Aug 24** - Introduction and InstallFest
+2. **Aug 29** - Unix, Bash, and Basic Git **[No section Aug 31 due to APSA]**
+3. **Sept 7** - Python 1 (Basics) **[No lecture Sept 3 due to Labor Day]**
+4. **Sept 12 / Sept 14** - Python 2 (Intermediate)
+5. **Sept 19 / Sept 21** - Python 3 (Advanced)
+6. **Sept 26 / Sept 28** - Python 4 (Information Retrieval)
+7. **Oct 3 / Oct 5** - APIs
+8. **Oct 10 / Oct 12** - Web Scraping
+9. **Oct 17 / Oct 19** - R 1 (Basics)
 10. **Oct 24 / Oct 26** - R 2 (Data Analysis)
 11. **Oct 31 / Nov 2** - R 3 (Visualization)
 12. **Nov 7 / Nov 9** - Text Analysis (Guest Speaker)
