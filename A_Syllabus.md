@@ -131,7 +131,7 @@ There are no official textbooks for this class. There is a list of topic-specifi
 
 ##5. Curriculum Outline / Schedule
 
-1. **Aug 24** - Introduction and InstallFest
+1. **Aug 24 / Aug 26** - Introduction and InstallFest (InstallFest is special session, Friday 2:30-4:30, for those who need extra help)
 2. **Aug 29** - Unix, Bash, and Basic Git **[No section Aug 31 due to APSA]**
 3. **Sept 7** - Python 1 (Basics) **[No lecture Sept 3 due to Labor Day]**
 4. **Sept 12 / Sept 14** - Python 2 (Intermediate)
