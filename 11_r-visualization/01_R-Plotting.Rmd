@@ -223,8 +223,8 @@ abline(v=40000, h=75, lty=2)
 ### 2a. Why ggplot?
 
 * More elegant & compact code than with base graphics 
-*􏰀 More aesthetically pleasing defaults than lattice
-*􏰀 Very powerful for exploratory data analysis
+* More aesthetically pleasing defaults than lattice
+* Very powerful for exploratory data analysis
 * Follows a grammar, just like any language.
 * It defines basic components that make up a sentence. In this case, the grammar defines components in a plot.
 * *G*rammar of *g*raphics originally coined by Lee Wilkinson
