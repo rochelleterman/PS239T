@@ -52,7 +52,7 @@ Section/Lab: Wednesday 4-6P
 
 ### Office Hours
 
-TBD (probably Wednesday 2:30-4P, GSI Office)
+Thursday 3-4P or by appointment, 715 Barrows
 
 ####bCourses
 
