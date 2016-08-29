@@ -10,19 +10,21 @@
 
 ### 1. Creating Things
 
-We now know how to explore files and directories, but how do we create them in the first place? Let's go back to this unit's working directory, `PS239T/02_Unix-Git`, and use `ls -F` to see what it contains:
+We now know how to explore files and directories, but how do we create them in the first place? Let's go back to this unit's working directory, `PS239T/02_Unix-Bash`, and use `ls -F` to see what it contains:
 
 ```bash
-$ cd ~/PS239T/02_Unix-Git
+$ cd ~/PS239T/02_Unix-Bash
 
 /home/oski
 
 $ ls -F
 
-01_unix.md          05_pipe.md          Cheatsheet.md
-02_shell.md         06_loop.md          data/
-03_fildir.md        07_scripts.md   
-04_create.md        Assignment.md
+01_unix.md			  07_scripts.md
+02_shell.md			 A1_Cheatsheet.md
+03_filedir.md	 A2_Path-practice.pdf
+04_create.md		 A3_Path-practice-answers.md
+05_pipe.md			  data/
+06_loop.md
 ```
 
 Let's create a new directory called `thesis` using the command `mkdir thesis` (which has no output):
@@ -56,6 +58,8 @@ Let's change our working directory to `thesis` using `cd`, then run a text edito
 $ cd thesis
 $ nano draft.txt
 ```
+> #### Those of you who had nano installation problems, but were able to download Sublime Text, should be able to use "subl" wherever you see "nano" in the instructions. 
+
 
 > #### Which Editor?
 > 
@@ -84,6 +88,8 @@ $ nano draft.txt
 Let's type in a few lines of text, then use Control-O to write our data to disk:
 
 ![nano](https://swcarpentry.github.io/shell-novice/fig/nano-screenshot.png)
+
+Hit return to accept the filename. 
 
 Once our file is saved, we can use `CTRL-X` to quit the editor and return to the shell. (Unix documentation often uses the shorthand `^A` to mean "control-A".) `nano` doesn't leave any output on the screen after it exits, but `ls` now shows that we have created a file called `draft.txt`:
 
