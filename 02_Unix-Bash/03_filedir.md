@@ -322,7 +322,7 @@ This is called **tab completion**, and we will see it in many other tools as we 
 1. Change your working directory to the place where you want to clone the `PS239T` materials. 
 2. type `git clone https://github.com/rochelleterman/PS239T.git` 
 3. `cd` into the `PS239T/02_Unix-Bash` sub-directory.
-2. list the files in the `downloads` directory
+2. list the files in the directory
 
 #### Challenge 2
 
