@@ -161,7 +161,7 @@ After a moment's work in an editor to remove the serial numbers on the commands,
 
 > #### Unnumbering
 >
-> Rochelle could also use `colrm` (short for "column removal") to remove the
+> Rachel could also use `colrm` (short for "column removal") to remove the
 > serial numbers on her previous commands.
 > Its parameters are the range of characters to strip from its input:
 >
