@@ -42,7 +42,7 @@ The course is taught by Rachel Bernhard (rbernhard@berkeley.edu) and Laura Stoke
 
 ####Time 
 
-Lecture: Monday 2-3P
+Lecture: Monday 2-4P
 
 Section/Lab: Wednesday 4-6P
 
