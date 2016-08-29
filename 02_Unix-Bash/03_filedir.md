@@ -44,7 +44,7 @@ Next, let's find out where we are by running a command called `pwd` (which stand
 
 At any moment, our **current working directory** is our current default directory, i.e., the directory that the computer assumes we want to run commands in  unless we explicitly specify something else.
 
-Here, the computer's response is `/home/oski`, which is the **home directory**:
+Here, the computer's response is `/home/oski` (on Rachel's system, `/Users/Rachel1`), which is the **home directory**:
 
 ```shell
 $ pwd
@@ -98,15 +98,17 @@ We know that our current working directory `/home/oski` is stored inside `/home`
 
 ### 3. Listing
 
-Let's see what's in Rochelle's home directory by running `ls`, which stands for "listing":
+Let's see what's in Rachel's home directory by running `ls`, which stands for "listing":
 
 ```shell
 $ ls
 
-data       file.txt                  Public                     Videos
-Desktop    Music                     R
-Documents  Pictures                  setup_ipython_notebook.sh
-Downloads  programming-fundamentals  Templates
+ABBYY			              Dropbox		  	      Public
+Applications	          Google Drive	      Sites
+Creative Cloud Files	  Library			        To-Dos.txt
+Desktop			            Movies			        Untitled.ipynb
+Documents		            Music			          anaconda
+Downloads		            Pictures		        ps239t-final-project
 ```
 
 `ls` prints the names of the files and directories in the current directory in alphabetical order, arranged neatly into columns.
@@ -116,15 +118,16 @@ We can make its output more comprehensible by using the **flag** `-F`, which tel
 ```shell
 $ ls -F
 
-data/       Music/                     setup_ipython_notebook.sh*
-Desktop/    Pictures/                  Templates/
-Documents/  programming-fundamentals/  Videos/
-Downloads/  Public/
-file.txt    R/
+ABBYY/			          Dropbox/		      Public/
+Applications/		      Google Drive/		  Sites/
+Creative Cloud Files/	Library/          To-Dos.txt
+Desktop/		          Movies/			      Untitled.ipynb
+Documents/		        Music/			      anaconda/
+Downloads/		        Pictures/		      ps239t-final-project/
 ```
 
 Here,
-we can see that `/home/oski` contains 11 **sub-directories**.
+we can see that Rachel's version of `/home/oski` contains 18 **sub-directories**.
 The names that don't have trailing slashes, like `file.txt` are plain old files.
 
 And note that there is a space between `ls` and `-F`: without it, the shell thinks we're trying to run a command called `ls-F`, which doesn't exist.
@@ -149,18 +152,26 @@ And note that there is a space between `ls` and `-F`: without it, the shell thin
 > cause the operating system to try to open it with a music player
 > when someone double-clicks it.
 
-Now let's take a look at what's in Rochelle's `data` directory by running `ls -F data`, i.e., the command `ls` with the **arguments** `-F` and `data`. The second argument --- the one *without* a leading dash --- tells `ls` that
+Now let's take a look at what's in Rachel's `Desktop` directory by running `ls -F data`, i.e., the command `ls` with the **arguments** `-F` and `data`. The second argument --- the one *without* a leading dash --- tells `ls` that
 we want a listing of something other than our current working directory:
 
 ```shell
 $ ls -F data
 
-articles/  articles.txt  bar.txt  foo.txt  recipes/
+2016-2017 Office Assignment/		    PS239T/
+Annotated Articles and Notes alias	Presidential Candidate Photos/
+Articles to Revisit/			          Rachel and Shauna's Paper/
+Data to Play With/			            Shauna's Dissertation/
+Delayed Baggage Claim/			        To Comment/
+EMERGE - Archived Files/		        Website Stuff/
+IGS Amendment Questions.pdf		      data-wrangling-cheatsheet.pdf
+Macronutrients.xlsx			            shoes.jpg
+NASA Prints/
 ```
 
-The output shows us that there are four text files and two sub-sub-directories.Organizing things hierarchically in this way helps us keep track of our work: it's possible to put hundreds of files in our home directory, just as it's possible to pile hundreds of printed papers on our desk, but it's a self-defeating strategy.
+The output shows us that there are four files, one shortcut (called an alias on a Mac), and twelve sub-sub-directories. Organizing things hierarchically in this way helps us keep track of our work: it's possible to put hundreds of files in our home directory, just as it's possible to pile hundreds of printed papers on our desk, but it's a self-defeating strategy.
 
-Notice, by the way that we spelled the directory name `data`. It doesn't have a trailing slash: that's added to directory names by `ls` when we use the `-F` flag to help us tell things apart. And it doesn't begin with a slash because it's a **relative path**, i.e., it tells `ls` how to find something from where we are, rather than from the root of the file system.
+Notice, by the way that we spelled the directory name `Desktop`. It doesn't have a trailing slash: that's added to directory names by `ls` when we use the `-F` flag to help us tell things apart. And it doesn't begin with a slash because it's a **relative path**, i.e., it tells `ls` how to find something from where we are, rather than from the root of the file system.
 
 > #### Parameters vs. Arguments
 >
@@ -169,14 +180,13 @@ Notice, by the way that we spelled the directory name `data`. It doesn't have a 
 > In practice, however, most people use them interchangeably or inconsistently,
 > so we will too.
 
-If we run `ls -F /data` (*with* a leading slash) we get a different answer,
-because `/data` is an **absolute path**:
+If we run `ls -F /Desktop` (*with* a leading slash) we get a different answer,
+because `/Desktop` is an **absolute path**:
 
 ```shell
-$ ls -F /data
+$ ls -F /Desktop
 
-access.log    backup/    hardware.cfg
-network.cfg
+ls: /Desktop: No such file or directory
 ```
 
 The leading `/` tells the computer to follow the path from the root of the file system, so it always refers to exactly one directory, no matter where we are when we run the command.
@@ -186,14 +196,16 @@ What if we want to change our current working directory? Before we do this, `pwd
 ```shell
 $ pwd
 
-/home/oski
+/home/oski (/Users/Rachel1)
 
 $ ls
 
-data       file.txt                  Public                     Videos
-Desktop    Music                     R
-Documents  Pictures                  setup_ipython_notebook.sh
-Downloads  programming-fundamentals  Templates
+ABBYY			              Dropbox		  	      Public
+Applications	          Google Drive	      Sites
+Creative Cloud Files	  Library			        To-Dos.txt
+Desktop			            Movies			        Untitled.ipynb
+Documents		            Music			          anaconda
+Downloads		            Pictures		        ps239t-final-project
 ```
 
 ### 4. Moving Around
@@ -248,24 +260,11 @@ The special directory `..` doesn't usually show up when we run `ls`. If we want 
 ```shell
 $ ls -a
 
-.              .gnome                    .rstudio-desktop
-..             .ICEauthority             setup_ipython_notebook.sh
-.bash_history  .ipynb_checkpoints        .subversion
-.bash_logout   .ipython                  Templates
-.bashrc        .local                    .thumbnails
-.cache         .mozilla                  .vboxclient-clipboard.pid
-.config        Music                     .vboxclient-display.pid
-data           Pictures                  .vboxclient-draganddrop.pid
-.dbus          .pip                      .vboxclient-seamless.pid
-Desktop        .pki                      .vbox_version
-Documents      .profile                  Videos
-Downloads      programming-fundamentals  .Xauthority
-file.txt       Public                    .xsession-errors
-.gconf         R                         .xsession-errors.old
-.gitconfig     .Rhistory
+.		.localized	  Rachel1
+..		Guest		    Shared
 ```
 
-`-a` stands for "show all"; it forces `ls` to show us file and directory names that begin with `.`, such as `..` (which, if we're in `/home/oski`, refers to the `/users` directory).
+`-a` stands for "show all"; it forces `ls` to show us file and directory names that begin with `.`, such as `..`.
 
 > #### Hidden Files: For Your Own Protection
 > 
@@ -288,22 +287,22 @@ As you can see, it also displays another special directory that's just called `.
 > `/home/oski/elsewhere`.
 
 ### 5. Tab Completion
-If she is in her home directory, Rochelle can see what files she has on her `Desktop` using the command:
+If she is in her home directory, Rachel can see what files she has on her `Desktop` using the command:
 
 ```shell
-$ ls Desktop
+$ ls ~/Desktop
 ```
 
 This is a lot to type, but she can let the shell do most of the work. If she types:
 
 ```shell
-$ ls Des
+$ ls ~/Des
 ```
 
 and then presses tab, the shell automatically completes the directory name for her:
 
 ```shell
-$ ls Desktop
+$ ls ~/Desktop
 ```
 
 Pressing tab again does nothing, since there are multiple possibilities. Pressing tab twice brings up a list of all the files and directories, and so on.
@@ -322,16 +321,22 @@ This is called **tab completion**, and we will see it in many other tools as we 
 
 1. Change your working directory to the place where you want to clone the `PS239T` materials. 
 2. type `git clone https://github.com/rochelleterman/PS239T.git` 
-3. `cd` into the `PS239T/02_Unix-Git` sub-directory.
+3. `cd` into the `PS239T/02_Unix-Bash` sub-directory.
 2. list the files in the `downloads` directory
 
 #### Challenge 2
 
 If `pwd` displays `/home/oski`, and `-r` tells `ls` to display things in reverse order, what command will display:
 ```
-Videos/                     Public/                    Music/      Documents/
-Templates/                  programming-fundamentals/  file.txt    Desktop/
-setup_ipython_notebook.sh*  Pictures/                  Downloads/  data/
+shoes.jpg				                Macronutrients.xlsx
+data-wrangling-cheatsheet.pdf		IGS Amendment Questions.pdf
+Website Stuff/				          EMERGE - Archived Files/
+To Comment/			              	Delayed Baggage Claim/
+Shauna's Dissertation/		    	Data to Play With/
+Rachel and Shauna's Paper/	  	Articles to Revisit/
+Presidential Candidate Photos/	Annotated Articles and Notes alias
+PS239T/					                2016-2017 Office Assignment/
+NASA Prints/
 ```
 
 1.  `ls pwd`
