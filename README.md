@@ -1,3 +1,5 @@
+[![Binder](http://mybinder.org/badge.svg)](http://mybinder.org:/repo/rochelleterman/ps239t)
+
 # PS239T
 Introduction To Computational Tools And Techniques For Social Research
 
