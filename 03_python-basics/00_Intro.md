@@ -1,6 +1,6 @@
 # Python Basics: 0-1 Introduction.
 
-This unit provides a basic introduction to Python. By the end of the week, you should be able to:
+Lectures draw heavily upon material from the D-Lab Python Intensives course, but with additional homeworks. These lectures will teach you how to:
 
 1. Run Python from both the Shell and in an IPython Notebook
 2. Write basic commands using Python syntax
