@@ -1,8 +1,7 @@
 # PS239T: An Introduction To Computational Tools And Techniques For Social Research
 
-Professor Laura Stoker
-
-GSI Rachel Bernhard
+Rachel Bernhard, Instructor
+Laura Stoker, Instructor of Record
 
 Fall 2016
 
