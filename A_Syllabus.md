@@ -1,6 +1,7 @@
 # PS239T: An Introduction To Computational Tools And Techniques For Social Research
 
 Rachel Bernhard, Instructor
+
 Laura Stoker, Instructor of Record
 
 Fall 2016
