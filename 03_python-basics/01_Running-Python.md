@@ -21,8 +21,8 @@ But we can also use shell to interact with other programs. For example, we can r
 ~~~python
 $ python
 
-Python 2.7.6 (default, Mar 22 2014, 22:59:56)
-[GCC 4.8.2] on linux2
+Python 3.5.2 |Anaconda 4.1.1 (x86_64)| (default, Jul  2 2016, 17:52:12) 
+[GCC 4.2.1 Compatible Apple LLVM 4.2 (clang-425.0.28)] on darwin
 Type "help", "copyright", "credits" or "license" for more information.
 >>>
 ~~~
@@ -34,9 +34,9 @@ The `>>>` is Python's way of telling you that you are in **interactive mode**. I
 5
 >>> print(5*7)
 35
->>> "hello" * 4
-'hellohellohellohello'
->>> type("hello")
+>>> "banana" * 3
+'bananabananabanana'
+>>> type("banana")
 <type 'str'>
 ~~~
 
@@ -55,9 +55,6 @@ Notice that the terminal window will go back to bash, giving you a `$` prompt.
 > features may change. That means that running code made for Python 2 might
 > not work on Python 3. This is one of the motivations behind BCE -
 > to standardize software versions for teaching, etc.
->
-> To see which version of Python you have, enter the command `which python` in
-> bash. You can use the `which` command with other programs, too.
 
 ## Running Python in Shell: Normal Mode
 
