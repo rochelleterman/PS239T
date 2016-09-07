@@ -33,7 +33,7 @@ That being said, programming languages differ from one another in the following 
 4. **Object-oriented:** "objects" are data + functions. Some programming languages are object-oriented (e.g. Python) and some aren't (e.g. C).
 5. **Many more**: Here's a [list](https://en.wikipedia.org/wiki/List_of_programming_languages_by_type) of all the types of programming languages out there.
 
-So what should your first programming language be? That is, what programming language should you use to learn *how to program*? At the end of the day, the answer depends on what you want to get out of programming. Many people recommend Python because its fun, easy, and multi-purpose. Here's an [article](http://lifehacker.com/which-programming-language-should-i-learn-first-1477153665) that can offer more advice.
+So what should your first programming language be? That is, what programming language should you use to learn *how to program*? At the end of the day, the answer depends on what you want to get out of programming. Many people recommend Python because it's fun, easy, and multi-purpose. Here's an [article](http://lifehacker.com/which-programming-language-should-i-learn-first-1477153665) that can offer more advice.
 
 Regardless of what you choose, you will probably grow 'comfortable' in one language while learning the basic concepts and skills that allow you to 'hack' your way into other languages.  
 
