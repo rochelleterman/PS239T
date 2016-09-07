@@ -38,30 +38,8 @@ Git should be installed on your computer as part of your Bash install (described
 
 If Git is not already available on your machine you can try to install it via your distro's package manager. For Debian/Ubuntu run sudo apt-get install git and for Fedora run sudo yum install git.
 
-##3. Text Editors
-When you're writing code, it's nice to have a text editor that is optimized for writing code, with features like automatic color-coding of key words. The default text editor on Mac OS X and Linux is usually set to Vim, which is not famous for being intuitive. if you accidentally find yourself stuck in it, try typing the escape key, followed by `:q!` (colon, lower-case 'q', exclamation mark), then hitting Return to return to the shell.
 
-For this class, we use **nano** as a default in the terminal. But I also really like [Sublime Text](https://www.sublimetext.com/) to write markdown and other basic text files. I recommend you download both.
-
-####Windows
-
-nano is a basic editor and the default that we use in this class. To install it, download the `Software Carpentry Windows installer`[http://files.software-carpentry.org/SWCarpentryInstaller.exe] and double click on the file to run it. **This installer requires an active internet connection.**
-
-Sublime Text is a more advanced editor. Download Sublime Text 3 [here](https://www.sublimetext.com/3).
-
-####Mac OS X
-
-nano is a basic editor and the default that we use in this class. It should be pre-installed.
-
-Sublime Text is a more advanced editor. Download Sublime Text 3 [here](https://www.sublimetext.com/3).
-
-####Linux
-
-nano is a basic editor and the default that we use in this class. It should be pre-installed.
-
-Sublime Text is a more advanced editor. Download Sublime Text 3 [here](https://www.sublimetext.com/3).
-
-##4. Python
+##3. Python
 Python is a popular language for scientific computing, and great for general-purpose programming as well. Installing all of its scientific packages individually can be a bit difficult, so we recommend an all-in-one installer.
 
 Regardless of how you choose to install it, please make sure you install Python version 3.x and not version 2.x (e.g., 3.5 is fine, but not 2.7). 
@@ -87,7 +65,7 @@ We recommend the all-in-one scientific Python installer [Anaconda](http://contin
 3. Type `bash Anaconda-` and then press tab. The name of the file you just downloaded should appear.
 4. Press enter. You will follow the text-only prompts. When there is a colon at the bottom of the screen press the down arrow to move down through the text. Type `yes` and press enter to approve the license. Press enter to approve the default location for the files. Type `yes` and press enter to prepend Anaconda to your `PATH` (this makes the Anaconda distribution the default Python).
 
-##5. R
+##4. R
 
 [R](http://www.r-project.org/) is a programming language that is especially powerful for data exploration, visualization, and statistical analysis. To interact with R, we use [RStudio](http://www.rstudio.com/).
 
@@ -103,9 +81,32 @@ Install R by downloading and running [this .pkg file from CRAN](http://cran.r-pr
 
 You can download the [binary files](http://cran.r-project.org/index.html) for your distribution from CRAN. Or you can use your package manager (e.g. for Debian/Ubuntu run `sudo apt-get install r-base` and for Fedora run `sudo yum install R`). Also, please install the [RStudio IDE](http://www.rstudio.com/ide/download/desktop). All you need is RStudio Desktop. 
 
+##5. Text Editors
+When you're writing code, it's nice to have a text editor that is optimized for writing code, with features like automatic color-coding of key words. The default text editor on Mac OS X and Linux is usually set to Vim, which is not famous for being intuitive. if you accidentally find yourself stuck in it, try typing the escape key, followed by `:q!` (colon, lower-case 'q', exclamation mark), then hitting Return to return to the shell.
+
+For this class, we use **nano** as a default in the terminal. But I also really like [Sublime Text](https://www.sublimetext.com/) to write markdown and other basic text files. I recommend you download both.
+
+####Windows
+
+nano is a basic editor and the default that we use in this class. To install it, download the `Software Carpentry Windows installer`[http://files.software-carpentry.org/SWCarpentryInstaller.exe] and double click on the file to run it. **This installer requires an active internet connection.**
+
+Sublime Text is a more advanced editor. Download Sublime Text 3 [here](https://www.sublimetext.com/3).
+
+####Mac OS X
+
+nano is a basic editor and the default that we use in this class. It should be pre-installed.
+
+Sublime Text is a more advanced editor. Download Sublime Text 3 [here](https://www.sublimetext.com/3).
+
+####Linux
+
+nano is a basic editor and the default that we use in this class. It should be pre-installed.
+
+Sublime Text is a more advanced editor. Download Sublime Text 3 [here](https://www.sublimetext.com/3).
+
 ##6. Pandoc and Latex
 
-Pandoc is a univesal document converter. We use it to convert ipython notebooks into pdfs for assignments. For PDF output, you’ll also need to install LaTeX, a type-setting system.
+Pandoc is a univesal document converter. We use it to convert ipython notebooks into pdfs for assignments. For PDF output, you’ll also need to install LaTeX, a type-setting system. We recommend that you do the MacTex full install.
 
 ####Windows
 Install Pandoc and Latex using the instructions [here](http://pandoc.org/installing.html).
@@ -133,7 +134,7 @@ $ pandoc --version
 
 If git and python and nano (a text editor) have been installed, those commands *should* print output version information. The python version should include "Anaconda" and its version information.
 
-**NB**: If you're using git bash, the `R --version` command may not work. In this case, just make sure you can open up RStudio.
+**NB**: If you're using git bash (Windows), the `R --version` command may not work. In this case, just make sure you can open up RStudio. One possible solution: The Software Carpentry installer may need to run as Administrator. (Right click the install app, select “Run as administrator”).
 
 Ipython is a python development environment that comes pre-installed with the Anaconda python distribution. To see if you have it, type the following into your terminal window:
 
