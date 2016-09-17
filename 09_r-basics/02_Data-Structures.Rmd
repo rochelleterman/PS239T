@@ -174,7 +174,7 @@ c(1, c(2, c(3, 4)))
 c(1, 2, 3, 4)
 ```
 
-**Types and Tests*
+**Types and Tests**
 
 Given a vector, you can determine its class with `class`, or check if it's a specific type with an "is" function: `is.character()`, `is.double()`, `is.integer()`, `is.logical()`, or, more generally, `is.atomic()`.
 
