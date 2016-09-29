@@ -52,7 +52,7 @@ Section/Lab: Wednesday 4-6P
 
 ### Office Hours
 
-Thursday 3-4P or by appointment, 715 Barrows
+By appointment (email or bCourses to set up), 715 Barrows
 
 ####bCourses
 
