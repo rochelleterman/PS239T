@@ -6,7 +6,7 @@ In the first place, we know that every call will require us to provide a) a base
 
 ```{r}
 # Create objects holding the key, base url, and response format
-key<-"ef9055ba947dd842effe0ecf5e338af9:15:72340235"
+key<-"13ff759582b04c6d8050e178b2dc8d0e"
 base.url<-"http://api.nytimes.com/svc/search/v2/articlesearch"
 response.format<-".json"
 ```
@@ -75,7 +75,7 @@ Of course, most experiences using Web APIs will require *multiple* GET requests,
 nytapi<-function(search.terms=NULL, begin.date=NULL, end.date=NULL, page=NULL,
                      base.url="http://api.nytimes.com/svc/search/v2/articlesearch",
                      response.format=".json",
-                     key="ef9055ba947dd842effe0ecf5e338af9:15:72340235"){
+                     key="13ff759582b04c6d8050e178b2dc8d0e"){
 
   # Combine parameters
   params<-list(
@@ -105,50 +105,50 @@ nytapi<-function(search.terms=NULL, begin.date=NULL, end.date=NULL, page=NULL,
 }
 ```
 
-Now that we have our handy NYT API function, let's try and do some data analysis.  To figure out whether Duke Ellington is "trending" over the past few years, we can start by using our handy function to get a count of how often the New York Times mentions the Duke...
+Now that we have our handy NYT API function, let's try and do some data analysis.  To figure out whether Prince was "trending" over the past few years, we can start by using our handy function to get a count of how often the New York Times mentions Prince and music...
  
 ```{r}
 # Get number of hits, number of page queries
-duke<-nytapi(search.terms = "duke ellington", begin.date = 20050101, end.date = 20150101)
-hits<-duke$response$meta$hits
+prince<-nytapi(search.terms = "prince music", begin.date = 20160101, end.date = 20160101)
+hits<-prince$response$meta$hits
 print(hits)
 round(hits/10)
 ```
 
-After making a quick call to the API, it appears that we have a total of 1059 hits.  Since the API only allows us to download 10 results at a time, we need to make 106 calls! 
+After making a quick call to the API, it appears that we have 523 hits. Since the API only allows us to download 10 results at a time, we need to make 53 calls! 
 ```{r}
 # Get all articles   
-duke.articles<-sapply(X = 0:105, FUN = function(page){
+prince.articles<-sapply(X = 0:105, FUN = function(page){
   #cat(page, "")
   response<-tryCatch(expr = {
-    r<-nytapi(search.terms = "duke ellington", begin.date = 20050101, end.date = 20150101, page = page)
+    r<-nytapi(search.terms = "prince music", begin.date = 20160101, end.date = 20160101, page = page)
     r$response$docs
   }, error=function(e) NULL)
   return(response)
 })
 
 # Combine list of dataframes
-duke.articles<-duke.articles[!sapply(X = duke.articles, FUN = is.null)]
-duke.articles<-plyr::rbind.fill(duke.articles)
+prince.articles<-prince.articles[!sapply(X = prince.articles, FUN = is.null)]
+prince.articles<-plyr::rbind.fill(prince.articles)
 ```
 
-To figure out how Duke's popularity is changing over time, all we need to do is add an indicator for the year and month each article was published in, and then use the ***plyr*** package to count how many articles appear with each year-month combination:
+To figure out how Prince's's popularity is changing over time, all we need to do is add an indicator for the year and month each article was published in, and then use the ***plyr*** package to count how many articles appear with each year-month combination:
 ```{r}
 # Add year-month indicators
-duke.articles$year.month<-format(as.Date(duke.articles$pub_date), "%Y-%m")
-duke.articles$year.month<-as.Date(paste0(duke.articles$year.month, "-01"))
+prince.articles$year.month<-format(as.Date(prince.articles$pub_date), "%Y-%m")
+prince.articles$year.month<-as.Date(paste0(prince.articles$year.month, "-01"))
 
 # Count articles per month
 library(plyr)
-duke.permonth<-ddply(.data = duke.articles, .variables = "year.month", summarize, count=length(year.month))
+prince.permonth<-ddply(.data = prince.articles, .variables = "year.month", summarize, count=length(year.month))
 
 # Plot the trend over time
 library(ggplot2)
-ggplot(data = duke.permonth, aes(x = year.month, y = count))+geom_point()+geom_smooth(se=F)+
-  theme_bw()+xlab(label = "Date")+ylab(label = "Article Count")+ggtitle(label = "Coverage of Duke Ellington")
+ggplot(data = prince.permonth, aes(x = year.month, y = count))+geom_point()+geom_smooth(se=F)+
+  theme_bw()+xlab(label = "Date")+ylab(label = "Article Count")+ggtitle(label = "Coverage of the Artist Prince")
 ```
 
-Looks like he actually *is* getting more popular of late!
+Do you think this means Prince is getting more popular of late? 
 
 
 
