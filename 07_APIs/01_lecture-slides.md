@@ -1,7 +1,7 @@
 Accessing Databases via Web APIs
 ========================================================
 author: PS239T
-date: Fall 2015
+date: Fall 2016
 
 What is an API?
 ========================================================
@@ -17,9 +17,9 @@ Web APIs
 
 * take on a variety of formats 
 
-* majority adhere to a particular style known as **Reperesentational State Transfer** or **REST**
+* majority adhere to a particular style known as **Representational State Transfer** or **REST**
 
-* "RESTful" APIs are conveinent because we can use them to query databases using URLs 
+* "RESTful" APIs are convenient because we can use them to query databases using URLs 
 
 RESTful Web APIs are All Around You...
 ========================================================
@@ -120,13 +120,13 @@ RESTful Database Querying: The Formatting
 The Question
 ========================================================
 
-### How Much More or Less Popular is Duke Ellington?
+### How has interest in Prince fluctuated over time? 
 
 Ellington was at peak popularity from roughly 1930 to 1945.
 
 But Chris seems to think that Duke's been getting more popular as of late.
 
-**YOUR CHALLENGE:** Characterize the popularity of Duke Ellington over the past 15 years. Specifically, is he "trending"?
+**YOUR CHALLENGE:** Characterize the popularity of Prince over the past 10 years. Specifically, what trends do you see?
 
 STEP 1: Finding Data Resources
 ========================================================
