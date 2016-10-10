@@ -24,7 +24,7 @@
 ## Webscraping v. APIs
 
 * Webscraping Benefits
-	* Any content that can be viewed on a webpage can be scraped. [Period](https://blog.hartleybrody.com/web-scraping/)
+	* Pretty much any content that can be viewed on a webpage can be scraped. (https://blog.hartleybrody.com/web-scraping/)
 	* No API needed
 	* No rate-limiting or authentication (usually)
 
@@ -161,7 +161,7 @@ Generally speaking, an HTML element has three components:
     	</tr>
     	<tr class='name'>
       		<td class='firstname'>
-          		Leah
+          		Lea
         	</td>
         	<td class='lastname'>
           		Guerrero
@@ -230,4 +230,4 @@ The inspector gives you the HTML tree, as well as all the CSS selectors and styl
     - URL patterns
     - Crawling
 
-**To the iPython Notebook!**
+**To the jupyter notebook!**
