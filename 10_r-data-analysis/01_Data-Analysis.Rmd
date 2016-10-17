@@ -191,7 +191,7 @@ Sometimes we need to do some basic checking for the number of observations or ty
 Let's look the number of observations by region.
 
 ```{r}
-table(country.year$region)
+table(country.year$region) 
 ```
 
 We can even divide by the total number of rows to get proportion, percent, etc.
@@ -223,14 +223,14 @@ sum(country.year$nyt.count[country.year$region=="MENA"],na.rm=T)
 sum(country.year$nyt.count[country.year$region=="LA"],na.rm=T)
 ```
 
-That can get tedious! A better way uses the popular `plyr` package, which uses a the ***split-apply-combine*** strategy
+That can get tedious! A better way uses the popular `dplyr` package, which uses a the ***split-apply-combine*** strategy. We **split** the data using some variable or variables to group our data, we **apply** some kind of function (either a built-in one, or one we write ourselves), and then we re-**combine** the data into a new dataset
 
 ```{r}
-# Install the "plyr" package (only necessary one time)
-# install.packages("plyr") # Not Run
+# Install the "dplyr" package (only necessary one time)
+# install.packages("dplyr") # Not Run
 
 # Load the "plyr" package (necessary every new R session)
-library(plyr)
+library(dplyr)
 ```
 
 All of the major plyr functions have the same basic syntax

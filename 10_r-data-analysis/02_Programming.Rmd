@@ -1,7 +1,7 @@
 ---
 title: "Advanced Programming in R: Lecture Notes"
 author: "PS239T"
-date: "Fall 2015"
+date: "Fall 2016"
 output: html_docdata:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAJCAYAAADgkQYQAAAAMElEQVR42mNgIAXY2Nj8x8cHC8AwMl9XVxe3QqwKcJmIVwFWhehW4LQSXQCnm3ABAHD6MDrmRgfrAAAAAElFTkSuQmCCument
 ---
 
@@ -280,6 +280,28 @@ log(x)
 Unlike in Python, while and for loops in R can become very slow.  For this reason, R users generally prefer to use other iteration methods to speed up execution times. 
 
 A common method is the **apply** family of functions. These take a data structure and a function, and applies a function over all the elements in the object.
+
+```{r}
+fruit <-c("apple", "orange", "pear", "banana")
+
+# make function that takes in only one element
+make.plural <- function(x){
+   plural <- paste(x, 's', sep = '')
+   return(plural)
+}
+
+make.plural('apple')
+
+# apply that function to every element
+lapply(fruit, make.plural) # returns a list
+sapply(fruit, make.plural) # returns a named vector
+```
+
+The multivariate version of `sapply` is `mapply`. Use this if you have a function that takes in 2 or more arguments.
+
+### 5.3 Speeding Up For Loops
+
+What can you do if you really do need a for loop? There are two key steps you can take: first, take advantage of R's vectorization capabilities, which tell R ahead of time that all the data the for loop is working on has the same class, making it more efficient. Second, create and store as much of the information outside the loop (i.e., in the global environment, or in the highest level loop if you have nested loops) as you can. Take a look at the example below, which explains each step in more detail. 
 
 ```{r}
 fruit <-c("apple", "orange", "pear", "banana")
