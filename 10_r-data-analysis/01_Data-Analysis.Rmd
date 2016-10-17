@@ -1,7 +1,7 @@
 ---
 title: "Data Analysis in R: Lecture Notes"
 author: "PS239T"
-date: "Fall 2015"
+date: "Fall 2016"
 output: html_document
 ---
 
@@ -19,8 +19,8 @@ For most applied research, conducting data analysis in R involves the following 
 # remove all objects
 rm(list=ls())
 
-# set working directory
-setwd(dir="~/Dropbox/berkeley/Git-Repos/PS239T/07_r-data-analysis/")
+# set YOUR working directory
+setwd(dir="~/YOUR_PATH_HERE/PS239T/10_r-data-analysis/")
 ```
 
 # 1. Constructing a dataset
@@ -33,13 +33,22 @@ c) ***Merging*** the data with other data
 
 ### 1a: Importing Data
 
-First lets load the packages that allow us to impocountry.year data.
+First, let's load any packages we need. 
 
-The first thing we want to do is load some of the data we want to work with. For spreadsheet data that **is not** explicitly saved as a Microsoft Excel file:
+For spreadsheet data that **is not** explicitly saved as a Microsoft Excel file, we need an additional package: 
+
+```{r}
+# This package allows us to import non-Excel files of many different kinds:
+install.packages("foreign") # Only necessary one time
+# Once it's installed, remember to load it (every time):
+library(foreign)
+```
+
+Now, let's load some of the data we want to work with. In R, you can pretty much load as many datasets as you want at the same time (this is different than Stata, which some of you may be familiar with).
 
 ```{r, eval=FALSE}
-# Basic CSV read: Impocountry.year data with header row, values separated by ",", decimals as "."
-mydataset<-read.csv(file="  ", stringsAsFactors=)
+# Basic CSV read: Import country-year data with header row, values separated by ",", decimals as "."
+mydataset<-read.csv(file="data/country-year.csv", stringsAsFactors=F)
 ```
 
 Let's load the PolityVI and CIRI datasets (both csvs):
@@ -58,8 +67,8 @@ head(ciri)
 
 We can also import:
 
-* Microsoft Excel file (.xls or .xlsx):
-* Proprietary data formats (e.g.: .dta, .spss, .ssd)
+* Other types of Microsoft Excel files (.xls or .xlsx):
+* Proprietary data formats (e.g.: .dta, .spss, .ssd) - these require the "foreign" package
 * Data from the web
 
 **For more details on the importing datasets, see the Appendix!**
@@ -146,7 +155,7 @@ duplicates
 country.year <- country.year[-duplicates,]
 ```
 
-We can keep doing this for many datasets until we have a brand-speanking new dataset! 
+We can keep doing this for many datasets until we have a brand-spanking new dataset! 
 
 ### Fast forward:
 
@@ -185,7 +194,7 @@ Let's look the number of observations by region.
 table(country.year$region)
 ```
 
-We can even rivide by the total number of rows to get proportion, percent, etc.
+We can even divide by the total number of rows to get proportion, percent, etc.
 
 ```{r}
 table(country.year$region)/nrow(country.year)
