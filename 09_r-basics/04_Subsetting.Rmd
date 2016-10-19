@@ -154,19 +154,19 @@ country.vector<-c("Afghanistan", "Canada", "Sierra Leone", "Denmark", "Japan", "
 
 # Do it using positive integers
 
-country.vector[c(1, 3, 4, 5)]
+country.vector[c(______)]
 
 # Do it using negative integers
 
-country.vector[-c(2, 6)]
+country.vector[-c(_____)]
 
 # Do it using a logical vector
 
-country.vector[c(TRUE, FALSE, TRUE, TRUE, TRUE, FALSE )]
+country.vector[c(_______)]
 
 # Do it using a conditional statement (and an implicit logical vector)
 
-country.vector[!country.vector %in% c("Canada", "Brazil")]
+country.vector[!________ %in% c(________)]
 
 ```
 
@@ -326,7 +326,7 @@ Extract the R squared from the model summary.
 
 ```{r}
 mod.sum <- summary(mod)
-mod.sum$r.squared
+mod.sum$______ # Fill in here
 ```
 
 # 3. Subassignment {#3-subassignment}
