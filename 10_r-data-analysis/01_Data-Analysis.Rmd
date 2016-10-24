@@ -39,7 +39,7 @@ For spreadsheet data that **is not** explicitly saved as a Microsoft Excel file,
 
 ```{r}
 # This package allows us to import non-Excel files of many different kinds:
-install.packages("foreign") # Only necessary one time
+# install.packages("foreign") # Only necessary one time
 # Once it's installed, remember to load it (every time):
 library(foreign)
 ```
@@ -71,7 +71,6 @@ We can also import:
 * Proprietary data formats (e.g.: .dta, .spss, .ssd) - these require the "foreign" package
 * Data from the web
 
-**For more details on the importing datasets, see the Appendix!**
 
 ### 1b. Cleaning Data
 
@@ -104,7 +103,7 @@ names(polity)
 summary(polity$year)
 
 # subset the data
-country.year <- subset(polity, year>1979 & year < 2013,select=c(ccode,country,year,polity,democ,autoc))
+country.year <- subset(polity, year>1979 & year<2013, select=c(ccode,country,year,polity,democ,autoc))
 
 # take a look
 head(country.year)
@@ -115,12 +114,17 @@ summary(country.year$polity)
 # apply NA values
 country.year$polity[country.year$polity < -10] <- NA
 summary(country.year$polity)
+  # Note how the summary has changed - minimum value and NAs have changed
 
 # get a list of all the countries in the dataset
 head(unique(country.year$country))
 
 # delete records
 country.year <- country.year[-which(country.year$country=="Sudan-North"),]
+
+# different way of deleting the same records
+country.year <- country.year[!(country.year$country=="Sudan-North"),]
+
 ```
 
 ### 1c. Merging data
@@ -129,23 +133,24 @@ Oftentimes, we want to combine data from multiple datasets to construct our own 
 
 For our data, each observation is a "country-year". But the "country" column is problematic. Some datasets might use "United States", others "USA", or "United States of America" -- this makes it difficult to merge datasets.
 
-So we'll use the "ccode" column, which is a numeric code commonly used to identify countries, along with "year". Together, this makes an id for each observation.
+So we'll use the "ccode" column, which is a numeric code commonly used to identify countries, along with "year". Together, this makes a unique id for each observation.
 
-The first thing we want to do is inspect the dataset we want to merge and make it merge-able.
+The first thing we want to do is inspect the dataset we want to merge and make it mergeable.
 
 ```{r}
 # get column names
 names(ciri) # to be merged
 
-# subset for the observations we care about
+# subset for the observations we care about (aka, we probably don't need all the variables)
 ciri.subset <- subset(ciri, YEAR > 1979 & YEAR < 2013, select=c(YEAR,COW,UNREG,PHYSINT,SPEECH,NEW_EMPINX,WECON,WOPOL,WOSOC,ELECSD))
 
 # rename columns so that they are comparable to country.year
 names(country.year)
-names(ciri.subset) <- c("year","ccode","unreg","physint","speech","new_empinx","wecon","wopol","wosoc","elecsd")
+names(ciri.subset) <- c("year","ccode","unreg","physint","speech","new_empinx","wecon","wopol","wosoc","elecsd") # Mini-challenge - what code could you use to change all the column names to lowercase in one fell swooop? 
 names(ciri.subset) 
 
 # merge
+# merge format: merge(dataset1, dataset2, by=c(id variables), additional specifications as nec.)
 country.year <- merge(country.year,ciri.subset,by=c("year","ccode"),all.x=TRUE)
 
 # delete duplicates
@@ -197,8 +202,8 @@ table(country.year$region)
 We can even divide by the total number of rows to get proportion, percent, etc.
 
 ```{r}
-table(country.year$region)/nrow(country.year)
-table(country.year$region)/nrow(country.year)*100
+table(country.year$region)/nrow(country.year) # Shown as decimal
+table(country.year$region)/nrow(country.year)*100 # Shown as regular percentage
 ```
 
 We can put two variables in there (check out what happens in early 1990s Eastern Europe!)
@@ -223,43 +228,42 @@ sum(country.year$nyt.count[country.year$region=="MENA"],na.rm=T)
 sum(country.year$nyt.count[country.year$region=="LA"],na.rm=T)
 ```
 
-That can get tedious! A better way uses the popular `dplyr` package, which uses a the ***split-apply-combine*** strategy. We **split** the data using some variable or variables to group our data, we **apply** some kind of function (either a built-in one, or one we write ourselves), and then we re-**combine** the data into a new dataset
+That can get tedious! A better way uses the popular new `dplyr` package, which uses a the ***split-apply-combine*** strategy. We **split** the data using some variable or variables to group our data, we **apply** some kind of function (either a built-in one, or one we write ourselves), and then we re-**combine** the data into a new dataset
 
 ```{r}
 # Install the "dplyr" package (only necessary one time)
-# install.packages("dplyr") # Not Run
+# install.packages("dplyr") 
 
 # Load the "plyr" package (necessary every new R session)
 library(dplyr)
 ```
 
-All of the major plyr functions have the same basic syntax
+All of the major dplyr functions have the same basic syntax. In this case, we're going to use summarise, which will let us do what took a few steps before in a single step!
 
-```{r, eval=FALSE}
-xxply(.data=, .variables=, .fun=, ...)
-```
-
-**For more details on the plyr and groupwise operations, see the Appendix!**
-
-Let's say we wanted to sum up all the NYT articles per region, and return those counts into its own dataframe:
+Let's say we wanted to sum up all the NYT articles per region, and return those counts into their own dataframe. (This is often how we want our data organized for plotting, too.)
 
 ```{r}
-count.region <- ddply(.data=country.year, .variables=.(region), .fun=summarize, count=sum(nyt.count))
-head(count.region)
+count.region <- summarise(group_by(country.year, region), region.sum=sum(nyt.count, na.rm=T))
+count.region
 ```
 
-Warning! Some functions, like `sum` are sensitive to missing values (NA); you should be sure to specify na.rm=T to avoid errors 
+Note that many functions, like `sum`, are sensitive to missing values (NA); you should be sure to specify na.rm=T to avoid errors. 
+
+We can use even easier-to-read syntax using the chain or pipe operator (`%>%`), which passes the object or function from the line above into the next line for you: 
 
 ```{r}
-count.region <- ddply(.data=country.year, .variables=.(region), .fun=summarize, count=sum(nyt.count, na.rm = T))
-head(count.region)
+count.region <- country.year %>% # put the dataset you want to work within here
+  group_by(region)  %>% # next we have our grouping function
+  summarise(region.sum=sum(nyt.count, na.rm=T)) # now we name our new variable and specify the function to run
+count.region
 ```
 
 We can also split by multiple variables:
 
 ```{r]}
-# number of articles per year in each region
-count.region.year <- ddply(.data=country.year, .variables=.(year,region), .fun=summarize, count= sum(nyt.count, na.rm = T))
+count.region.year <- country.year %>% 
+  group_by(region, year)  %>% 
+  summarise(nyt.count=sum(nyt.count, na.rm=T)) 
 head(count.region.year)
 ```
 
@@ -267,56 +271,69 @@ Another very useful function is **arrange**, which orders a data frame on the ba
 
 ```{r}
 # arrange by count, desc
-by.count <- arrange(count.region.year, desc(count))
+by.count <- arrange(count.region.year, desc(nyt.count))
 head(by.count)
 
 # arrange by year, then count
-by.year.count <- arrange(count.region.year, year, desc(count))
+by.year.count <- arrange(count.region.year, year, desc(nyt.count))
 head(by.year.count)
 ```
 
+dplyr has a number of other useful functions (all of which follow the same syntax), which you'll see more of in your homework for this week. 
+
 # 4. Reshaping
 
-Let's say we wanted to make a new matrix with rows = year, cols = regions, and cells = count of nyt articles. 
+Our country.year dataset, is currently in what's called "long" form: nyt article values are specified in the nyt.count column, and the country and year (aka, what uniquely identifies each value) are specified in each row. Let's say we wanted to make a new "wide" database, where each country has its own row, and the article counts within each year exist in multiple columns in that row. 
 
-In this case, we our datasets is in long form and you need to convert it to wide form.
+Starting:
+country | year | nyt.count
+Brazil | 1976 | 434
+Brazil | 1977 | 628
+France | 1976 | 952
+France | 1977 | 893
 
-Though base R does have commands for reshaping data (including **aggregate**, **by**, **tapply**, etc.), each of their input commands are slightly different and are only suited for specific reshaping tasks.
+Ending:
+country | 1976.count | 1977.count
+Brazil | 424 | 628
+France | 952 | 893
 
-The **reshape2** package overcomes these argument and task inconsistencies to provide a simple, relatively fast way to alter the form of a data.frame.  
+
+Base R does have commands for reshaping data (including **aggregate**, **by**, **tapply**, etc.), but each of their input commands are slightly different and are only suited for specific reshaping tasks. The **reshape2** package overcomes these argument and task inconsistencies, but is fairly slow. A recent alternative is **tidyr**, which has an easy syntax, interfaces well with dplyr, and works much faster:
 
 ```{r}
 # Install the "reshape2" package (only necessary one time)
-# install.packages("reshape2") # Not Run
+# install.packages("tidyr") # Not Run
 
 # Load the "reshape2" package (necessary every new R session)
-library(reshape2)
+library(tidyr)
 ```
 
-The package contains effectively two commands, and their functions are in their names: **melt** and **cast**. Here, want the **cast** funciton.
+The package contains two major commands, **gather** (for our current purposes, that means reformat from wide to long) and **spread** (reformat from long to wide). Here, want the **spread** funciton.
 
 ```{r eval=F}
-# number of articles per year in each region using plyt
-count.region.year <- ddply(.data=country.year, .variables=.(year,region), .fun=summarize, count= sum(nyt.count, na.rm = T))
-head(count.region.year)
+# here's our data, from when we used dplyr to organize it the way we wanted:
+count.region.year <- country.year %>% 
+  group_by(region, year)  %>% 
+  summarise(nyt.count=sum(nyt.count, na.rm=T)) 
 
-# now cast it
-casted <- dcast(data = count.region.year, formula = year ~ region, value.var = "count")
-head(casted)
+# now spread it:
+region.count.wide <- spread(count.region.year, year, nyt.count)
+region.count.wide[,1:10]
 
 # write to csv
-write.csv(casted,"results/region_year_counts.csv")
+write.csv(region.count.wide,"region_year_counts.csv")
 ```
 
-**For more on reshape2, see the Appendix.**
 
 # 5. Inferences
 
-Once we've imported our data, summarized it, carried out group-wise operations, and perhaps reshaped it, we may also like to attempt causal inference.
+Once we've imported our data, summarized it, carried out group-wise operations, and perhaps reshaped it, we may also want to attempt causal inference. 
 
 This often requires doing the following:
-1) Carrying out Classical Hypothesis Tests
-2) Estimating Regressions
+1) Carrying out classical hypothesis tests
+2) Estimating regressions
+
+Note that this class is not intended to serve as quantitative training and thus does not go into any nitty-gritty details of assessing causal inference; these are meant to be bare-bones instructions on how to run basic functions. 
 
 ### 5a. Testing
 
@@ -326,10 +343,11 @@ Let's say we're interested in whether the New York Times covers MENA differently
 nyt.africa <- country.year$nyt.count[country.year$region=="Africa"]
 nyt.mena <- country.year$nyt.count[country.year$region=="MENA"]
 
+# this is a simple little plot, just to get us started: 
 plot(density(nyt.africa, na.rm = T), col="blue", lwd=1, main="NYT Coverage of Africa and MENA")
 lines(density(nyt.mena, na.rm = T), col="red", lwd=1)
 
-#these are highly skewed, so let's transform taking the logarithm  
+# these are highly skewed, so let's transform taking the logarithm  
 nyt.africa.logged <- log(country.year$nyt.count[country.year$region=="Africa"])
 nyt.mena.logged <- log(country.year$nyt.count[country.year$region=="MENA"])
 
@@ -345,22 +363,23 @@ ks.test(x=nyt.africa.logged, y=nyt.mena.logged)
 
 ### 5b. Regressions
 
-Running regressions in R is extremely simple, very straightforwd (though doing things with standard errors requires a little extra work).  Most basic, catch-all regression function in R is *glm*, which fits a generalized linear model with your choice of family/link function (gaussian, logit, poisson, etc.)
+Running regressions in R is extremely simple, very straightforward (though doing things with standard errors requires a little extra work). **lm** is the most basic OLS regression you can run, and the most basic catch-all non-linear regression function in R is *glm*, which fits a generalized linear model with your choice of family/link function (gaussian, logit, poisson, etc.).
 
-The basic glm call looks something like this:
+The basic lm and glm calls looks something like this:
 
 ```{r eval=FALSE}
-glm(formula=y~x1+x2+x3+..., family=familyname(link="linkname"), data=)
+lm(data=yourdata, y~x1+x2+x3+...)
+glm(data=yourdata, y~x1+x2+x3+..., family=familyname)
 ```
 
-There are a bunch of families and links to use (see `?family` for a full list), but some essentials are **binomial(link = "logit")**, **gaussian(link = "identity")**, and **poisson(link = "log")**
+In glm, here are a bunch of families and links to use (see `?family` for a full list), but some essentials are **binomial(link = "logit")**, **gaussian(link = "identity")**, and **poisson(link = "log")**
 
-Example: suppose we want to explain the variation NYT articles.  A typical glm call would be something like this:
+Example: suppose we want to explain the variation in NYT articles, and we think our variables give us sufficient leverage to make that assessment.  A typical lm call would look something like this:
 
 ```{r}
 names(country.year)
-reg <- glm(nyt.count ~ gdp.pc.un + pop.wdi + domestic9 + idealpoint, data = country.year)
-summary(reg)
+reg <- lm(data = country.year, nyt.count ~ gdp.pc.un + pop.wdi + domestic9 + idealpoint)
+summary(reg) # You'll almost always want to display your regression results using summary, since lm and glm calls return lengthy lists containing all the same information but in a much less readable format
 ```
 
-**For more on regressions and testing, see the Appendix.**
+
