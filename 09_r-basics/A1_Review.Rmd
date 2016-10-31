@@ -1,5 +1,5 @@
 ---
-title: "Quick Review"
+title: "Data Visualization"
 author: "PS239T"
 date: "Fall 2016"
 output: slidy_presentation
