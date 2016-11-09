@@ -1,7 +1,7 @@
 ---
 title: "Clustering"
-author: "Rochelle Terman"
-date: "August 2015"
+author: "PS239T"
+date: "Fall 2016"
 output: html_document
 ---
 
@@ -10,7 +10,7 @@ output: html_document
 First let's load our required packages.
 
 ```{r}
-setwd("~/Dropbox/berkeley/Git-Repos/PS239T/12_text-analysis")
+setwd("~/Desktop/PS239T/12_text-analysis") # Your working directory here
 rm(list=ls())
 library(tm)
 library(RTextTools)
@@ -59,7 +59,7 @@ d
 
 And if we want to use a measure of distance that takes into consideration the length of the novels (an excellent idea), we can calculate the [cosine similarity](http://www.gettingcirrius.com/2010/12/calculating-similarity-part-1-cosine.html) by using the `cosine` function from the `lsa` package.
 
-Unlike the `dist` function which compares distances between rows, the `cosine` function compares distances between columns. This means that we have the **transpose** our matrix before passing it into the `cosine` function.
+Unlike the `dist` function which compares distances between rows, the `cosine` function compares distances between columns. This means that we have to **transpose** our matrix before passing it into the `cosine` function.
 
 ```{r}
 # transpose matrix
@@ -150,7 +150,7 @@ clusters
 plotcluster(d, clust$cluster)
 ```
 
-It should be noted that k-means are very sensitive to feature scaling. Notice the difference in results once we've applied a tf-idf weighting procedure. 
+It should be noted that k-means are very sensitive to feature scaling. Notice the difference in results once we've applied a tf-idf weighting procedure, which weights a term-document matrix by the inverse of the document term frequency. 
 
 ```{r}
 # tf-idf weights

@@ -1,7 +1,7 @@
 ---
 title: "Structural Topic Modelling"
-author: "Rochelle Terman"
-date: "August 2016"
+author: "PS239T"
+date: "Fall 2016"
 output: html_document
 ---
 
@@ -14,7 +14,7 @@ Structural topic model is a way to estimate a topic model that includes document
 First let's load our required packages.
 
 ```{r}
-setwd("~/Dropbox/berkeley/Git-Repos/PS239T/12_text-analysis")
+setwd("~/Desktop/PS239T/12_text-analysis") # YOUR DIRECTORY HERE
 rm(list=ls())
 library(stm)
 library(plyr)
@@ -93,6 +93,10 @@ findThoughts(model,texts=meta$TITLE,n=3,topics=1:15)
 
 # Hand Labels
 labels = c("Business", "Sports", "Public Health", "Travel", "Fashion", "UN", "Sexual Assault", "Combat", "Women's Rights and Gender Equality", "Politics", "Profiles", "Human Interest", "Marriage & Family", "Religion", "Reproductive & Personal Health")
+
+# Challenge - can you redo the plot to display the new labels? 
+
+# YOUR CODE HERE
 ```
 
 ## 4. Analyze topics
