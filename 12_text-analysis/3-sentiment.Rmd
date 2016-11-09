@@ -1,7 +1,7 @@
 ---
 title: "Dictionary Methods and Sentiment Analysis"
 author: "Rochelle Terman"
-date: "August 2015"
+date: "November 2016"
 output: html_document
 ---
 
