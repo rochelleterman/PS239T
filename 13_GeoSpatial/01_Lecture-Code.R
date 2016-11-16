@@ -6,7 +6,7 @@ rm(list = ls())
 
 ### installing spatial data packages
 x <- c("ggmap", "rgdal", "rgeos", "maptools", "dplyr", "tidyr", "tmap", 
-"sp", "ggplot2", "scales",  "maps")
+"sp", "ggplot2", "scales",  "maps", "classInt", "broom")
 install.packages(x)                             # remember, you only install a package once!
 lapply(x, library, character.only = TRUE)       # you could library them all at once.
 
