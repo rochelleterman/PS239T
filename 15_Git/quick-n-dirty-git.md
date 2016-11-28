@@ -47,13 +47,13 @@ The four commands above only need to be run once: the flag `--global` tells Git 
 
 ### Creating a repository
 
-Once Git is configured, we can start using it to share code on [GitHub](www.github.com).
+Once Git is configured, we can start using it to share code on [GitHub](www.github.com). Make sure to create a GitHub account on the website if you don't yet have one. 
 
-Follow [these instructions](https://help.github.com/articles/creating-a-new-repository/) to create a new GitHub **repository**. Be sure to add these options:
+Follow [these instructions](https://help.github.com/articles/creating-a-new-repository/) to create a new GitHub **repository**. Be sure to select these options:
 
 1. Call the repo "ps239T-final-project"
 2. Create a README.md file
-3. Create a .gitignore file
+3. Don't create a .gitignore file
 4. Don't add a license for now. Later, you can add a license for your project (see [here](https://help.github.com/articles/open-source-licensing/) for information on which license to choose.)
 
 > **Git without GitHub**
@@ -204,6 +204,8 @@ This tells git to push our changes to the repository's "origin" -- i.e., the cop
 
 Now open up a web browser and navigate to your GitHub repository. What do you see?
 
+### For work on your own:
+
 > Challenge 1
 > 
 > In the PS239T repo, you'll find a directory 16_final-projects/template
@@ -228,7 +230,7 @@ Oftentimes we'll have files that we do not want git to track for us. These inclu
 Let's create a few dummy files:
 
 ```bash
-$ touch a.dat b.dat data/c.csv data/d.csv
+$ touch a.dat b.dat 
 ```
 
 and see what Git says:
@@ -242,7 +244,6 @@ $ git status
 #
 #   a.dat
 #   b.dat
-#   data/
 # nothing added to commit but untracked files present (use "git add" to track)
 ```
 
@@ -253,14 +254,11 @@ We do this by creating a file in the root directory of our project called `.giti
 
 ```bash
 $ nano .gitignore
+*.dat (<-- this is what you type in the file. Exit and save changes.)
 $ cat .gitignore
-
-*.dat
-data/
 ```
 
-These patterns tell Git to ignore any file whose name ends in `.dat`
-and everything in the `data` directory. (If any of these files were already being tracked, Git would continue to track them.)
+These patterns tell Git to ignore any file whose name ends in `.dat`. (If any of these files were already being tracked, Git would continue to track them.)
 
 Once we have created this file, the output of `git status` is much cleaner:
 
@@ -369,7 +367,7 @@ There are two main ways to collaborate on github:
 1. Adding individual [collaborators](https://help.github.com/articles/permission-levels-for-a-user-account-repository/) to a project
 2. The **fork & pull** model.
 
-The first method adds users to your project, giving them full permissions to make changes. For PS239T, I added [Chris Krogslund](https://github.com/ckrogs) as a collaborator, so that he could push commits easily to the repository without my expressed approval. 
+The first method adds users to your project, giving them full permissions to make changes. 
 
 Collaborating in this fashion is very similar to the workflow described above. 
 
