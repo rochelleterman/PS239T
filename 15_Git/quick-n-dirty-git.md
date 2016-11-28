@@ -204,7 +204,7 @@ This tells git to push our changes to the repository's "origin" -- i.e., the cop
 
 Now open up a web browser and navigate to your GitHub repository. What do you see?
 
-### For work on your own:
+# For work on your own:
 
 > Challenge 1
 > 
